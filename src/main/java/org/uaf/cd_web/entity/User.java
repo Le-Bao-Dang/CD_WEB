@@ -5,16 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
-
 import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 @Data
 public class User implements Serializable {
     @Id
-    @Column(name="ID_USER")
+    @Column(name = "ID_USER")
     private String idUser;
     @Column(name = "ADDRESS")
     private String address;
@@ -30,27 +29,32 @@ public class User implements Serializable {
     private Date birthday;
     @Column(name = "DATE_SIGNUP")
     private Date dateSignup;
-    @Column(nullable=false, name = "SEX")
+    @Column(nullable = false, name = "SEX")
     private Boolean sex;
     @Column(name = "Decentralization")
     private byte decentralization;
 
-    //lấy thông tin của tk gg
-    @Column(name="idgg")
+    // lấy thông tin của tk gg
+    @Column(name = "idgg")
     private String idgg;
-    @Column(name="date_sigup")
+    @Column(name = "date_sigup")
     private Date date_sigup_gg;
-    @Column(name="name")
-    private  String name;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name="id")
+    @Column(name = "id")
     private String id;
-    public String checkDecentralization( ){
-        if(this.decentralization==0) return "User";
-        if(this.decentralization==2) return "Admin";
-        if(this.decentralization==-1) return "Ẩn";
+
+    public String checkDecentralization() {
+        if (this.decentralization == 0)
+            return "User";
+        if (this.decentralization == 2)
+            return "Admin";
+        if (this.decentralization == -1)
+            return "Ẩn";
         return "Employee";
     }
+
     @Override
     public String toString() {
         return "User{" +
@@ -70,4 +74,5 @@ public class User implements Serializable {
                 ", id='" + id + '\'' +
                 '}';
     }
+
 }
