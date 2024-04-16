@@ -4,9 +4,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.io.Serializable;
+import lombok.Data;
 
-import javax.xml.bind.annotation.XmlID;
+import java.io.Serializable;
+import java.sql.Date;
+
 
 @Entity
 @Table(name = "warehouse")
