@@ -1,0 +1,29 @@
+<tr th:each="u : ${listUser}">
+    <td>
+        <div class="d-flex">
+            <img th:src="@{/ImageproductNew/background/images.png}" alt="">
+            <div>
+                <h6 th:text="${u.getNameUser()}"></h6>
+                <p th:text="${u.checkDecentralization()}"></p>
+            </div>
+        </div>
+    </td>
+    <td>
+        <h6 th:text="${u.getPhone()}"></h6>
+        <p th:text="${u.getEmail()}"></p>
+    </td>
+    <td></td>
+    <td>
+        <div th:text="${u.getAddress()}"></div>
+    </td>
+    <td>
+        <div class="btn_edit">
+            <button onclick="editUser(this)"
+                    th:attr="data-idUser=${u.idUser}, data-nameUser=${u.nameUser}, data-passw=${u.passw}, data-email=${u.email}, data-phone=${u.phone}, data-dateSignup=${u.dateSignup}, data-address=${u.address}">
+                <h4 class="card-title card-title-dash">
+                    Xem <i class="fa-regular fa-pen-to-square"></i>
+                </h4>
+            </button>
+        </div>
+    </td>
+</tr>

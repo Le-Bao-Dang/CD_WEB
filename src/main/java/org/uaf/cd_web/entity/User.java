@@ -36,20 +36,20 @@ public class User implements Serializable {
     private Date birthday;
     @Column(name = "DATE_SIGNUP")
     private Date dateSignup;
-    @Column(nullable=false, name = "SEX")
+    @Column( name = "SEX")
     private Boolean sex;
     @Column(name = "Decentralization")
     private byte decentralization;
 
     //lấy thông tin của tk gg
-    @Column(name="idgg")
-    private String idgg;
-    @Column(name="date_sigup")
-    private Date date_sigup_gg;
-    @Column(name="name")
-    private  String name;
-    @Column(name="id")
-    private String id;
+//    @Column(name="idgg")
+//    private String idgg;
+//    @Column(name="date_sigup")
+//    private Date date_sigup_gg;
+//    @Column(name="name")
+//    private  String name;
+//    @Column(name="id")
+//    private String id;
     public String checkDecentralization( ){
         if(this.decentralization==0) return "User";
         if(this.decentralization==2) return "Admin";
@@ -69,10 +69,10 @@ public class User implements Serializable {
                 ", dateSignup=" + dateSignup +
                 ", sex=" + sex +
                 ", decentralization=" + decentralization +
-                ", idgg='" + idgg + '\'' +
-                ", date_sigup_gg=" + date_sigup_gg +
-                ", name='" + name + '\'' +
-                ", id='" + id + '\'' +
+//                ", idgg='" + idgg + '\'' +
+//                ", date_sigup_gg=" + date_sigup_gg +
+//                ", name='" + name + '\'' +
+//                ", id='" + id + '\'' +
                 '}';
     }
 }

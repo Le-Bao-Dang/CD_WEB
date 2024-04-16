@@ -6,12 +6,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.uaf.cd_web.entity.User;
 
+import java.util.List;
+
 
 @Repository
 public interface UserReponesitory extends JpaRepository<User, String> {
     @Modifying
     @Query("UPDATE  User u set u.decentralization=:decentralization where u.idUser=:userId")
     void updateUser( byte decentralization, String userId);
+
 
     User getUserByIdUser(String id);
 }

@@ -1,21 +1,23 @@
 package org.uaf.cd_web.controller;
 
-import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.uaf.cd_web.entity.User;
-import org.uaf.cd_web.services.IUserService;
+import org.uaf.cd_web.services.UserServiceImp;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
 public class UserManager {
+    private final UserServiceImp userService;
+
     @Autowired
-    IUserService userService;
+    public UserManager(UserServiceImp userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/userManager")
     public String getListUser(Model model) {
@@ -23,9 +25,12 @@ public class UserManager {
         model.addAttribute("listUser", listUser);
         return "manager_user";
     }
+
     @GetMapping("/searchUser")
-    public String searchUser(Model model) {
-        return "manager_user";
+    public String searchUser(Model model,@RequestParam("keyword") String keyword) {
+        List<User> listUser = userService.searchUser(keyword);
+        model.addAttribute("listUser",listUser);
+        return "search_user";
     }
 
     @PostMapping("/updateUser")

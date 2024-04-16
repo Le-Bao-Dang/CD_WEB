@@ -3,16 +3,23 @@ package org.uaf.cd_web.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.uaf.cd_web.entity.User;
 import org.uaf.cd_web.reponsitory.UserReponesitory;
+import org.uaf.cd_web.services.IServices.IUserService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserServiceImp implements IUserService {
-    @Autowired
-    UserReponesitory userReponesitory;
+    private final UserReponesitory userReponesitory;
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserServiceImp(UserReponesitory userReponesitory) {
+        this.userReponesitory = userReponesitory;
+    }
 
     @Override
     public List<User> getListUser() {
@@ -40,14 +47,26 @@ public class UserServiceImp implements IUserService {
     }
 
     @Override
+    @Transactional
     public void updateUser(byte decentralization, String userId) {
-        User u = userReponesitory.getUserByIdUser(userId);
-        u.setDecentralization(decentralization);
-        userReponesitory.save(u);
+//        User u = userReponesitory.getUserByIdUser(userId);
+//        u.setDecentralization(decentralization);
+        userReponesitory.updateUser(decentralization, userId);
     }
 
-    public static void main(String[] args) {
-        UserServiceImp u = new UserServiceImp();
-        System.out.println(u.getListUser());
+    @Transactional
+    public List<User> searchUser(String keyword) {
+        List<User> list = new ArrayList<>();
+        String keywordUp = keyword.toUpperCase();
+        List<User> listUser = getListUser();
+        if(keyword.equals("")){
+            list =listUser;
+        }
+        for (User user : listUser) {
+            if (keywordUp.contains(user.getNameUser().toUpperCase()) || keywordUp.contains(user.getEmail().toUpperCase()) || keywordUp.contains(user.getPhone())) {
+                list.add(user);
+            }
+        }
+        return list;
     }
 }

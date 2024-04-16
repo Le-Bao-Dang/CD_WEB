@@ -1,0 +1,54 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+<!--  <%User user = (User) session.getAttribute("auth");%>-->
+<!--  <%&#45;&#45;        nếu là admin thì hiển thị trang chủ, log, qly người dùng , logout&#45;&#45;%>-->
+<!--  <%if (user.getDecentralization() == Powers.ADMIN) {%>-->
+  <div class="nav-item">
+    <a href="/AdminMain" class="nav-item-link">
+      <i style="margin-right: 5px;" class="menu-icon mdi mdi-home"></i>
+      <span>Trang chủ</span>
+    </a>
+  </div>
+  <div class="nav-item">
+    <a href="/AdminManageUser" class="nav-item-link">
+      <i style="margin-right: 5px;" class="menu-icon mdi mdi-account-circle"></i>
+      <span>Quản lý người dùng</span>
+    </a>
+  </div>
+  <div class="nav-item">
+    <a href="/ListOrdersAdmin" class="nav-item-link">
+      <i style="margin-right: 5px;" class="fa-solid fa-bars-progress"></i>
+      <span>Quản lý đơn hàng</span>
+    </a>
+  </div>
+  <div class="nav-item">
+    <a href="/HistoryOrdersAdmin" class="nav-item-link">
+      <i style="margin-right: 5px;" class="fa-solid fa-clock-rotate-left"></i>
+      <span>Lịch sử đơn hàng</span>
+    </a>
+  </div>
+  <div class="nav-item">
+    <a href="/AdminManagePr?kind=0&page=1" class="nav-item-link">
+      <i style="margin-right: 5px;" class="menu-icon mdi mdi-view-module"></i>
+      <span>Quản lý sản phẩm</span>
+    </a>
+  </div>
+  <div class="nav-item">
+    <a href="/Warehouse" class="nav-item-link">
+      <i style="margin-right: 5px;" class="fa-solid fa-arrow-down-wide-short"></i>
+      <span>Nhập kho</span>
+    </a>
+  </div>
+  <div class="nav-item">
+    <a href="/ListLog" class="nav-item-link">
+      <i style="margin-right: 5px;" class="menu-icon mdi mdi-view-module"></i>
+      <span>Log</span>
+    </a>
+  </div>
+  <div class="nav-item">
+    <a href="/logOut" class="nav-item-link">
+      <i style="margin-right: 5px;" class="fa-solid fa-arrow-right-from-bracket"></i>
+      <span>Đăng xuất</span>
+    </a>
+  </div>
+<!--  <%} else{%>-->
+</nav>
