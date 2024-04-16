@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.uaf.cd_web.entity.User;
 
+import java.util.List;
+
 
 @Repository
 public interface UserReponesitory extends JpaRepository<User, String> {
