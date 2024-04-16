@@ -5,20 +5,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.uaf.cd_web.entity.User;
-import org.uaf.cd_web.reponsitory.UserReponesitory;
-//import org.uaf.cd_web.entity.User;
-//import org.uaf.cd_web.reponsitory.UserReponesitory;
+import org.uaf.cd_web.services.UserServiceImp;
 
+
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 public class Home {
     @Autowired
-    UserReponesitory userReponesitory;
+    UserServiceImp userServiceImp;
     @RequestMapping(value = "/")
     public String home(Model model){
-        List<User> users = userReponesitory.findAll();
-        model.addAttribute("list",users);
+        User user = userServiceImp.getUserById("user1");
+
+        model.addAttribute("auth",user);
         return "index";
     }
 }
