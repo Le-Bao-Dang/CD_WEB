@@ -4,7 +4,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -12,6 +15,9 @@ import java.sql.Date;
 @Entity
 @Table(name="user")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class User implements Serializable {
     @Id
     @Column(name="ID_USER")
@@ -42,7 +48,6 @@ public class User implements Serializable {
     private Date date_sigup_gg;
     @Column(name="name")
     private  String name;
-
     @Column(name="id")
     private String id;
     public String checkDecentralization( ){
