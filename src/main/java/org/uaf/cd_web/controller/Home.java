@@ -17,7 +17,7 @@ public class Home {
     UserServiceImp userServiceImp;
     @RequestMapping(value = "/")
     public String home(Model model){
-        User user = userServiceImp.getUserById("user1");
+        User user = userServiceImp.getUserById("");
 
         model.addAttribute("auth",user);
         return "index";

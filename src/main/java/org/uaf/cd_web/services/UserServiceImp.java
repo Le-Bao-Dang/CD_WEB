@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class UserServiceImp implements IUserService {
     @Autowired
-    UserReponesitory userReponesitory;
+    UserReponesitory  userReponesitory;
     private BCryptPasswordEncoder passwordEncoder;
 
     @Override
