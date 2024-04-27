@@ -51,8 +51,8 @@
               <p class="card-description login">
                 Đăng ký
               </p>
-              <form class="forms-sample" th:action="@{/signup}" method="post">
-                <label th:if="${errorAcc}" for="exampleInputName1" style="color: #CC3636"
+              <form class="forms-sample" action="/signup" method="post" th:action="@{/signup}">
+                <label th:if="${errorAcc !=null}" for="exampleInputName1" style="color: #CC3636"
                        th:text="${errorAcc}"></label>
                 <div class="form-group">
                   <label for="exampleInputName1">Họ và tên </label>
@@ -75,7 +75,7 @@
                   <input type="password" name="pass" class="form-control" id="pass"
                          placeholder="Nhập mật khẩu mới">
                 </div>
-                <label th:if="${errorDup}" for="exampleInputName1" style="color: #CC3636"
+                <label th:if="${errorDup !=null}" for="exampleInputName1" style="color: #CC3636"
                        th:text="${errorDup}"></label>
                 <div class="form-group">
                   <label for="exampleInputPassword4">Nhập lại mật khẩu</label>
