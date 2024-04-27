@@ -4,12 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.uaf.cd_web.entity.Product;
 import org.uaf.cd_web.reponsitory.ProductReponesitory;
+import org.uaf.cd_web.services.IServices.IProductService;
 
 import java.util.List;
 @Service
-public class ProductServiceImp implements  IProductService {
-    @Autowired
-    ProductReponesitory productReponesitory;
+public class ProductServiceImp implements IProductService {
+    private final ProductReponesitory productReponesitory;
+@Autowired
+    public ProductServiceImp(ProductReponesitory productReponesitory) {
+        this.productReponesitory = productReponesitory;
+    }
+
     @Override
     public  List<Product> getListProduct() {
         List<Product>  listPr= productReponesitory.findAll();
@@ -26,8 +31,7 @@ public class ProductServiceImp implements  IProductService {
         return null;
     }
 
-    public static void main(String[] args) {
-        ProductServiceImp p= new ProductServiceImp();
-        System.out.println(p.getListProduct());
-    }
+
+
+
 }

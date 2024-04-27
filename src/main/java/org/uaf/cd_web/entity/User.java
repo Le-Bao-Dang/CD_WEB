@@ -39,7 +39,7 @@ public class User implements Serializable {
     @Column( name = "SEX")
     private Boolean sex;
     @Column(name = "Decentralization")
-    private byte decentralization;
+    private int decentralization;
 
     //lấy thông tin của tk gg
 //    @Column(name="idgg")

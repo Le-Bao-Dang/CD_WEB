@@ -1,4 +1,4 @@
-package org.uaf.cd_web.services;
+package org.uaf.cd_web.services.IServices;
 
 import org.uaf.cd_web.entity.Product;
 
