@@ -1,18 +1,19 @@
 package org.uaf.cd_web.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "ct_pr")
-@Data
-public class CT_PR implements Serializable {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Detail_Pr implements Serializable {
     @Id
     @Column(name = "ID_PR")
     private String idPr;
@@ -22,7 +23,7 @@ public class CT_PR implements Serializable {
     private Date hsd;
     @Column(name = "BRAND")
     private String brand;
-    @Column(name = "DESCRIBE")
+    @Column(name = "`DESCRIBE`")
     private String describe;
     @Column(name = "WEIGHT")
     private double weight;
@@ -34,6 +35,23 @@ public class CT_PR implements Serializable {
     private int inventory;
     @Column(name = "CONDITION_PR")
     private int conditionPR;
+
+    @OneToOne()
+    @JoinColumn(name = "ID_PR",referencedColumnName = "ID_PR")
+    private Product product;
+
+    public Detail_Pr(String idPr, Date nsx, Date hsd, String brand, String describe, double weight, String origin, Date date_import_pr, int inventory, int conditionPR) {
+        this.idPr = idPr;
+        this.nsx = nsx;
+        this.hsd = hsd;
+        this.brand = brand;
+        this.describe = describe;
+        this.weight = weight;
+        this.origin = origin;
+        this.date_import_pr = date_import_pr;
+        this.inventory = inventory;
+        this.conditionPR = conditionPR;
+    }
 
     public String checkConditionPr() {
         if (conditionPR == 0) {
