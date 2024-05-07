@@ -24,37 +24,7 @@ public class Warehouse implements Serializable {
     @Column(name = "NAME_EMPLOYEE")
     private String nameEmployee;
 
-    public String getIdShipment() {
-        return idShipment;
-    }
 
-    public void setIdShipment(String idShipment) {
-        this.idShipment = idShipment;
-    }
-
-    public String getCodeWh() {
-        return codeWh;
-    }
-
-    public void setCodeWh(String codeWh) {
-        this.codeWh = codeWh;
-    }
-
-    public Date getDateImportShipment() {
-        return dateImportShipment;
-    }
-
-    public void setDateImportShipment(Date dateImportShipment) {
-        this.dateImportShipment = dateImportShipment;
-    }
-
-    public String getNameEmployee() {
-        return nameEmployee;
-    }
-
-    public void setNameEmployee(String nameEmployee) {
-        this.nameEmployee = nameEmployee;
-    }
 
     @Override
     public String toString() {

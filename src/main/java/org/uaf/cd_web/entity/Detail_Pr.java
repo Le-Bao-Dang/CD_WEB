@@ -30,7 +30,7 @@ public class Detail_Pr implements Serializable {
     @Column(name = "ORIGIN")
     private String origin;
     @Column(name = "DATE_IMPORT_PR")
-    private Date date_import_pr;
+    private Date date_import_pr; 
     @Column(name = "INVENTORY")
     private int inventory;
     @Column(name = "CONDITION_PR")
