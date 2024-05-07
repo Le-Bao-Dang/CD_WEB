@@ -9,5 +9,8 @@ public interface IUserService {
     long getCountUser();
     User getUserById(String id);
     void createUser(User user);
+
+    void createUser(String name, String phone, String email, String passw);
+
     void updateUser(byte decentralization, String userId);
 }

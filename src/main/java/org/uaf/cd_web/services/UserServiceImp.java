@@ -8,6 +8,8 @@ import org.uaf.cd_web.entity.User;
 import org.uaf.cd_web.reponsitory.UserReponesitory;
 import org.uaf.cd_web.services.IServices.IUserService;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,10 +41,20 @@ public class UserServiceImp implements IUserService {
 
     @Override
     public void createUser(User user) {
-        String encodedPassword = passwordEncoder.encode(user.getPassw());
-        User u = user;
-        u.setIdUser("user" + getCountUser());
-        u.setPassw(encodedPassword);
+
+    }
+
+    @Override
+    public void createUser(String name, String phone, String email, String passw) {
+        String importDate = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
+        User u = new User();
+        u.setIdUser("user" + getCountUser()+ 1);
+        u.setNameUser(name);
+        u.setDateSignup(Date.valueOf(importDate));
+        u.setEmail(email);
+        u.setPhone(phone);
+        u.setDecentralization(0);
+        u.setPassw(passw);
         userReponesitory.save(u);
     }
 
@@ -59,8 +71,8 @@ public class UserServiceImp implements IUserService {
         List<User> list = new ArrayList<>();
         String keywordUp = keyword.toUpperCase();
         List<User> listUser = getListUser();
-        if(keyword.equals("")){
-            list =listUser;
+        if (keyword.equals("")) {
+            list = listUser;
         }
         for (User user : listUser) {
             if (keywordUp.contains(user.getNameUser().toUpperCase()) || keywordUp.contains(user.getEmail().toUpperCase()) || keywordUp.contains(user.getPhone())) {
@@ -68,5 +80,17 @@ public class UserServiceImp implements IUserService {
             }
         }
         return list;
+    }
+
+    public User checkLogin(String username) {
+        return userReponesitory.checkLogin(username);
+    }
+
+    public boolean checkUserExit(String email, String phone) {
+        List<User> list = userReponesitory.checkUserExit(email, phone);
+        for (User u : list) {
+            if (email.equals(u.getEmail()) || phone.equals(u.getPhone())) return true;
+        }
+        return false;
     }
 }
