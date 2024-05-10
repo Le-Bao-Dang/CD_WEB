@@ -7,18 +7,28 @@ import org.uaf.cd_web.reponsitory.ProductReponesitory;
 import org.uaf.cd_web.services.IServices.IProductService;
 
 import java.util.List;
+
 @Service
 public class ProductServiceImp implements IProductService {
     private final ProductReponesitory productReponesitory;
-@Autowired
+
+    @Autowired
     public ProductServiceImp(ProductReponesitory productReponesitory) {
         this.productReponesitory = productReponesitory;
     }
 
     @Override
-    public  List<Product> getListProduct() {
-        List<Product>  listPr= productReponesitory.findAll();
+    public List<Product> getListProduct() {
+        List<Product> listPr = productReponesitory.findAll();
         return listPr;
+    }
+    @Override
+    public List<Product> listLikeProduct(String idUser) {
+        return productReponesitory.listLikeProduct(idUser);
+    }
+    @Override
+    public Product listProductById(String idpr){
+        return  productReponesitory.listProductById(idpr);
     }
 
     @Override
@@ -30,8 +40,6 @@ public class ProductServiceImp implements IProductService {
     public List<Product> getIdParentMenuPr() {
         return null;
     }
-
-
 
 
 }

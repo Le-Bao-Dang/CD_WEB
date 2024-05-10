@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.uaf.cd_web.entity.User;
 import org.uaf.cd_web.services.UserServiceImp;
-
 import jakarta.servlet.http.HttpSession;
 import org.uaf.cd_web.component.Encryption;
-
 @Controller
 public class Login {
     @Autowired
@@ -30,7 +28,7 @@ public class Login {
             if (user.getDecentralization() == -1) {
                 session.setAttribute("auth", user);
                 session.setAttribute("idUser", user.getIdUser());
-                redirectAttributes.addAttribute("error", "Tài khoản đã bị khoá");
+                redirectAttributes.addFlashAttribute("error", "Tài khoản đã bị khoá");
                 return "redirect:/login";
             } else if (passw == "" || user.getPassw() == null) {
                 redirectAttributes.addFlashAttribute("error", "Vui lòng nhập password");
