@@ -6,6 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.uaf.cd_web.entity.*;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+import org.uaf.cd_web.entity.Product;
 
 import java.util.List;
 
@@ -18,4 +21,9 @@ public interface ProductReponesitory extends JpaRepository<Product, String> {
 
     @Query("select p from Product  p where p.idPr=:idpr ")
     Product listProductById(String idpr);
+
+public interface ProductReponesitory extends JpaRepository<Product,String> {
+    Product getProductByIdPr(String id);
+    @Query("SELECT  p FROM Product p WHERE p.idMenu =:idMenu")
+    List<Product> getListProductByKind(String idMenu);
 }

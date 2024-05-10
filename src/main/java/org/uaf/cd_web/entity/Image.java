@@ -1,63 +1,46 @@
 package org.uaf.cd_web.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 
 @Entity
 @Table(name = "image")
-@Data
+@Getter
+@Setter
 public class Image implements Serializable {
-    @Id
-    @Column(name = "ID_PR")
+
+    @Column(name = "ID_PR", insertable = false, updatable = false)
     private String idPr;
+    @Id
     @Column(name = "ID_IMG")
     private String idImg;
     @Column(name = "URL")
     private String url;
-    @Column(name = "CONDITION")
-    private int condition;
+    @Column(name = "status")
+    private int status;
 
-    public String getIdPr() {
-        return idPr;
-    }
+    @ManyToOne()
+    @JoinColumn(name = "ID_PR", referencedColumnName = "ID_PR")
+    private Product product;
 
-    public void setIdPr(String idPr) {
+    public Image(String idPr, String idImg, String url, int status) {
         this.idPr = idPr;
-    }
-
-    public String getIdImg() {
-        return idImg;
-    }
-
-    public void setIdImg(String idImg) {
         this.idImg = idImg;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
         this.url = url;
+        this.status = status;
     }
+    public Image() {
 
-    public int getCondition() {
-        return condition;
-    }
-
-    public void setCondition(int condition) {
-        this.condition = condition;
     }
 
     @Override
     public String toString() {
-        return "Image [idPr=" + idPr + ", idImg=" + idImg + ", url=" + url + ", condition=" + condition + "]";
+        return "Image [idPr=" + idPr + ", idImg=" + idImg + ", url=" + url + ", status=" + status + "]";
     }
 
 }
