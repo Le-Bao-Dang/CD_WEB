@@ -1,8 +1,11 @@
-package org.uaf.cd_web.controller;
+package org.uaf.cd_web.components;
+
+import org.springframework.stereotype.Component;
 
 import java.util.Random;
 import java.util.SplittableRandom;
 
+@Component
 public class RandomOTP {
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     public static String generateOTP(int lengthOTP) {

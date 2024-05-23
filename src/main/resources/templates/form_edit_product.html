@@ -155,22 +155,22 @@
     <div class="main-panel" style="padding: 3%">
 
         <div>
-            <h3 class="rate-percentage">Sản phẩm <p th:text="${product.getNamePr()}"></p>đã có: <%=view.get(id)%> lượt
-                xem
+            <h3 class="rate-percentage">Sản phẩm <h3 th:text="${product.getNamePr()}"></h3>
             </h3>
         </div>
         <div class="edit_formUser edit_formAdd">
             <div class="col-xl-7 ftco-animate cen-div  row ftco-section justify-content-center">
                 <div class="col-md-12 ">
                     <div class="form-group">
-                        <div class="d-flex flex-grow-1 row_input">
-                            <div th:each="l : ${product.getImage()}" class="edit_img">
-                                <img class="image-item img" th:src="${l.url}"/>
-                                <button onclick="deleteIMG(this)" th:attr="data-url=${l.getUrl()}">x</button>
-                            </div>
-                        </div>
+<!--                        <div class="d-flex flex-grow-1 row_input">-->
+<!--                            <div th:each="l : ${product.getImage()}" class="edit_img">-->
+<!--                                <img class="image-item img"-->
+<!--                                     th:src="@{/static/ImageproductNew/add/gao-con-cam-vinh-hien-khong-tuoc-nguyen-tui-5kg.jpg}"/>-->
+<!--                                <button onclick="deleteIMG(this)" th:attr="data-url=${l.getUrl()}" th:value="${l.getUrl()}" >x</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
-                    <form action="/addNewImg" th:action="@{/addNewImg(id=${product.getIdPr()})}" method="post"
+                    <form th:action="@{/admin/editImg(id=${product.getIdPr()})}" method="post"
                           enctype="multipart/form-data" id="imageForm">
                         <div class="card">
                             <div class="drag-area">
@@ -183,13 +183,20 @@
                                        value="" style="display: none"/>
                             </div>
                         </div>
-                        <div class="contai"></div>
-                        <input type="submit" value="xác nhận thêm ảnh"/>
+                        <!--                        <div class="form-group">-->
+                        <div class="d-flex flex-grow-1 row_input contai">
+                            <div th:each="l : ${product.getImage()}" class="edit_img">
+                                <img class="image-item img" th:src="${l.getUrl()}"/>
+                                <button onclick="deleteIMG(this)" th:attr="data-url=${l.getUrl()}">x</button>
+                            </div>
+                        </div>
+                        <!--                        </div>-->
+                        <input type="submit" class="buttons" value="xác nhận thêm ảnh"/>
                     </form>
 
                 </div>
             </div>
-            <form action="/" method="post" class="billing-form" enctype="multipart/form-data"
+            <form action="/admin/editProduct" method="post" class="billing-form" enctype="multipart/form-data"
                   style="margin-top: 5%;">
                 <div class="row align-items-end"
                      style="font-size: 16px;">
@@ -398,7 +405,7 @@
             // Hiển thị thông báo khi không có file nào được chọn
             alert("Vui lòng chọn ít nhất một file ảnh.");
             // Dừng lại sự kiện submit form
-            event.preventDefault();
+            // event.preventDefault();
         }
     });
 
@@ -418,7 +425,7 @@
         var origin = document.getElementById('origin').value;
         console.log(name, id, price, mota);
         $.ajax({
-            url: "/admin/UpdateProduct",
+            url: "/admin/updateProduct",
             type: 'post',
             data: {
                 id: id,
@@ -435,9 +442,10 @@
                 inventory: inventory,
                 origin: origin
             },
+
             success: function (data) {
                 alert("thanh cong");
-                location.reload();
+                // location.reload();
             },
             error: function () {
             },
@@ -446,21 +454,7 @@
     }
 
 
-    function deleteIMG(url, id) {
-        $.ajax({
-            url: "/deleteIMGProd",
-            type: 'get',
-            data: {
-                URL: url
-            },
-            success: function (data) {
-                alert("đã xóa ảnh sản phẩm")
-                location.reload()
-            },
-            error: function () {
-            }
-        });
-    }
+
 
     let files = [],
         dragArea = document.querySelector('.drag-area'),
@@ -493,15 +487,32 @@
 
     /** SHOW IMAGES */
     function showImages() {
-        container.innerHTML = files.reduce((prev, curr, index) => {
+        container.innerHTML += files.reduce((prev, curr, index) => {
             return `${prev}
-		    <div class="image">
-			    <span onclick="delImage(${index})">&times;</span>
-			    <img src="${URL.createObjectURL(curr)}" style="max-width: 100px; max-height: 100%;" />
-			</div>`
+		    <div class="edit_img image ">
+                <img class="image-item img" src="${URL.createObjectURL(curr)}"/>
+                <button onclick="delImage(${index})">x</button>
+            </div>`
         }, '');
-
-
+    }
+    function deleteIMG(button) {
+        var  url= button.getAttribute("data-url");
+        console.log(url)
+        $.ajax({
+            url: "/admin/deleteIMG",
+            type: 'DELETE',
+            data: {
+                url: url
+            },
+            success: function (data) {
+                if(data=="success"){
+                    alert("Đã xóa ảnh sản phẩm thành công");
+                }
+                console.log(data)
+            },
+            error: function () {
+            }
+        });
     }
 
     /* DELETE IMAGE */

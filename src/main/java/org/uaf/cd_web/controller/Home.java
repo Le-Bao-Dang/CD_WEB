@@ -8,22 +8,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.uaf.cd_web.entity.User;
 import org.uaf.cd_web.services.UserServiceImp;
 
-
-import java.util.List;
-
 @Controller
 public class Home {
     private
     UserServiceImp userServiceImp;
-@Autowired
+
+    @Autowired
     public Home(UserServiceImp userServiceImp) {
         this.userServiceImp = userServiceImp;
     }
 
     @RequestMapping(value = "/")
-    public String home(Model model, HttpSession session){
+    public String home(Model model, HttpSession session) {
         User user = (User) session.getAttribute("auth");
-        model.addAttribute("auth",user);
+        model.addAttribute("auth", user);
         return "index";
     }
 
