@@ -143,7 +143,7 @@ public class ProductServiceImp implements IProductService {
         Page<Product> productPage = productReponesitory.findAll(pageable);
         return productPage.getContent();
         // imageReponesitory.save(i);
-        imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(), i.getStatus());
+//        imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(), i.getStatus());
     }
 
     @Override

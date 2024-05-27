@@ -1,14 +1,12 @@
 package org.uaf.cd_web.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "sold_pr")
@@ -20,7 +18,6 @@ public class Sold_Pr implements Serializable {
     private String idPr;
     @Column(name = "ID_USER")
     private String idUser;
-
     @Column(name = "TIME_SOLD")
     private LocalDateTime timeSold;
     @Column(name = "AMOUNT")
@@ -29,6 +26,10 @@ public class Sold_Pr implements Serializable {
     private String idOrders;
     @Column(name = "PRICE_HERE")
     private int priceHere;
+
+
+    @OneToMany(mappedBy = "sold_pr", cascade = CascadeType.ALL)
+    private List<Orders> orders;
 
     @Override
     public String toString() {
