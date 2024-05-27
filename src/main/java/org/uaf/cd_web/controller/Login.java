@@ -9,7 +9,7 @@ import org.uaf.cd_web.entity.User;
 import org.uaf.cd_web.services.UserServiceImp;
 
 import jakarta.servlet.http.HttpSession;
-import org.uaf.cd_web.component.Encryption;
+import org.uaf.cd_web.components.Encryption;
 
 @Controller
 public class Login {

@@ -29,4 +29,5 @@ public interface IProductService {
     List<Product> search(String keyword);
 
 
+    void deleteImg(String url);
 }
