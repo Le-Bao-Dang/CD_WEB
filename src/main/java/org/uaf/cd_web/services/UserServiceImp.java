@@ -93,4 +93,31 @@ public class UserServiceImp implements IUserService {
         }
         return false;
     }
+
+    @Override
+    public void updateAccount(String iduser, String address, String passw, String name, String phone, String email, String birthday, Date datesignup, boolean sex) {
+        User u = new User();
+        u.setIdUser(iduser);
+        u.setAddress(address);
+        u.setNameUser(name);
+        u.setEmail(email);
+        u.setPhone(phone);
+        u.setDecentralization(0);
+        u.setPassw(passw);
+        u.setBirthday(Date.valueOf(birthday));
+        u.setSex(sex);
+        u.setDecentralization(0);
+        u.setDateSignup(datesignup);
+        System.out.println(u);
+        userReponesitory.save(u);
+
+    }
+    public String getEncryptPassUser(String idUser) {
+        User user = userReponesitory.findById(idUser).orElse(null);
+        return (user != null) ? user.getPassw() : null;
+    }
+    public Date getDateSignup(String idUser) {
+        User user = userReponesitory.findById(idUser).orElse(null);
+        return (user != null) ? user.getDateSignup() : null;
+    }
 }

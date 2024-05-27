@@ -2,11 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Ogani Template">
-    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>BHNFoods | Sản phẩm yêu thích</title>
+    <title>BHNFoods | Mã giảm giá</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -20,6 +18,20 @@
     <link rel="stylesheet" href="body_design/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="body_design/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="body_design/css/style.css" type="text/css">
+
+    <style>
+        .shoping-cart .container .row{
+            border: 2px solid rgb(168, 168, 168);
+            padding-top: 20px;
+            margin: 20px 0;
+        }
+        .shoping-cart .container::before {
+            content: "Danh sách mã giảm giá";
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+
 </head>
 <body>
 
@@ -33,27 +45,31 @@
                     <table>
                         <thead>
                         <tr>
-                            <th class="shoping__product">Sản Phẩm</th>
+                            <th>Mã giảm giá</th>
+                            <th>Giá giảm</th>
+                            <th>Số lượng</th>
+                            <th>Áp dụng</th>
                             <th></th>
-                            <th>Giá</th>
-                            <th>Thêm vào giỏ</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each= " p : ${listLoveProd}" th:id="${p.idPr}">
-                            <td class="shoping__cart__quantity">
-                                <img th:src="${p.getAvt()}" alt="">
-                            </td>
-                            <td class="shoping__cart__item"><h5 th:text="${p.namePr}"></h5></td>
-                            <td class="shoping__cart__price">
-                                <span th:text="${#numbers.formatDecimal(p.price, 0, 'COMMA')} + 'đ'"></span>
+                        <tr th:each="discount : ${listDiscount}">
+                            <td class="shoping__cart__item" style="text-align: center">
+                                <h5 th:text="${discount.code}"></h5>
                             </td>
                             <td class="shoping__cart__quantity">
-                                <button th:id="'addToCart-' + ${p.idPr}" onclick="addToCart('${p.idPr}')" >Thêm</button>
+                                <h5 th:if="${discount.type}" th:text="${discount.number} + '%'"></h5>
+                                <h5 th:unless="${discount.type}" th:text="${#numbers.formatDecimal(discount.number, 0, 'COMMA')} + 'đ'"></h5>
                             </td>
-                            <td class="shoping__cart__item__close">
-                                <span th:onclick="|remove('${p.idPr}')|" class="icon_close"></span>
+                            <td class="shoping__cart__quantity">
+                                <h5 th:text="${discount.soluong}"></h5>
+                            </td>
+                            <td class="shoping__cart__item" style="text-align: center">
+                                <h5 th:text="'Áp dụng cho đơn từ ' + ${#numbers.formatDecimal(discount.minimum, 0, 'COMMA')} + 'đ'"></h5>
+                            </td>
+                            <td th:id="'btnLuu' + ${discount.idCode}" class="shoping__cart__quantity">
+                                <button onclick="luu('${discount.idCode}')">Lưu ngay</button>
                             </td>
                         </tr>
                         </tbody>
@@ -66,41 +82,15 @@
 
 <footer th:replace="footer"></footer> <!-- Thymeleaf footer inclusion -->
 
-<script th:inline="javascript">
-    function addToCart(idProd) {
-        $.ajax({
-            url: "/addToCart",
-            type: 'get',
-            data: {
-                id: idProd,
-                amount: 1
-            },
-            success: function (data) {
-                const content = document.getElementById('totalCart');
-                content.innerHTML = data;
-            },
-            error: function () {
-            }
-        });
-        $('#'+idProd).remove();
-    }
-    function remove(idProd) {
-        $.ajax({
-            url: "/removeFromLove",
-            type: 'get',
-            data: {
-                id: idProd,
-            },
-            success: function (data) {
-            },
-            error: function () {
-            }
-        });
-        $('#'+idProd).remove();
+<script>
+    function luu(idCode) {
+        const text = $("#maGiamGia" + idCode).text();
+        navigator.clipboard.writeText(text);
+        var button = document.getElementById('btnLuu' + idCode);
+        button.innerHTML = '<button onclick="luu(\'' + idCode + '\')">Đã lưu</button>'
     }
 </script>
 
-<!-- Js Plugins -->
 <script src="body_design/js/jquery-3.3.1.min.js"></script>
 <script src="body_design/js/jquery.nice-select.min.js"></script>
 <script src="body_design/js/jquery-ui.min.js"></script>
@@ -108,6 +98,5 @@
 <script src="body_design/js/mixitup.min.js"></script>
 <script src="body_design/js/owl.carousel.min.js"></script>
 <script src="body_design/js/main.js"></script>
-
 </body>
 </html>
