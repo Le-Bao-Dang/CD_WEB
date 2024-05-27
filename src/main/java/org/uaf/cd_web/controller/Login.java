@@ -9,19 +9,21 @@ import org.uaf.cd_web.entity.User;
 import org.uaf.cd_web.services.UserServiceImp;
 import jakarta.servlet.http.HttpSession;
 import org.uaf.cd_web.component.Encryption;
+
 @Controller
 public class Login {
     @Autowired
     private UserServiceImp userService;
+
     @GetMapping("/login")
     public String showLoginForm(Model model) {
         return "login";
     }
 
     @PostMapping("/login")
-    public String login( HttpSession session, Model model, @RequestParam("username") String username,
-                        @RequestParam("passw") String passw, RedirectAttributes redirectAttributes) {
-      User  user = userService.checkLogin(username);
+    public String login(HttpSession session, Model model, @RequestParam("username") String username,
+            @RequestParam("passw") String passw, RedirectAttributes redirectAttributes) {
+        User user = userService.checkLogin(username);
         passw = Encryption.toSHA1(passw);
 
         if (user != null) {
@@ -49,7 +51,7 @@ public class Login {
             }
         }
         redirectAttributes.addFlashAttribute("error", "Sai tài khoản hoặc mật khẩu");
-            return "redirect:/login";
+        return "redirect:/login";
 
     }
 }

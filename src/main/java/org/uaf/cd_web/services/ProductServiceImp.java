@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.uaf.cd_web.entity.Detail_Pr;
 import org.uaf.cd_web.entity.Image;
 import org.uaf.cd_web.entity.Product;
 import org.uaf.cd_web.reponsitory.ImageReponesitory;
@@ -24,7 +25,8 @@ public class ProductServiceImp implements IProductService {
     private final UserReponesitory userReponesitory;
 
     @Autowired
-    public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory, UserReponesitory userReponesitory) {
+    public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory,
+            UserReponesitory userReponesitory) {
         this.productReponesitory = productReponesitory;
         this.imageReponesitory = imageReponesitory;
         this.userReponesitory = userReponesitory;
@@ -140,11 +142,28 @@ public class ProductServiceImp implements IProductService {
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> productPage = productReponesitory.findAll(pageable);
         return productPage.getContent();
+        // imageReponesitory.save(i);
+        imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(), i.getStatus());
     }
 
     @Override
     public void update(Product product) {
-
+        Product pr = productReponesitory.getProductByIdPr(product.getIdPr());
+        pr.setPrice(product.getPrice());
+        pr.setIdMenu(product.getIdMenu());
+        pr.setDiscount(product.getDiscount());
+        pr.setNamePr(product.getNamePr());
+        Detail_Pr detail_pr = pr.getDetailPr();
+        detail_pr.setNsx(product.getDetailPr().getNsx());
+        detail_pr.setHsd(product.getDetailPr().getHsd());
+        detail_pr.setBrand(product.getDetailPr().getBrand());
+        detail_pr.setDescribe(product.getDetailPr().getDescribe());
+        detail_pr.setWeight(product.getDetailPr().getWeight());
+        detail_pr.setOrigin(product.getDetailPr().getOrigin());
+        detail_pr.setInventory(product.getDetailPr().getInventory());
+        detail_pr.setConditionPR(product.getDetailPr().getConditionPR());
+        pr.setDetailPr(detail_pr);
+        productReponesitory.save(pr);
     }
 
     @Override
@@ -156,6 +175,10 @@ public class ProductServiceImp implements IProductService {
         return productReponesitory.findAll(page);
     }
 
-
+    @Override
+    @Transactional
+    public void deleteImg(String url) {
+        imageReponesitory.deleteImageByUrl(url);
+    }
 
 }

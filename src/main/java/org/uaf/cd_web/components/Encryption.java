@@ -1,4 +1,4 @@
-package org.uaf.cd_web.component;
+package org.uaf.cd_web.components;
 
 import java.security.MessageDigest;
 import java.util.SplittableRandom;

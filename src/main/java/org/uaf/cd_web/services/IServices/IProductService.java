@@ -34,8 +34,12 @@ public interface IProductService {
     void update(Product product);
 
     void delete(String id);
+
     List<Product> listLoveProduct(String idUser);
-    public  List<Product> searchProduct(String keyword);
+
+    public List<Product> searchProduct(String keyword);
 
     Page<Product> findAll(Pageable page);
+
+    void deleteImg(String url);
 }

@@ -15,4 +15,6 @@ public interface ImageReponesitory extends JpaRepository<Image,String> {
     @Transactional
     @Query(value = "INSERT INTO image (ID_PR, ID_IMG, URL, status) VALUES (:idPr, :idImg, :url, :status)", nativeQuery = true)
     void savePr(String idPr, String idImg,String url, int status);
+
+    void deleteImageByUrl(String url);
 }
