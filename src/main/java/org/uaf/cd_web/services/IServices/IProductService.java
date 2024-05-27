@@ -1,5 +1,7 @@
 package org.uaf.cd_web.services.IServices;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.uaf.cd_web.entity.Image;
 import org.uaf.cd_web.entity.Product;
 
@@ -10,8 +12,6 @@ public interface IProductService {
     List<Product> getListProduct();
 
     List<Product> getListProductByKind(String kind);
-
-    Product listProductById(String idpr);
 
     public List<Product> getIdMenuPr();
 
@@ -34,8 +34,8 @@ public interface IProductService {
     void update(Product product);
 
     void delete(String id);
+    List<Product> listLoveProduct(String idUser);
+    public  List<Product> searchProduct(String keyword);
 
-    List<Product> search(String keyword);
-
-    List<Product> listLikeProduct(String idUser);
+    Page<Product> findAll(Pageable page);
 }

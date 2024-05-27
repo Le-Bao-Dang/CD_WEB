@@ -41,9 +41,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each= " p : ${listLikeProd}" th:id="${p.idPr}">
+                        <tr th:each= " p : ${listLoveProd}" th:id="${p.idPr}">
                             <td class="shoping__cart__quantity">
-<!--                                <img th:src="${p.url}" alt="">-->
+                                <img th:src="${p.getAvt()}" alt="">
                             </td>
                             <td class="shoping__cart__item"><h5 th:text="${p.namePr}"></h5></td>
                             <td class="shoping__cart__price">

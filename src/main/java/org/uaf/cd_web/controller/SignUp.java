@@ -11,13 +11,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.uaf.cd_web.component.Encryption;
 import org.uaf.cd_web.services.UserServiceImp;
 
-@Controller
+@Controller 
 public class SignUp {
     @Autowired
     private UserServiceImp userService;
 
     @GetMapping("/signup")
     public String showSignUpForm(Model model) {
+
         return "signup";
     }
 

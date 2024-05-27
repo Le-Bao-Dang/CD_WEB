@@ -23,6 +23,7 @@ public class Home {
     @RequestMapping(value = "/")
     public String home(Model model, HttpSession session){
         User user = (User) session.getAttribute("auth");
+
         model.addAttribute("auth",user);
         return "index";
     }

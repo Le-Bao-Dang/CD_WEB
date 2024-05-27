@@ -40,11 +40,42 @@
                                 <span>Danh sách sản phẩm</span>
                             </div>
                             <ul>
-                                <li><a th:href="@{/ListProduct(kind=1, page=1)}">Gạo</a></li>
+                                <li><a id="menuLink" th:href="@{/ListProduct(kind=1, page=1)}">Gạo
+                                    <span class="text-light svg" id="menuItem">+</span></a>
+                                    <ul id="ul2">
+                                        <li><a>Gạo lứt</a></li>
+                                        <li><a>Gạo thơm</a></li>
+                                        <li><a>Các loại gạo khác</a></li>
+                                    </ul>
+                                </li>
                                 <li><a th:href="@{/ListProduct(kind=2, page=1)}">Nếp</a></li>
-                                <li><a th:href="@{/ListProduct(kind=3, page=1)}">Các loại hạt</a></li>
-                                <li><a th:href="@{/ListProduct(kind=4, page=1)}">Các loại bột</a></li>
-                                <li><a th:href="@{/ListProduct(kind=5, page=1)}">Các loại củ, trái</a></li>
+                                <li><a id="menuLink" th:href="@{/ListProduct(kind=3, page=1)}">Các loại hạt <span
+                                        class="text-light svg" id="menuItem">+</span></a>
+                                    <ul id="ul2">
+                                        <li><a>Đậu đen</a></li>
+                                        <li><a>Đậu đỏ</a></li>
+                                        <li><a>Đậu Hà Lan</a></li>
+                                        <li><a>Đậu xanh</a></li>
+                                        <li><a>Bắp hạt</a></li>
+                                        <li><a>Các loại hạt khác</a></li>
+                                    </ul>
+                                </li>
+                                <li><a id="menuLink" th:href="@{/ListProduct(kind=4, page=1)}">Các loại bột <span
+                                        class="text-light svg" id="menuItem">+</span></a>
+                                    <ul id="ul2">
+                                        <li><a>Bột bắp</a></li>
+                                        <li><a>Bột mì</a></li>
+                                        <li><a>Các loại bột khác</a></li>
+                                    </ul>
+                                </li>
+                                <li><a id="menuLink" th:href="@{/ListProduct(kind=5, page=1)}">Các loại củ, trái <span
+                                        class="text-light svg" id="menuItem">+</span></a>
+                                    <ul id="ul2">
+                                        <li><a>Khoai lang</a></li>
+                                        <li><a>Khoai tây</a></li>
+                                        <li><a>Các loại củ khác</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -92,22 +123,67 @@
                 </div>
 
                 <!-- Product list -->
-                <div id="content" class="row">
-                    <!-- Product items here -->
-                </div>
-
-                <!-- Pagination -->
-                <div class="product__pagination">
-                    <!-- Pagination buttons here -->
-                </div>
+                <!--                <div id="content" class="row" >-->
+                <!--&lt;!&ndash;                    &lt;!&ndash; Product items here &ndash;&gt;&ndash;&gt;-->
+                <!--                </div>-->
+                <!--&lt;!&ndash;                 Pagination&ndash;&gt;-->
+                <!--                <div class="product__pagination">-->
+                <!--                    &lt;!&ndash; Pagination buttons here &ndash;&gt;-->
+                <!--                </div>-->
+                <div id="product-container"></div>
+                <button id="load-more">Load More</button>
             </div>
         </div>
     </div>
 </section>
 
 <footer th:include="footer"></footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
+
+
+    // -----------------------------------
+    let page = 0;
+    const size = 10;
+
+    $(document).ready(function () {
+        loadProducts();
+
+        $('#load-more').click(function () {
+            loadProducts();
+        });
+    });
+
+    // function loadProducts() {
+    //     $.get(`/products?page=${page}&size=${size}`, function (data) {
+    //         if (data.length > 0) {
+    //             data.forEach(product => {
+    //                 $('#product-container').append(
+    //                     <h3 th:text="${product.}"></h3>
+    //                 );
+    //             });
+    //             page++;
+    //         } else {
+    //             $('#load-more').hide();
+    //         }
+    //     });
+    // }
+    function loadProducts() {
+        $.get("/products?page="+(page+1)+"&size="+size,function (data) {
+            data.forEach(function (item) {
+                // $('#product-container').text(item.ID_PR).appendTo();
+                console.log(item)
+
+            })
+            page++;
+        })
+
+    }
+
+    // -------------------------------------------
+    cũ
     var current = 1;
     var maxCountPage = $('button.btn-loadMore').length;
     $("#btn" + current).addClass('background-button');
@@ -115,6 +191,29 @@
     var urlParams = new URLSearchParams(queryString);
     var kind = urlParams.get('kind');
     var page = urlParams.get('page');
+
+
+    $(document).ready(function () {
+        var menuItem = $('#menuItem');
+        var submenu = $('#ul2');
+        var menuLink = $('#menuLink');
+
+        menuItem.click(function (event) {
+            // event.preventDefault(); // Ngăn chặn chuyển hướng mặc định của thẻ a
+            submenu.toggleClass('active');
+            menuItem.text(submenu.hasClass('active') ? '-' : '+');
+        });
+
+        // Đóng menu khi nhấn bất kỳ nơi nào trên trang
+        $(document).click(function (event) {
+            if (event.target !== menuLink && !submenu.is(event.target)) {
+                submenu.removeClass('active');
+                menuItem.text('+');
+            }
+        });
+    });
+
+
     function loadMoreProduct(index) {
         $("#btn" + current).removeClass('background-button');
         current = index;
@@ -124,12 +223,12 @@
             url: "/loadMoreProduct",
             type: 'get',
             data: {
-                kind : kind,
-                page : page,
-                step : current,
+                kind: kind,
+                page: page,
+                step: current,
                 sort: $('#sort-tableID').val().trim()
             },
-            success: function(data) {
+            success: function (data) {
                 const content = document.getElementById("content");
                 content.innerHTML = data;
             },
@@ -137,6 +236,7 @@
             }
         });
     }
+
     function loadMoreProductLeft() {
         $("#btn" + current).removeClass('background-button');
         if (current - 1 >= 1) {
@@ -147,12 +247,12 @@
             url: "/loadMoreProduct",
             type: 'get',
             data: {
-                kind : kind,
-                page : page,
-                step : current,
+                kind: kind,
+                page: page,
+                step: current,
                 sort: $('#sort-tableID').val().trim()
             },
-            success: function(data) {
+            success: function (data) {
                 const content = document.getElementById("content");
                 content.innerHTML = data;
             },
@@ -160,6 +260,7 @@
             }
         });
     }
+
     function loadMoreProductRight() {
         $("#btn" + current).removeClass('background-button');
         if (parseInt(current) + 1 <= maxCountPage) {
@@ -170,12 +271,12 @@
             url: "/loadMoreProduct",
             type: 'get',
             data: {
-                kind : kind,
-                page : page,
-                step : current,
+                kind: kind,
+                page: page,
+                step: current,
                 sort: $('#sort-tableID').val().trim()
             },
-            success: function(data) {
+            success: function (data) {
                 const content = document.getElementById("content");
                 content.innerHTML = data;
             },
@@ -183,9 +284,10 @@
             }
         });
     }
+
     function loveInListProd(id, idTag) {
         let condition = 0; //0 la detele khoi database, 1 la insert vao database
-        if(document.getElementById(idTag).classList.contains('background-button')) {
+        if (document.getElementById(idTag).classList.contains('background-button')) {
             $('button#' + idTag).removeClass('background-button');
             $('button#' + idTag).css('color', 'black')
             condition = 0;
@@ -204,6 +306,7 @@
             }
         });
     }
+
     function addToCartInListProd(id, idTag) {
         $('button#' + idTag).addClass('background-button');
         $('button#' + idTag).css('color', 'white');
@@ -229,7 +332,7 @@
             type: "get",
             data: {
                 kind: kind,
-                step : current,
+                step: current,
                 sort: $(this).val().trim()
             },
             success: function (data) {
@@ -240,6 +343,7 @@
             }
         })
     })
+
     function searchByName(param) {
         var txtSearch = param.value;
         $.ajax({
