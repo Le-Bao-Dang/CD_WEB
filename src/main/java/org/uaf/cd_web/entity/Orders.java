@@ -28,13 +28,13 @@ public class Orders implements Serializable {
     private  LocalDateTime timePickup;
     @Column (name="NOTE")
     private  String note;
-    @Column (name="STATUS")
-    private  int status;
+    @Column (name="CONDITION")
+    private  int condition;
 
-    public  String checkStatus(){
-        if(status==0) return "Đang chuẩn bị";
-        if(status==1) return  "Đang giao";
-        if(status==2) return "Đã giao";
+    public  String checkCondition(){
+        if(condition==0) return "Đang chuẩn bị";
+        if(condition==1) return  "Đang giao";
+        if(condition==2) return "Đã giao";
         return "Giao không thành công";
     }
 
@@ -48,7 +48,7 @@ public class Orders implements Serializable {
                 ", timeOrders=" + timeOrders +
                 ", timePickup=" + timePickup +
                 ", note='" + note + '\'' +
-                ", status=" + status +
+                ", condition=" + condition +
                 '}';
     }
 }

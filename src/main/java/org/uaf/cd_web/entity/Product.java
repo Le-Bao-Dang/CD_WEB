@@ -44,14 +44,4 @@ public class Product implements Serializable {
                 ", image=" + image.size() +
                 '}';
     }
-
-    public Image getAvt() {
-        for (Image i : this.image) {
-            if (i.getStatus() == 0) {
-                return i;
-            }
-
-        }
-        return null;
-    }
 }
