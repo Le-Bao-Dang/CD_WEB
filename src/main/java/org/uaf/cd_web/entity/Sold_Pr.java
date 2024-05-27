@@ -29,11 +29,7 @@ public class Sold_Pr implements Serializable {
     private int priceHere;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "sold_pr",
-            joinColumns = @JoinColumn(name = "ID_PR", referencedColumnName = "ID_PR"),
-            inverseJoinColumns = @JoinColumn(name = "ID_ORDERS", referencedColumnName = "ID_ORDERS")
-    )
+    @JoinTable(name = "sold_pr", joinColumns = @JoinColumn(name = "ID_PR", referencedColumnName = "ID_PR"), inverseJoinColumns = @JoinColumn(name = "ID_ORDERS", referencedColumnName = "ID_ORDERS"))
     private List<Orders> orders;
     @ManyToOne
     @JoinColumn(name = "ID_PR", insertable = false, updatable = false)

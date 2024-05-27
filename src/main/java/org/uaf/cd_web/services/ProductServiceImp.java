@@ -103,7 +103,8 @@ public class ProductServiceImp implements IProductService {
 
     @Override
     public String formatTime(LocalDateTime dateTime) {
-        return dateTime.getDayOfMonth() + "-" + dateTime.getMonthValue() + "-" + dateTime.getYear() + " " + dateTime.getHour() + ":" + dateTime.getMinute();
+        return dateTime.getDayOfMonth() + "-" + dateTime.getMonthValue() + "-" + dateTime.getYear() + " "
+                + dateTime.getHour() + ":" + dateTime.getMinute();
     }
 
     @Override
@@ -128,8 +129,17 @@ public class ProductServiceImp implements IProductService {
         Image i = image;
         i.setIdPr(image.getIdPr());
         i.setIdImg(image.getIdImg());
-//        imageReponesitory.save(i);
+        // imageReponesitory.save(i);
         imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(), i.getStatus());
+    }
+
+    public List<Product> getProducts(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> productPage = productReponesitory.findAll(pageable);
+        return productPage.getContent();
+        // imageReponesitory.save(i);
+        // imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(),
+        // i.getStatus());
     }
 
     @Override
@@ -168,7 +178,4 @@ public class ProductServiceImp implements IProductService {
         imageReponesitory.deleteImageByUrl(url);
     }
 
-
-
-    }
-
+}
