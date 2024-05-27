@@ -12,7 +12,7 @@ public class CdWebApplication {
 
         SpringApplication.run(CdWebApplication.class, args);
 //        ConfigurableApplicationContext context = SpringApplication.run(CdWebApplication.class, args);
-//
+
 //        // Lấy ProductService từ context
 //        ProductServiceImp productService = context.getBean(ProductServiceImp.class);
 //

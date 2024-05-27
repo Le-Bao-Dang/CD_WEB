@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BHNFoods | Sản phẩm</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="body_design/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/style.css" type="text/css">
+</head>
+
+<body>
+<header th:include="header"></header>
+
+<!-- Product Section Begin -->
+<section class="product spad" style="padding-top: 20px">
+    <div class="container">
+
+        <!-- Sidebar -->
+        <div class="row">
+            <div class="col-lg-3 col-md-5">
+                <div class="sidebar">
+                    <div class="sidebar__item">
+                        <!-- Hero Categories -->
+                        <div class="hero__categories">
+                            <div class="hero__categories__all">
+                                <span>Danh sách sản phẩm</span>
+                            </div>
+                            <ul>
+                                <li><a id="menuLink" th:href="@{/ListProduct(kind=1, page=1)}">Gạo
+                                    <span class="text-light svg" id="menuItem">+</span></a>
+                                    <ul id="ul2">
+                                        <li><a>Gạo lứt</a></li>
+                                        <li><a>Gạo thơm</a></li>
+                                        <li><a>Các loại gạo khác</a></li>
+                                    </ul>
+                                </li>
+                                <li><a th:href="@{/ListProduct(kind=2, page=1)}">Nếp</a></li>
+                                <li><a id="menuLink" th:href="@{/ListProduct(kind=3, page=1)}">Các loại hạt <span
+                                        class="text-light svg" id="menuItem">+</span></a>
+                                    <ul id="ul2">
+                                        <li><a>Đậu đen</a></li>
+                                        <li><a>Đậu đỏ</a></li>
+                                        <li><a>Đậu Hà Lan</a></li>
+                                        <li><a>Đậu xanh</a></li>
+                                        <li><a>Bắp hạt</a></li>
+                                        <li><a>Các loại hạt khác</a></li>
+                                    </ul>
+                                </li>
+                                <li><a id="menuLink" th:href="@{/ListProduct(kind=4, page=1)}">Các loại bột <span
+                                        class="text-light svg" id="menuItem">+</span></a>
+                                    <ul id="ul2">
+                                        <li><a>Bột bắp</a></li>
+                                        <li><a>Bột mì</a></li>
+                                        <li><a>Các loại bột khác</a></li>
+                                    </ul>
+                                </li>
+                                <li><a id="menuLink" th:href="@{/ListProduct(kind=5, page=1)}">Các loại củ, trái <span
+                                        class="text-light svg" id="menuItem">+</span></a>
+                                    <ul id="ul2">
+                                        <li><a>Khoai lang</a></li>
+                                        <li><a>Khoai tây</a></li>
+                                        <li><a>Các loại củ khác</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Latest Products -->
+                    <div class="sidebar__item">
+                        <div class="latest-product__text">
+                            <h4>Sản phẩm mới nhất</h4>
+                            <div class="latest-product__slider owl-carousel">
+                                <!-- Product items here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Display -->
+            <div class="col-lg-9 col-md-7">
+                <div class="product__discount">
+                    <div class="section-title product__discount__title">
+                        <h2>Giảm giá</h2>
+                    </div>
+                    <div class="row">
+                        <div class="product__discount__slider owl-carousel">
+                            <!-- Discounted products here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter and Product List -->
+                <div class="filter__item">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-5">
+                            <div class="filter__sort">
+                                <span>Sắp xếp</span>
+                                <select name="sort" class="sort-table" id="sort-tableID">
+                                    <option class="sort-item" value="0">Tất cả</option>
+                                    <option class="sort-item" value="1">Giảm Giá</option>
+                                    <option class="sort-item" value="2">Giá thấp đến cao</option>
+                                    <option class="sort-item" value="3">Giá cao đến thấp</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product list -->
+                <!--                <div id="content" class="row" >-->
+                <!--&lt;!&ndash;                    &lt;!&ndash; Product items here &ndash;&gt;&ndash;&gt;-->
+                <!--                </div>-->
+                <!--&lt;!&ndash;                 Pagination&ndash;&gt;-->
+                <!--                <div class="product__pagination">-->
+                <!--                    &lt;!&ndash; Pagination buttons here &ndash;&gt;-->
+                <!--                </div>-->
+                <div id="product-container"></div>
+                <button id="load-more">Load More</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer th:include="footer"></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+
+
+    // -----------------------------------
+    let page = 0;
+    const size = 10;
+
+    $(document).ready(function () {
+        loadProducts();
+
+        $('#load-more').click(function () {
+            loadProducts();
+        });
+    });
+
+    // function loadProducts() {
+    //     $.get(`/products?page=${page}&size=${size}`, function (data) {
+    //         if (data.length > 0) {
+    //             data.forEach(product => {
+    //                 $('#product-container').append(
+    //                     <h3 th:text="${product.}"></h3>
+    //                 );
+    //             });
+    //             page++;
+    //         } else {
+    //             $('#load-more').hide();
+    //         }
+    //     });
+    // }
+    function loadProducts() {
+        $.get("/products?page="+(page+1)+"&size="+size,function (data) {
+            data.forEach(function (item) {
+                // $('#product-container').text(item.ID_PR).appendTo();
+                console.log(item)
+
+            })
+            page++;
+        })
+
+    }
+
+    // -------------------------------------------
+    cũ
+    var current = 1;
+    var maxCountPage = $('button.btn-loadMore').length;
+    $("#btn" + current).addClass('background-button');
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var kind = urlParams.get('kind');
+    var page = urlParams.get('page');
+
+
+    $(document).ready(function () {
+        var menuItem = $('#menuItem');
+        var submenu = $('#ul2');
+        var menuLink = $('#menuLink');
+
+        menuItem.click(function (event) {
+            // event.preventDefault(); // Ngăn chặn chuyển hướng mặc định của thẻ a
+            submenu.toggleClass('active');
+            menuItem.text(submenu.hasClass('active') ? '-' : '+');
+        });
+
+        // Đóng menu khi nhấn bất kỳ nơi nào trên trang
+        $(document).click(function (event) {
+            if (event.target !== menuLink && !submenu.is(event.target)) {
+                submenu.removeClass('active');
+                menuItem.text('+');
+            }
+        });
+    });
+
+
+    function loadMoreProduct(index) {
+        $("#btn" + current).removeClass('background-button');
+        current = index;
+        $("#btn" + current).addClass('background-button');
+
+        $.ajax({
+            url: "/loadMoreProduct",
+            type: 'get',
+            data: {
+                kind: kind,
+                page: page,
+                step: current,
+                sort: $('#sort-tableID').val().trim()
+            },
+            success: function (data) {
+                const content = document.getElementById("content");
+                content.innerHTML = data;
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function loadMoreProductLeft() {
+        $("#btn" + current).removeClass('background-button');
+        if (current - 1 >= 1) {
+            current -= 1;
+        }
+        $("#btn" + current).addClass('background-button');
+        $.ajax({
+            url: "/loadMoreProduct",
+            type: 'get',
+            data: {
+                kind: kind,
+                page: page,
+                step: current,
+                sort: $('#sort-tableID').val().trim()
+            },
+            success: function (data) {
+                const content = document.getElementById("content");
+                content.innerHTML = data;
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function loadMoreProductRight() {
+        $("#btn" + current).removeClass('background-button');
+        if (parseInt(current) + 1 <= maxCountPage) {
+            current = parseInt(current) + 1;
+        }
+        $("#btn" + current).addClass('background-button');
+        $.ajax({
+            url: "/loadMoreProduct",
+            type: 'get',
+            data: {
+                kind: kind,
+                page: page,
+                step: current,
+                sort: $('#sort-tableID').val().trim()
+            },
+            success: function (data) {
+                const content = document.getElementById("content");
+                content.innerHTML = data;
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function loveInListProd(id, idTag) {
+        let condition = 0; //0 la detele khoi database, 1 la insert vao database
+        if (document.getElementById(idTag).classList.contains('background-button')) {
+            $('button#' + idTag).removeClass('background-button');
+            $('button#' + idTag).css('color', 'black')
+            condition = 0;
+        } else {
+            $('button#' + idTag).addClass('background-button');
+            $('button#' + idTag).css('color', 'white')
+            condition = 1;
+        }
+        $.ajax({
+            url: "/addToLoveProd",
+            type: 'get',
+            data: {
+                id: id,
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function addToCartInListProd(id, idTag) {
+        $('button#' + idTag).addClass('background-button');
+        $('button#' + idTag).css('color', 'white');
+        $.ajax({
+            url: "/addToCart",
+            type: 'get',
+            data: {
+                id: id,
+                amount: 1
+            },
+            success: function (data) {
+                const content = document.getElementById('totalCart');
+                content.innerHTML = data;
+            },
+            error: function () {
+            }
+        });
+    }
+
+    $('#sort-tableID').change(function () {
+        $.ajax({
+            url: "/loadMoreProduct",
+            type: "get",
+            data: {
+                kind: kind,
+                step: current,
+                sort: $(this).val().trim()
+            },
+            success: function (data) {
+                const content = document.getElementById("content");
+                content.innerHTML = data;
+            },
+            error: function (xhr) {
+            }
+        })
+    })
+
+    function searchByName(param) {
+        var txtSearch = param.value;
+        $.ajax({
+            url: "/searchByAjax",
+            type: "get",
+            data: {
+                txt: txtSearch
+            },
+            success: function (data) {
+                const content = document.getElementById("content");
+                content.innerHTML = data;
+            },
+            error: function (xhr) {
+            }
+        })
+    }
+
+</script>
+<script src="body_design/js/jquery-3.3.1.min.js"></script>
+<script src="body_design/js/jquery-ui.min.js"></script>
+<script src="body_design/js/jquery.slicknav.js"></script>
+<script src="body_design/js/mixitup.min.js"></script>
+<script src="body_design/js/owl.carousel.min.js"></script>
+<script src="body_design/js/main.js"></script>
+</body>
+</html>
