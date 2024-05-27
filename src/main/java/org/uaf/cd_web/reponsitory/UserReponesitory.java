@@ -23,5 +23,7 @@ public interface UserReponesitory extends JpaRepository<User, String> {
     @Query("select u from User u  where u.email=:email or u.phone=:phone")
     List<User> checkUserExit(String email, String phone);
 
-    User getUserByIdUser(String id);
+    @Query("select u from User u  where u.idUser=:id")
+    List<User> getUserByIdUser(String id);
+
 }

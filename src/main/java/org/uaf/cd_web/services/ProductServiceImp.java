@@ -1,6 +1,9 @@
 package org.uaf.cd_web.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.uaf.cd_web.entity.Detail_Pr;
@@ -8,6 +11,7 @@ import org.uaf.cd_web.entity.Image;
 import org.uaf.cd_web.entity.Product;
 import org.uaf.cd_web.reponsitory.ImageReponesitory;
 import org.uaf.cd_web.reponsitory.ProductReponesitory;
+import org.uaf.cd_web.reponsitory.UserReponesitory;
 import org.uaf.cd_web.services.IServices.IProductService;
 
 import java.time.LocalDateTime;
@@ -18,17 +22,18 @@ import java.util.List;
 public class ProductServiceImp implements IProductService {
     private final ProductReponesitory productReponesitory;
     private final ImageReponesitory imageReponesitory;
-
+    private final UserReponesitory userReponesitory;
 
     @Autowired
-    public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory) {
+    public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory,
+            UserReponesitory userReponesitory) {
         this.productReponesitory = productReponesitory;
         this.imageReponesitory = imageReponesitory;
+        this.userReponesitory = userReponesitory;
     }
 
     @Override
     public List<Product> getListProduct() {
-
         List<Product> listPr = productReponesitory.findAll();
         List<Image> listImg;
         for (Product p : listPr) {
@@ -36,6 +41,16 @@ public class ProductServiceImp implements IProductService {
             p.setImage(listImg);
         }
         return listPr;
+    }
+
+    @Override
+    public List<Product> listLoveProduct(String idUser) {
+        return productReponesitory.listLoveProduct(idUser);
+    }
+
+    @Override
+    public List<Product> searchProduct(String keyword) {
+        return productReponesitory.searchProduct(keyword);
     }
 
     @Override
@@ -49,6 +64,11 @@ public class ProductServiceImp implements IProductService {
             p.setImage(imageReponesitory.getImageByIdPr(p.getIdPr()));
         }
         return list;
+    }
+
+    @Override
+    public List<Product> getIdMenuPr() {
+        return List.of();
     }
 
     @Override
@@ -88,7 +108,8 @@ public class ProductServiceImp implements IProductService {
 
     @Override
     public String formatTime(LocalDateTime dateTime) {
-        return dateTime.getDayOfMonth() + "-" + dateTime.getMonthValue() + "-" + dateTime.getYear() + " " + dateTime.getHour() + ":" + dateTime.getMinute();
+        return dateTime.getDayOfMonth() + "-" + dateTime.getMonthValue() + "-" + dateTime.getYear() + " "
+                + dateTime.getHour() + ":" + dateTime.getMinute();
     }
 
     @Override
@@ -113,7 +134,15 @@ public class ProductServiceImp implements IProductService {
         Image i = image;
         i.setIdPr(image.getIdPr());
         i.setIdImg(image.getIdImg());
-//        imageReponesitory.save(i);
+        // imageReponesitory.save(i);
+        imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(), i.getStatus());
+    }
+
+    public List<Product> getProducts(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> productPage = productReponesitory.findAll(pageable);
+        return productPage.getContent();
+        // imageReponesitory.save(i);
         imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(), i.getStatus());
     }
 
@@ -139,12 +168,11 @@ public class ProductServiceImp implements IProductService {
 
     @Override
     public void delete(String id) {
-
     }
 
     @Override
-    public List<Product> search(String keyword) {
-        return null;
+    public Page<Product> findAll(Pageable page) {
+        return productReponesitory.findAll(page);
     }
 
     @Override
@@ -152,6 +180,5 @@ public class ProductServiceImp implements IProductService {
     public void deleteImg(String url) {
         imageReponesitory.deleteImageByUrl(url);
     }
-
 
 }

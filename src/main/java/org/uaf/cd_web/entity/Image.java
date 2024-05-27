@@ -38,6 +38,7 @@ public class Image implements Serializable {
 
     }
 
+
     @Override
     public String toString() {
         return "Image [idPr=" + idPr + ", idImg=" + idImg + ", url=" + url + ", status=" + status + "]";

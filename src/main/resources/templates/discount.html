@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BHNFoods | Mã giảm giá</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="body_design/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/style.css" type="text/css">
+
+    <style>
+        .shoping-cart .container .row{
+            border: 2px solid rgb(168, 168, 168);
+            padding-top: 20px;
+            margin: 20px 0;
+        }
+        .shoping-cart .container::before {
+            content: "Danh sách mã giảm giá";
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<body>
+
+<header th:replace="header"></header> <!-- Thymeleaf header inclusion -->
+
+<section class="shoping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Mã giảm giá</th>
+                            <th>Giá giảm</th>
+                            <th>Số lượng</th>
+                            <th>Áp dụng</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="discount : ${listDiscount}">
+                            <td class="shoping__cart__item" style="text-align: center">
+                                <h5 th:text="${discount.code}"></h5>
+                            </td>
+                            <td class="shoping__cart__quantity">
+                                <h5 th:if="${discount.type}" th:text="${discount.number} + '%'"></h5>
+                                <h5 th:unless="${discount.type}" th:text="${#numbers.formatDecimal(discount.number, 0, 'COMMA')} + 'đ'"></h5>
+                            </td>
+                            <td class="shoping__cart__quantity">
+                                <h5 th:text="${discount.soluong}"></h5>
+                            </td>
+                            <td class="shoping__cart__item" style="text-align: center">
+                                <h5 th:text="'Áp dụng cho đơn từ ' + ${#numbers.formatDecimal(discount.minimum, 0, 'COMMA')} + 'đ'"></h5>
+                            </td>
+                            <td th:id="'btnLuu' + ${discount.idCode}" class="shoping__cart__quantity">
+                                <button onclick="luu('${discount.idCode}')">Lưu ngay</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer th:replace="footer"></footer> <!-- Thymeleaf footer inclusion -->
+
+<script>
+    function luu(idCode) {
+        const text = $("#maGiamGia" + idCode).text();
+        navigator.clipboard.writeText(text);
+        var button = document.getElementById('btnLuu' + idCode);
+        button.innerHTML = '<button onclick="luu(\'' + idCode + '\')">Đã lưu</button>'
+    }
+</script>
+
+<script src="body_design/js/jquery-3.3.1.min.js"></script>
+<script src="body_design/js/jquery.nice-select.min.js"></script>
+<script src="body_design/js/jquery-ui.min.js"></script>
+<script src="body_design/js/jquery.slicknav.js"></script>
+<script src="body_design/js/mixitup.min.js"></script>
+<script src="body_design/js/owl.carousel.min.js"></script>
+<script src="body_design/js/main.js"></script>
+</body>
+</html>
