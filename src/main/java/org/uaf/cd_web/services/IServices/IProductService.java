@@ -10,6 +10,11 @@ public interface IProductService {
     List<Product> getListProduct();
     List<Product> getListProductByKind(String kind);
 
+    Product listProductById(String idpr);
+
+    public List<Product> getIdMenuPr();
+
+
     List<Product> getListProductInPage(String kind, int page);
 
     List<Product> getListProductInPage(int page);
@@ -30,4 +35,7 @@ public interface IProductService {
 
 
     void deleteImg(String url);
+
+
+    List<Product> listLikeProduct(String idUser);
 }

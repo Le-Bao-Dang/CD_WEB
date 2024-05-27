@@ -17,7 +17,11 @@ public class SignUp {
     private UserServiceImp userService;
 
     @GetMapping("/signup")
+<<<<<<< HEAD
     public String showLoginForm(Model model) {
+=======
+    public String showSignUpForm(Model model) {
+>>>>>>> parent of a5c7881 (commit)
         return "signup";
     }
 

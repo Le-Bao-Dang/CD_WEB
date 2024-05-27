@@ -19,7 +19,6 @@ public class ProductServiceImp implements IProductService {
     private final ProductReponesitory productReponesitory;
     private final ImageReponesitory imageReponesitory;
 
-
     @Autowired
     public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory) {
         this.productReponesitory = productReponesitory;
@@ -39,6 +38,22 @@ public class ProductServiceImp implements IProductService {
     }
 
     @Override
+    public List<Product> listLikeProduct(String idUser) {
+        return productReponesitory.listLikeProduct(idUser);
+    }
+
+    @Override
+    public Product listProductById(String idpr) {
+        return productReponesitory.listProductById(idpr);
+    }
+
+    @Override
+    public List<Product> getIdMenuPr() {
+        return null;
+    }
+
+    @Override
+
     public List<Product> getListProductByKind(String kind) {
         List<Product> list = new ArrayList<>();
         list = productReponesitory.getListProductByKind(kind);
@@ -154,4 +169,6 @@ public class ProductServiceImp implements IProductService {
     }
 
 
-}
+
+    }
+

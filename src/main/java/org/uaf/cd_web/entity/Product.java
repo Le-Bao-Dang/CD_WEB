@@ -32,6 +32,9 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Image> image;
 
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    private List<Sold_Pr> prList;
+
     @Override
     public String toString() {
         return "Product{" +
