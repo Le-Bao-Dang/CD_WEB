@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,9 +28,17 @@ public class Sold_Pr implements Serializable {
     @Column(name = "PRICE_HERE")
     private int priceHere;
 
-
-    @OneToMany(mappedBy = "sold_pr", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "sold_pr", joinColumns = @JoinColumn(name = "ID_PR", referencedColumnName = "ID_PR"), inverseJoinColumns = @JoinColumn(name = "ID_ORDERS", referencedColumnName = "ID_ORDERS"))
     private List<Orders> orders;
+    @ManyToOne
+    @JoinColumn(name = "ID_PR", insertable = false, updatable = false)
+    private Product product;
+
+    public String getTotalPrice() {
+        DecimalFormat dec = new DecimalFormat("#,###");
+        return dec.format(this.amount * this.priceHere).replace(',', '.');
+    }
 
     @Override
     public String toString() {

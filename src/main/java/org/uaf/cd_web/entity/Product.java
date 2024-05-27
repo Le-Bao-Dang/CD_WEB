@@ -32,6 +32,18 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Image> image;
 
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    private List<Sold_Pr> prList;
+
+    public Product(String idPr, String idMenu, int discount, int price, String namePr, Detail_Pr detailPr) {
+        this.idPr = idPr;
+        this.idMenu = idMenu;
+        this.discount = discount;
+        this.price = price;
+        this.namePr = namePr;
+        this.detailPr = detailPr;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -43,15 +55,5 @@ public class Product implements Serializable {
                 ", detailPr=" + detailPr +
                 ", image=" + image.size() +
                 '}';
-    }
-
-    public Image getAvt() {
-        for (Image i : this.image) {
-            if (i.getStatus() == 0) {
-                return i;
-            }
-
-        }
-        return null;
     }
 }

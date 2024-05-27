@@ -1,41 +1,80 @@
 package org.uaf.cd_web.entity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Data;
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.uaf.cd_web.components.Format;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
-@Data
-
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Orders implements Serializable {
     @Id
-    @Column(name="ID_ORDERS")
-    private  String idOrders;
-    @Column(name="NAME")
+    @Column(name = "ID_ORDERS")
+    private String idOrders;
+    @Column(name = "NAME")
     private String name;
-    @Column(name="PHONE")
-    private  String phone;
-    @Column (name="ADDRESS")
+    @Column(name = "PHONE")
+    private String phone;
+    @Column(name = "ADDRESS")
     private String address;
-    @Column (name="TIME_ORDERS")
+    @Column(name = "TIME_ORDERS")
     private LocalDateTime timeOrders;
-    @Column (name="TIME_PICKUP")
-    private  LocalDateTime timePickup;
-    @Column (name="NOTE")
-    private  String note;
-    @Column (name="STATUS")
-    private  int status;
+    @Column(name = "TIME_PICKUP")
+    private LocalDateTime timePickup;
+    @Column(name = "NOTE")
+    private String note;
+    @Column(name = "CONDITION")
+    private int condition;
 
-    public  String checkStatus(){
-        if(status==0) return "Đang chuẩn bị";
-        if(status==1) return  "Đang giao";
-        if(status==2) return "Đã giao";
-        return "Giao không thành công";
+
+    @ManyToMany(mappedBy = "orders", cascade = CascadeType.ALL)
+    private List<Sold_Pr> prList;
+
+    public String checkCondition() {
+        if (condition == -2) return "Đã hủy";
+        if (condition == -1) return "giao không thành công";
+        if (condition == 0) return "Đang chuẩn bị";
+        if (condition == 1) return "Đang giao";
+        if (condition == 2) return "Đã giao";
+        if (condition == 3) return "Chờ xác nhận";
+        if (condition == 4) return "Đã xác nhận";
+        return "Đơn hàng không xác định";
+
+    }
+
+    public int getAmountPr() {
+        int sum = 0;
+        for (Sold_Pr pr : prList) {
+            sum += pr.getAmount();
+        }
+        return sum;
+    }
+
+    public long getSumOrder() {
+
+        long sum = 0;
+        for (Sold_Pr pr : prList) {
+            sum += (pr.getAmount() * pr.getPriceHere());
+        }
+        return sum;
+    }
+
+    public String getToStringSumOrder() {
+        long sum = getSumOrder();
+        DecimalFormat dc = new DecimalFormat("#,###");
+        return dc.format(sum).replace(',', '.');
+    }
+    public String getDate(){
+        Format f = new Format();
+       return f.formatDateTimeNow(this.getTimeOrders());
     }
 
     @Override
@@ -48,7 +87,7 @@ public class Orders implements Serializable {
                 ", timeOrders=" + timeOrders +
                 ", timePickup=" + timePickup +
                 ", note='" + note + '\'' +
-                ", status=" + status +
+                ", condition=" + condition +
                 '}';
     }
 }

@@ -32,5 +32,3 @@ public class Love implements Serializable {
                 '}';
     }
 }
-
-

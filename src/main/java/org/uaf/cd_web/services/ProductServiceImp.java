@@ -1,9 +1,6 @@
 package org.uaf.cd_web.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.uaf.cd_web.entity.Detail_Pr;
@@ -11,7 +8,6 @@ import org.uaf.cd_web.entity.Image;
 import org.uaf.cd_web.entity.Product;
 import org.uaf.cd_web.reponsitory.ImageReponesitory;
 import org.uaf.cd_web.reponsitory.ProductReponesitory;
-import org.uaf.cd_web.reponsitory.UserReponesitory;
 import org.uaf.cd_web.services.IServices.IProductService;
 
 import java.time.LocalDateTime;
@@ -22,18 +18,16 @@ import java.util.List;
 public class ProductServiceImp implements IProductService {
     private final ProductReponesitory productReponesitory;
     private final ImageReponesitory imageReponesitory;
-    private final UserReponesitory userReponesitory;
 
     @Autowired
-    public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory,
-            UserReponesitory userReponesitory) {
+    public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory) {
         this.productReponesitory = productReponesitory;
         this.imageReponesitory = imageReponesitory;
-        this.userReponesitory = userReponesitory;
     }
 
     @Override
     public List<Product> getListProduct() {
+
         List<Product> listPr = productReponesitory.findAll();
         List<Image> listImg;
         for (Product p : listPr) {
@@ -44,16 +38,22 @@ public class ProductServiceImp implements IProductService {
     }
 
     @Override
-    public List<Product> listLoveProduct(String idUser) {
-        return productReponesitory.listLoveProduct(idUser);
+    public List<Product> listLikeProduct(String idUser) {
+        return productReponesitory.listLikeProduct(idUser);
     }
 
     @Override
-    public List<Product> searchProduct(String keyword) {
-        return productReponesitory.searchProduct(keyword);
+    public Product listProductById(String idpr) {
+        return productReponesitory.listProductById(idpr);
     }
 
     @Override
+    public List<Product> getIdMenuPr() {
+        return null;
+    }
+
+    @Override
+
     public List<Product> getListProductByKind(String kind) {
         List<Product> list = new ArrayList<>();
         list = productReponesitory.getListProductByKind(kind);
@@ -64,11 +64,6 @@ public class ProductServiceImp implements IProductService {
             p.setImage(imageReponesitory.getImageByIdPr(p.getIdPr()));
         }
         return list;
-    }
-
-    @Override
-    public List<Product> getIdMenuPr() {
-        return List.of();
     }
 
     @Override
@@ -143,7 +138,8 @@ public class ProductServiceImp implements IProductService {
         Page<Product> productPage = productReponesitory.findAll(pageable);
         return productPage.getContent();
         // imageReponesitory.save(i);
-//        imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(), i.getStatus());
+        // imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(),
+        // i.getStatus());
     }
 
     @Override
@@ -168,11 +164,12 @@ public class ProductServiceImp implements IProductService {
 
     @Override
     public void delete(String id) {
+
     }
 
     @Override
-    public Page<Product> findAll(Pageable page) {
-        return productReponesitory.findAll(page);
+    public List<Product> search(String keyword) {
+        return null;
     }
 
     @Override

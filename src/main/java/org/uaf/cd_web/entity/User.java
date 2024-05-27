@@ -75,10 +75,4 @@ public class User implements Serializable {
 //                ", id='" + id + '\'' +
                 '}';
     }
-    public String printCtAccount(String vl){
-        if (this.birthday==null || this.phone==null|| this.email==null  || this.address==null ) {
-            return "";
-        }
-        return vl;
-    }
 }

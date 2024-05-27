@@ -10,7 +10,8 @@ import org.uaf.cd_web.services.UserServiceImp;
 
 @Controller
 public class Home {
-    private UserServiceImp userServiceImp;
+    private
+    UserServiceImp userServiceImp;
 
     @Autowired
     public Home(UserServiceImp userServiceImp) {
@@ -22,7 +23,9 @@ public class Home {
         User user = (User) session.getAttribute("auth");
 
         model.addAttribute("auth", user);
+
         return "index";
     }
+
 
 }
