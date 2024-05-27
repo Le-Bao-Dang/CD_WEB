@@ -79,7 +79,7 @@ public class ProductManager {
         // Thực hiện lưu sản phẩm
         int index = productServiceImp.getListProduct().size() + 1;
         Detail_Pr detailPr = new Detail_Pr("", Date.valueOf(nsx), Date.valueOf(hsd), brand, mota, weight, origin, Date.valueOf(LocalDate.now()), inventory, 0);
-        Product product = new Product("", menu, discount, price, name, detailPr, null);
+        Product product = new Product("", menu, discount, price, name, detailPr);
         productServiceImp.add(product);
         // Lưu các tệp hình ảnh
         int count = 0;
@@ -181,7 +181,7 @@ public class ProductManager {
                               @RequestParam("condition") int condition) {
 
         Detail_Pr detailPr = new Detail_Pr(id, Date.valueOf(nsx), Date.valueOf(hsd), brand, mota, weight, origin, null, inventory, condition);
-        Product pr = new Product(id, menu, discount, price, name, detailPr, null);
+        Product pr = new Product(id, menu, discount, price, name, detailPr);
         productServiceImp.update(pr);
 
         return "redirect:/admin/formEdit?&id=" + id;

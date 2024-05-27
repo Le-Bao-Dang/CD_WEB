@@ -1,14 +1,13 @@
 package org.uaf.cd_web.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "sold_pr")
@@ -20,7 +19,6 @@ public class Sold_Pr implements Serializable {
     private String idPr;
     @Column(name = "ID_USER")
     private String idUser;
-
     @Column(name = "TIME_SOLD")
     private LocalDateTime timeSold;
     @Column(name = "AMOUNT")
@@ -29,6 +27,22 @@ public class Sold_Pr implements Serializable {
     private String idOrders;
     @Column(name = "PRICE_HERE")
     private int priceHere;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "sold_pr",
+            joinColumns = @JoinColumn(name = "ID_PR", referencedColumnName = "ID_PR"),
+            inverseJoinColumns = @JoinColumn(name = "ID_ORDERS", referencedColumnName = "ID_ORDERS")
+    )
+    private List<Orders> orders;
+    @ManyToOne
+    @JoinColumn(name = "ID_PR", insertable = false, updatable = false)
+    private Product product;
+
+    public String getTotalPrice() {
+        DecimalFormat dec = new DecimalFormat("#,###");
+        return dec.format(this.amount * this.priceHere).replace(',', '.');
+    }
 
     @Override
     public String toString() {

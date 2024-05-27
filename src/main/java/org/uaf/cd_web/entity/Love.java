@@ -26,11 +26,9 @@ public class Love implements Serializable {
 
     @Override
     public String toString() {
-        return "Like{" +
+        return "Love{" +
                 "idPr='" + idPr + '\'' +
                 ", iduser='" + iduser + '\'' +
                 '}';
     }
 }
-
-
