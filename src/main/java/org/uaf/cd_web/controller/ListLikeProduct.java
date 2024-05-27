@@ -18,8 +18,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/loveProduct")
 public class ListLikeProduct {
-    @Autowired
-    private ProductServiceImp productService;
+    private final ProductServiceImp productService;
+
+    public ListLikeProduct(ProductServiceImp productService) {
+        this.productService = productService;
+    }
+
     @GetMapping
     public String listLoveProd(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
@@ -28,6 +32,6 @@ public class ListLikeProduct {
         List<Product> listLikeProd= productService.listLikeProduct(user.getIdUser());
         System.out.println(listLikeProd);
         model.addAttribute("listLikeProd", listLikeProd);
-        return "love_product.html";
+        return "love_product";
     }
 }

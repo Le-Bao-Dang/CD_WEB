@@ -12,7 +12,7 @@ import org.uaf.cd_web.services.ProductServiceImp;
 @Controller
 @RequestMapping("/admin")
 public class AdminHomePage {
-    private ProductServiceImp productServiceImp;
+    public final ProductServiceImp productServiceImp;
 
     @Autowired
     public AdminHomePage(ProductServiceImp productServiceImp) {
