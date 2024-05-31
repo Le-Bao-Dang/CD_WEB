@@ -24,6 +24,7 @@ public class ProductServiceImp implements IProductService {
     private final ImageReponesitory imageReponesitory;
     private final SoldPrReponesitory soldPrReponesitory;
 
+
     @Autowired
     public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory, SoldPrReponesitory soldPrReponesitory) {
         this.productReponesitory = productReponesitory;
@@ -59,7 +60,6 @@ public class ProductServiceImp implements IProductService {
     }
 
     @Override
-
     public List<Product> getListProductByKind(String kind) {
         List<Product> list = new ArrayList<>();
         list = productReponesitory.getListProductByKind(kind);
@@ -180,5 +180,5 @@ public class ProductServiceImp implements IProductService {
     }
 
 
-
 }
+

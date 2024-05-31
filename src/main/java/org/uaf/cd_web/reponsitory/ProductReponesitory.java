@@ -23,7 +23,6 @@ public interface ProductReponesitory extends JpaRepository<Product, String>, Pag
     @Query("select p from Product  p where p.idPr=:idpr ")
     Product listProductById(String idpr);
 
-
     Product getProductByIdPr(String id);
 
     @Query("SELECT  p FROM Product p WHERE p.idMenu =:idMenu")

@@ -11,6 +11,6 @@
   </error-page>
 <!--  <error-page>-->
 <!--    <error-code>500</error-code>-->
-<!--    <location>/WEB-INF/Error/PageNotFound.jsp</location>-->
+<!--    <location>/WEB-INF/Error/PageNotFound.html</location>-->
 <!--  </error-page>-->
 </web-app>
