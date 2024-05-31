@@ -35,4 +35,8 @@ public interface IProductService {
     List<Product> search(String keyword);
     void deleteImg(String url);
     List<Product> listLikeProduct(String idUser);
+
+    List<Product> getListProductHostSale();
+
+    int getStopPr();
 }
