@@ -1,9 +1,6 @@
 package org.uaf.cd_web.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +8,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name="user")
@@ -40,6 +38,15 @@ public class User implements Serializable {
     private Boolean sex;
     @Column(name = "Decentralization")
     private int decentralization;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Love> listLove;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Cart> listcart;
+
+
+    public User(String user14353, String dsd, String number, String dang, String number1, String mail, Date date, Date date1, boolean b, int i) {
+    }
 
     //lấy thông tin của tk gg
 //    @Column(name="idgg")
@@ -74,5 +81,11 @@ public class User implements Serializable {
 //                ", name='" + name + '\'' +
 //                ", id='" + id + '\'' +
                 '}';
+    }
+    public String printCtAccount(String vl){
+        if (this.birthday==null || this.phone==null|| this.email==null  || this.address==null ) {
+            return "";
+        }
+        return vl;
     }
 }

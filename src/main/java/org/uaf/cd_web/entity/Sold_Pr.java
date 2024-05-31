@@ -29,12 +29,9 @@ public class Sold_Pr implements Serializable {
     private int priceHere;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "sold_pr",
-            joinColumns = @JoinColumn(name = "ID_PR", referencedColumnName = "ID_PR"),
-            inverseJoinColumns = @JoinColumn(name = "ID_ORDERS", referencedColumnName = "ID_ORDERS")
-    )
+    @JoinTable(name = "sold_pr", joinColumns = @JoinColumn(name = "ID_PR", referencedColumnName = "ID_PR"), inverseJoinColumns = @JoinColumn(name = "ID_ORDERS", referencedColumnName = "ID_ORDERS"))
     private List<Orders> orders;
+
     @ManyToOne
     @JoinColumn(name = "ID_PR", insertable = false, updatable = false)
     private Product product;
@@ -55,4 +52,15 @@ public class Sold_Pr implements Serializable {
                 ", priceHere=" + priceHere +
                 '}';
     }
+
+    public String formatTime() {
+        return timeSold.getDayOfMonth() + "-" + timeSold.getMonthValue() + "-" + timeSold.getYear() + " "
+                + timeSold.getHour() + ":" + timeSold.getMinute();
+    }
+
+    public int getStatus() {
+        return getOrders().get(0).getStatus();
+    }
+
+
 }

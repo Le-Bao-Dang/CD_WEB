@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BHNFoods | Lịch sử</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="body_design/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/style.css" type="text/css">
+
+    <style>
+        .shoping-cart .container .row {
+            border: 2px solid rgb(168, 168, 168);
+            padding-top: 20px;
+            margin: 20px 0;
+        }
+
+        .shoping-cart .container::before {
+            content: "Lịch sử giao dịch";
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<body>
+
+<!-- Include header -->
+<header th:replace="header.html"></header>
+
+<section class="shoping-cart spad">
+    <div class="container">
+        <div th:each="entry: ${mapOrders}">
+            <div class="row"  >
+                <div class="col-lg-12">
+                    <div class="shoping__cart__table">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th class="shoping__product">Sản Phẩm</th>
+                                <th></th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Tổng</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="s : ${entry.value}">
+                                <td class="shoping__cart__quantity">
+                                    <img th:src="${s.product.getAvt().getUrl()}" alt="" style="width: 100px;height: auto">
+                                </td>
+                                <td class="shoping__cart__item">
+                                    <h5 th:text="${s.product.namePr}"></h5>
+                                </td>
+                                <td class="shoping__cart__price">
+                                    <span th:text="${#numbers.formatDecimal(s.priceHere, 0, 'POINT', 0, 'COMMA')} + 'đ'"></span>
+                                </td>
+                                <td class="shoping__cart__quantity">
+                                    <span th:text="${s.amount}"></span>
+                                </td>
+                                <td class="shoping__cart__total">
+                                    <span th:text="${#numbers.formatDecimal(s.amount * s.priceHere, 0, 'POINT', 0, 'COMMA')}"></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-between pt-5 align-items-center" th:each="s1: ${entry.value.get(0)}">
+                            <div>
+                                <h5>Thời gian đặt hàng: <span th:text="${s1.timeSold}"></span></h5>
+                            </div>
+                            <div>
+                                <h5 th:if="${s1.getStatus() == 2}" style="color:#7fad39; border: none;">Giao hàng thành công</h5>
+                                <h5 th:if="${s1.getStatus() != 2}" style="color:#CC3636; border: none;">Giao hàng không thành công</h5>
+                            </div>
+                            <div>
+                                <h5>Tổng đơn hàng: <span th:text="${#numbers.formatDecimal(sumOrders[entry.key], 0, 'POINT', 0, 'COMMA')} + 'đ'"></span></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Include footer -->
+<footer th:replace="footer.html"></footer>
+
+<script src="body_design/js/jquery-3.3.1.min.js"></script>
+<script src="body_design/js/jquery.nice-select.min.js"></script>
+<script src="body_design/js/jquery-ui.min.js"></script>
+<script src="body_design/js/jquery.slicknav.js"></script>
+<script src="body_design/js/mixitup.min.js"></script>
+<script src="body_design/js/owl.carousel.min.js"></script>
+<script src="body_design/js/main.js"></script>
+</body>
+</html>

@@ -52,35 +52,35 @@
                 Đăng ký
               </p>
               <form class="forms-sample" action="/signup" method="post" th:action="@{/signup}">
-                <label th:if="${errorAcc !=null}" for="exampleInputName1" style="color: #CC3636"
+                <label th:if="${errorAcc}" for="exampleInputName1" style="color: #CC3636"
                        th:text="${errorAcc}"></label>
                 <div class="form-group">
                   <label for="exampleInputName1">Họ và tên </label>
-                  <input type="text" name="name" class="form-control" id="exampleInputName1"
+                  <input type="text" name="name" class="form-control"
                          placeholder="Nhập đầy đủ họ tên" required
                          th:value="${param.name}">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputName1">Địa chỉ Email</label>
-                  <input type="email" name="email" class="form-control" id="exampleInputName1"
-                         placeholder="Nhập Email" required th:value="${param.email}">
+                  <input type="email" name="email" class="form-control" required
+                         placeholder="Nhập Email"  th:value="${param.email}">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputName1">Số điện thoại</label>
-                  <input type="text" name="phone" class="form-control" id="exampleInputName1"
+                  <input type="text" maxlength="10" minlength="10" class="form-control" id="exampleInputName1"
                          placeholder="Nhập số điện thoại" required th:value="${param.phone}">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword4">Tạo mật khẩu</label>
-                  <input type="password" name="pass" class="form-control" id="pass"
+                  <input type="password" name="pass" class="form-control" id="pass" required
                          placeholder="Nhập mật khẩu mới">
                 </div>
-                <label th:if="${errorDup !=null}" for="exampleInputName1" style="color: #CC3636"
+                <label th:if="${errorDup}" for="exampleInputName1" style="color: #CC3636"
                        th:text="${errorDup}"></label>
                 <div class="form-group">
                   <label for="exampleInputPassword4">Nhập lại mật khẩu</label>
                   <input type="password" name="repass" class="form-control"
-                         id="exampleInputPassword4" placeholder="Nhập lại mật khẩu">
+                         id="repass" required placeholder="Nhập lại mật khẩu">
                 </div>
                 <div class="form-group button_primary">
                   <button type="submit" onclick="validateInput(event)" style="margin-bottom: 0"
@@ -102,11 +102,43 @@
 
 <script>
   function validateInput(event) {
-    const input = document.getElementById('pass').value;
-    if (input.length < 8) {
-      alert('Vui lòng nhập mật khẩu đủ 8 kí tự');
+    const pass = document.getElementById('pass').value;
+    const repass = document.getElementById('repass').value;
+    if (pass.length < 8) {
+      alert('* Vui lòng nhập mật khẩu đủ 8 kí tự');
       event.preventDefault(); // Ngăn không cho form submit
     }
+    if(repass!== pass){
+      alert('* Mật khẩu không trùng khớp');
+      event.preventDefault();
+    }
+      const email = document.querySelector('input[name="email"]').value;
+      const phone = document.querySelector('input[name="phone"]').value;
+      const errorLabel = document.getElementById('errorLabel');
+      errorLabel.innerText = ''; // Clear previous errors
+
+      if (!validateEmail(email)) {
+        event.preventDefault();
+        errorLabel.innerText = "Địa chỉ email không hợp lệ!";
+        return false;
+      }
+
+      if (!validatePhoneNumber(phone)) {
+        event.preventDefault();
+        errorLabel.innerText = "Số điện thoại phải chứa đúng 10 số và không có chữ cái!";
+        return false;
+      }
+
+      return true;
+  }
+  function validateEmail(email) {
+    const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  function validatePhoneNumber(phone) {
+    const re = /^[0-9]{10}$/;
+    return re.test(phone);
   }
 </script>
 

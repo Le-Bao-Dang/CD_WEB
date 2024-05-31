@@ -10,7 +10,6 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "menu")
-@Data
 @Getter
 @Setter
 @AllArgsConstructor
@@ -28,7 +27,6 @@ public class Menu implements Serializable {
     public String toString() {
         return "Menu [idMenu=" + idMenu + ", nameMenu=" + nameMenu + ", apaenu=" + paMenu + "]";
     }
-
 
 
 }

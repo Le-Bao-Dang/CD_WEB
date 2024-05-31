@@ -31,19 +31,21 @@ public class Orders implements Serializable {
     private LocalDateTime timePickup;
     @Column(name = "NOTE")
     private String note;
-    @Column(name = "CONDITION")
-    private int condition;
+    @Column(name = "STATUS")
+    private int status;
+
+
     @ManyToMany(mappedBy = "orders", cascade = CascadeType.ALL)
     private List<Sold_Pr> prList;
 
-    public String checkCondition() {
-        if (condition == -2) return "Đã hủy";
-        if (condition == -1) return "giao không thành công";
-        if (condition == 0) return "Đang chuẩn bị";
-        if (condition == 1) return "Đang giao";
-        if (condition == 2) return "Đã giao";
-        if (condition == 3) return "Chờ xác nhận";
-        if (condition == 4) return "Đã xác nhận";
+    public String checkstatus() {
+        if (status == -2) return "Đã hủy";
+        if (status == -1) return "giao không thành công";
+        if (status == 0) return "Đang chuẩn bị";
+        if (status == 1) return "Đang giao";
+        if (status == 2) return "Đã giao";
+        if (status == 3) return "Chờ xác nhận";
+        if (status == 4) return "Đã xác nhận";
         return "Đơn hàng không xác định";
 
     }
@@ -85,7 +87,11 @@ public class Orders implements Serializable {
                 ", timeOrders=" + timeOrders +
                 ", timePickup=" + timePickup +
                 ", note='" + note + '\'' +
-                ", condition=" + condition +
+                ", status=" + status +
                 '}';
+    }
+
+    public int getStatus() {
+        return status;
     }
 }

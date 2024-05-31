@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>BHDFoods| Liên hệ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Add your CSS files here -->
+</head>
+<body class="goto-here">
+<header th:replace="header"></header> <!-- Thymeleaf header inclusion -->
+<div class="hero-wrap hero-bread" style="background-image: url('/images/background.jpg');">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs">
+                    <span class="mr-2"><a class="text-dark" href="index.html">Liên hệ -</a></span>
+                    <span class="text-dark">Hướng dẫn</span>
+                </p>
+                <h1 class="mb-0 bread text-dark">Liên hệ chúng tôi</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section contact-section bg-light">
+    <div class="container">
+        <div class="row d-flex mb-5 contact-info">
+            <div class="w-100"></div>
+            <!-- Add your contact info using Thymeleaf -->
+        </div>
+
+        <!-- Iterate over the list of users using Thymeleaf -->
+        <div class="row block-9" th:each="user : ${listCtAccount}">
+            <div class="col-md-6 order-md-last d-flex">
+                <form action="/ContactInUser" method="post" class="bg-white p-5 contact-form">
+                    <h3 style="color: #82ae46">Gửi phản hồi cho chúng tôi</h3>
+                    <!-- Add form fields with Thymeleaf -->
+                    <div class="form-group" style="display: none">
+                        <input name="iduser" type="text" class="form-control" placeholder="Họ và tên" th:value="${user.idUser}">
+                    </div>
+                    <div class="form-group">
+                        <input name="nameuser" type="text" class="form-control" placeholder="Họ và tên" th:value="${user.nameUser}">
+                    </div>
+                    <!-- Add other form fields with Thymeleaf -->
+                    <div class="form-group" style="text-align: right">
+                        <input type="submit" value="Gửi" class="btn btn-primary py-3 px-5">
+                    </div>
+                </form>
+            </div>
+
+            <!-- Add your instruction content using Thymeleaf -->
+        </div>
+    </div>
+</section>
+
+<footer th:replace="footer"></footer> <!-- Thymeleaf footer inclusion -->
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"/>
+    </svg>
+</div>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-migrate-3.0.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.waypoints.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/aos.js"></script>
+<script src="js/jquery.animateNumber.min.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="js/google-map.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

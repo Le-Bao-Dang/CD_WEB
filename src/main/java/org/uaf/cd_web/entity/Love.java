@@ -1,9 +1,6 @@
 package org.uaf.cd_web.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +20,14 @@ public class Love implements Serializable {
     private String idPr;
     @Column(name = "ID_USER")
     private String iduser;
+
+    @ManyToOne()
+    @JoinColumn(name = "ID_PR", referencedColumnName = "ID_PR", insertable = false, updatable = false)
+    private Product product;
+
+    @ManyToOne()
+    @JoinColumn(name = "ID_USER", referencedColumnName = "ID_USER",insertable=false, updatable=false)
+    private User user;
 
     @Override
     public String toString() {

@@ -9,24 +9,30 @@ import org.springframework.transaction.annotation.Transactional;
 import org.uaf.cd_web.entity.Detail_Pr;
 import org.uaf.cd_web.entity.Image;
 import org.uaf.cd_web.entity.Product;
+import org.uaf.cd_web.entity.Sold_Pr;
 import org.uaf.cd_web.reponsitory.ImageReponesitory;
 import org.uaf.cd_web.reponsitory.ProductReponesitory;
+import org.uaf.cd_web.reponsitory.SoldPrReponesitory;
 import org.uaf.cd_web.services.IServices.IProductService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductServiceImp implements IProductService {
     private final ProductReponesitory productReponesitory;
     private final ImageReponesitory imageReponesitory;
+    private final SoldPrReponesitory soldPrReponesitory;
 
 
     @Autowired
-    public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory) {
+    public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory, SoldPrReponesitory soldPrReponesitory) {
         this.productReponesitory = productReponesitory;
         this.imageReponesitory = imageReponesitory;
+        this.soldPrReponesitory = soldPrReponesitory;
     }
 
     @Override
@@ -73,8 +79,7 @@ public class ProductServiceImp implements IProductService {
     public Page<Product> getListProductInPage(String kind, int page) { // phân trang
         kind = "m" + kind;
         Pageable pageable = PageRequest.of(page, 15);
-//        return productReponesitory.getProductByPaMenu(kind, pageable);
-        return null;
+        return productReponesitory.getProductByPaMenu(kind, pageable);
     }
 
     @Override
@@ -99,10 +104,11 @@ public class ProductServiceImp implements IProductService {
         int size = getListProductByKind(kind).size();
         return size;
     }
-
+    // format thời gian ngày tháng năm giờ phút
     @Override
     public String formatTime(LocalDateTime dateTime) {
-        return dateTime.getDayOfMonth() + "-" + dateTime.getMonthValue() + "-" + dateTime.getYear() + " " + dateTime.getHour() + ":" + dateTime.getMinute();
+        return dateTime.getDayOfMonth() + "-" + dateTime.getMonthValue() + "-" + dateTime.getYear() + " "
+                + dateTime.getHour() + ":" + dateTime.getMinute();
     }
 
     @Override
@@ -127,8 +133,17 @@ public class ProductServiceImp implements IProductService {
         Image i = image;
         i.setIdPr(image.getIdPr());
         i.setIdImg(image.getIdImg());
-//        imageReponesitory.save(i);
+        // imageReponesitory.save(i);
         imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(), i.getStatus());
+    }
+
+    public List<Product> getProducts(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> productPage = productReponesitory.findAll(pageable);
+        return productPage.getContent();
+        // imageReponesitory.save(i);
+        // imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(),
+        // i.getStatus());
     }
 
     @Override

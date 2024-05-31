@@ -33,10 +33,6 @@ public interface IProductService {
     void update(Product product);
     void delete(String id);
     List<Product> search(String keyword);
-
-
     void deleteImg(String url);
-
-
     List<Product> listLikeProduct(String idUser);
 }
