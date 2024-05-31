@@ -9,23 +9,29 @@ import org.springframework.transaction.annotation.Transactional;
 import org.uaf.cd_web.entity.Detail_Pr;
 import org.uaf.cd_web.entity.Image;
 import org.uaf.cd_web.entity.Product;
+import org.uaf.cd_web.entity.Sold_Pr;
 import org.uaf.cd_web.reponsitory.ImageReponesitory;
 import org.uaf.cd_web.reponsitory.ProductReponesitory;
+import org.uaf.cd_web.reponsitory.SoldPrReponesitory;
 import org.uaf.cd_web.services.IServices.IProductService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductServiceImp implements IProductService {
     private final ProductReponesitory productReponesitory;
     private final ImageReponesitory imageReponesitory;
+    private final SoldPrReponesitory soldPrReponesitory;
 
     @Autowired
-    public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory) {
+    public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory, SoldPrReponesitory soldPrReponesitory) {
         this.productReponesitory = productReponesitory;
         this.imageReponesitory = imageReponesitory;
+        this.soldPrReponesitory = soldPrReponesitory;
     }
 
     @Override
@@ -70,15 +76,10 @@ public class ProductServiceImp implements IProductService {
     }
 
     @Override
-    public List<Product> getListProductInPage(String kind, int page) { // phân trang
-        List<Product> list = new ArrayList<>();
-        List<Product> prByKind = getListProductByKind(kind);
-        int start = (page - 1) * 15 < 0 ? 0 : (page - 1) * 15;
-        int end = page <= prByKind.size() / 15 ? page * 15 : prByKind.size() - ((page - 1) * 15) + start;
-        for (int i = start; i < end; i++) {
-            list.add(prByKind.get(i));
-        }
-        return list;
+    public Page<Product> getListProductInPage(String kind, int page) { // phân trang
+        kind = "m" + kind;
+        Pageable pageable = PageRequest.of(page, 15);
+        return productReponesitory.getProductByPaMenu(kind, pageable);
     }
 
     @Override
@@ -103,7 +104,7 @@ public class ProductServiceImp implements IProductService {
         int size = getListProductByKind(kind).size();
         return size;
     }
-
+    // format thời gian ngày tháng năm giờ phút
     @Override
     public String formatTime(LocalDateTime dateTime) {
         return dateTime.getDayOfMonth() + "-" + dateTime.getMonthValue() + "-" + dateTime.getYear() + " "
@@ -180,5 +181,7 @@ public class ProductServiceImp implements IProductService {
     public void deleteImg(String url) {
         imageReponesitory.deleteImageByUrl(url);
     }
+
+
 
 }

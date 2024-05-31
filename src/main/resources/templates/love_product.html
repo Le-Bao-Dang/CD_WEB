@@ -41,19 +41,20 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each= " p : ${listLoveProd}" th:id="${p.idPr}">
+                        <tr th:each= "p:${listLoveProd}">
                             <td class="shoping__cart__quantity">
-                                <img th:src="${p.getAvt()}" alt="">
+                                <img th:src="${p.getAvt().getUrl()}" alt="">
                             </td>
                             <td class="shoping__cart__item"><h5 th:text="${p.namePr}"></h5></td>
                             <td class="shoping__cart__price">
-                                <span th:text="${#numbers.formatDecimal(p.price, 0, 'COMMA')} + 'đ'"></span>
+
+                                <span th:text="${#numbers.formatDecimal(p.price, 0,'POINT', 0, 'COMMA')} + 'đ'"></span>
                             </td>
                             <td class="shoping__cart__quantity">
-                                <button th:id="'addToCart-' + ${p.idPr}" onclick="addToCart('${p.idPr}')" >Thêm</button>
+                                <button th:id="'addToCart-' + ${p.idPr}" th:onclick="'addToCart('${p.idPr}')'" >Thêm</button>
                             </td>
                             <td class="shoping__cart__item__close">
-                                <span th:onclick="|remove('${p.idPr}')|" class="icon_close"></span>
+                                <span th:onclick="'remove('${p.idPr}')'" class="icon_close"></span>
                             </td>
                         </tr>
                         </tbody>
@@ -64,7 +65,7 @@
     </div>
 </section>
 
-<footer th:replace="footer"></footer> <!-- Thymeleaf footer inclusion -->
+<footer th:replace="footer.html"></footer> <!-- Thymeleaf footer inclusion -->
 
 <script th:inline="javascript">
     function addToCart(idProd) {

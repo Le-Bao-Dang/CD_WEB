@@ -21,7 +21,7 @@ public class Image implements Serializable {
     private String idImg;
     @Column(name = "URL")
     private String url;
-    @Column(name = "status")
+    @Column(name = "STATUS")
     private int status;
 
     @ManyToOne()
@@ -41,6 +41,13 @@ public class Image implements Serializable {
     @Override
     public String toString() {
         return "Image [idPr=" + idPr + ", idImg=" + idImg + ", url=" + url + ", status=" + status + "]";
+    }
+
+    public String getAvt(){
+        if(status == 0){
+            return url;
+        }
+        return null;
     }
 
 }

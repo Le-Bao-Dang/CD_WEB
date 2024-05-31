@@ -44,11 +44,11 @@
                         <tbody>
                         <tr th:each="p : ${listCart}">
                             <td class="shoping__cart__item">
-                                <img th:src="${p.url}" alt="" style="width: 100px;height: auto">
-                                <h5 th:text="${p.namePr}"></h5>
+                                <img th:src="${p.product.getAvt().getUrl()}" alt="" style="width: 100px;height: auto">
+                                <h5 th:text="${p.product.getNamePr()}"></h5>
                             </td>
                             <td class="shoping__cart__price">
-                                <span th:text="${#numbers.formatDecimal((p.price - (p.price * p.discount)/100),1,'COMMA')} + 'đ'"></span>
+                                <span th:text="${#numbers.formatDecimal((p.getProduct().getPrice() - (p.getProduct().getPrice() * p.getProduct().getDiscount())/100),0,'POINT',0,'COMMA')} + 'đ'"></span>
                             </td>
                             <td class="shoping__cart__quantity">
                                 <div class="quantity">
@@ -59,14 +59,17 @@
                                     </div>
                                 </div>
                             </td>
-                            <td th:id="'th'total${p.idPr}" class="shoping__cart__total">
-                                <span th:text="${#numbers.formatDecimal(p.amount * (p.price - (p.price * p.discount)/100),1,'COMMA')} + ' đ'"></span>
+                            <td th:id="'total' + ${p.idPr}" class="shoping__cart__total">
+                                <span th:text="${#numbers.formatDecimal(p.amount * (p.product.getPrice() - (p.product.getPrice() * p.product.getDiscount()) / 100), 0, 'POINT', 0, 'COMMA')} + ' đ'"></span>
                             </td>
                             <td style="padding: 30px">
-                                <input name="checkboxInput" th:id="'th'box${p.idPr}" th:onclick="'checkBox(this,' + \'${p.idPr}\' + ',' + \'${p.price}\' + ',' + document.getElementById(\'amount${p.idPr}\') + ')'" class="checkBoxCart" type="checkbox" checked style="transform: scale(1.5)">
+                                <input name="checkboxInput" th:id="'box' + ${p.idPr}"
+                                       th:onclick="checkBox(this,'${p.idPr}', '${p.price}', document.getElementById('amount' + ${p.idPr}))"
+                                       class="checkBoxCart" type="checkbox" checked style="transform: scale(1.5)">
                             </td>
                             <td class="shoping__cart__item__close">
-                                <span th:onclick="'removeProduct(document.getElementById(\'totalCart\'),document.getElementById(\'box${p.idPr}\'),\'' + ${p.idPr} + '\',\'' + ${p.price} + '\', document.getElementById(\'amount${p.idPr}\'))'" class="icon_close"></span>
+                                <span th:onclick="removeProduct(document.getElementById('totalCart'), document.getElementById('box' + ${p.idPr}), '${p.idPr}', '${p.price}', document.getElementById('amount' + ${p.idPr}))"
+                                      class="icon_close"></span>
                             </td>
                         </tr>
                         </tbody>
@@ -78,7 +81,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="shoping__cart__btns">
-                    <a href="/ListProduct?kind=0&amp;page=1" class="primary-btn cart-btn">Tiếp tục mua hàng</a>
+                    <a href="/listProduct?kind=1&page=1" class="primary-btn cart-btn">Tiếp tục mua hàng</a>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -97,15 +100,15 @@
                         <ul>
                             <li id="sum" th:value="${sum}">Tổng tiền hàng
                                 <input name="sumCheckout" th:value="${sum}" style="display: none">
-                                <span th:text="${#numbers.formatDecimal(sum,1,'COMMA')} + 'đ'"></span>
+                                <span th:text="${#numbers.formatDecimal(sum,1,'POINT', 0,'COMMA')} + 'đ'"></span>
                             </li>
                             <li id="discount" th:value="${0}">Giảm
                                 <input name="discountCheckout" th:value="${0}" style="display: none">
-                                <span th:text="${#numbers.formatDecimal(0,1,'COMMA')} + 'đ'"></span>
+                                <span th:text="${#numbers.formatDecimal(0,1,'POINT', 0, 'COMMA')} + 'đ'"></span>
                             </li>
                             <li id="total" th:value="${sum - 0}">Tổng thanh toán (chưa gồm phí vận chuyển)
                                 <input name="totalCheckout" th:value="${sum - 0}" style="display: none">
-                                <span th:text="${#numbers.formatDecimal(sum - 0,1,'COMMA')} + 'đ'"></span>
+                                <span th:text="${#numbers.formatDecimal(sum - 0,1,'POINT', 0,'COMMA')} + 'đ'"></span>
                             </li>
                             <input id="idProdChecked" type="text" name="allIdProdChecked" value="" style="display: none">
                             <input id="maGiamGiaHide" name="maGiamGia" value="" style="display: none">
@@ -118,7 +121,7 @@
     </div>
 </section>
 
-<footer th:replace="footer :: footer"></footer>
+<footer th:replace="footer.html"></footer>
 
 <script>
     $(document).ready(function() {
@@ -141,7 +144,7 @@
     }
     $('#idProdChecked').val(toStringIdChecked);
 
-    let sumCart = ${sumCart};
+    let sumCart = "${sumCart}";
 
     function format1(n, currency) {
         return n.toFixed(0).replace(/./g, function (c, i, a) {

@@ -12,14 +12,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="body_design/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="body_design/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="body_design/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="body_design/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="body_design/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="body_design/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="body_design/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="body_design/css/style.css" type="text/css">
+    <link rel="stylesheet" th:href="@{/body_design/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/body_design/css/font-awesome.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/body_design/css/elegant-icons.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/body_design/css/nice-select.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/body_design/css/jquery-ui.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/body_design/css/owl.carousel.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/body_design/css/slicknav.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/body_design/css/style.css}" type="text/css">
 </head>
 
 <body>
@@ -40,11 +40,11 @@
                                 <span>Danh sách sản phẩm</span>
                             </div>
                             <ul>
-                                <li><a th:href="@{/ListProduct(kind=1, page=1)}">Gạo</a></li>
-                                <li><a th:href="@{/ListProduct(kind=2, page=1)}">Nếp</a></li>
-                                <li><a th:href="@{/ListProduct(kind=3, page=1)}">Các loại hạt</a></li>
-                                <li><a th:href="@{/ListProduct(kind=4, page=1)}">Các loại bột</a></li>
-                                <li><a th:href="@{/ListProduct(kind=5, page=1)}">Các loại củ, trái</a></li>
+                                <li><a th:href="@{/listProduct(kind=1, page=1)}">Gạo</a></li>
+                                <li><a th:href="@{/listProduct(kind=2, page=1)}">Nếp</a></li>
+                                <li><a th:href="@{/listProduct(kind=3, page=1)}">Các loại hạt</a></li>
+                                <li><a th:href="@{/listProduct(kind=4, page=1)}">Các loại bột</a></li>
+                                <li><a th:href="@{/listProduct(kind=5, page=1)}">Các loại củ, trái</a></li>
                             </ul>
                         </div>
                     </div>
@@ -54,7 +54,64 @@
                         <div class="latest-product__text">
                             <h4>Sản phẩm mới nhất</h4>
                             <div class="latest-product__slider owl-carousel">
-                                <!-- Product items here -->
+                                <div class="latest-prdouct__slider__item">
+                                    <a href="#" class="latest-product__item" >
+                                        <div class="latest-product__item__pic">
+                                            <img src="ImageproductNew/Bot/Bot-nang-tan-san/bot-nang-tan-sang-goi-400g-202102060020004073.jpg" alt="" >
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>Bột năng Tấn Sang</h6>
+                                            <span>40.000đ</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="ImageproductNew/Dau/dau-do-xuan-hong-goi-500g-300x300.jpg" alt="" >
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>Đậu đỏ Xuân Hồng 500g</h6>
+                                            <span>25.000đ</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="ImageproductNew/Khoai/khoai-mo/khoai-mo-tui-1kg-1-2-cu-202209141012253686_300x300.jpg" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>Khoai mỡ túi 1kg(1-2 củ)</h6>
+                                            <span>35.000đ</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="latest-prdouct__slider__item">
+                                    <a href="#" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="ImageproductNew/Nep/gao-nep-cai-hoa-vang-coop-select-1kg-300x300.jpg" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>Gạo nếp Cái Hoa Vàng- CoopSelect 1kg</h6>
+                                            <span>36.000đ</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="ImageproductNew/Bot/Ngu-coc-yumfood/thuc-pham-bo-sung-ngu-coc-dinh-duong-yumfood-goi-500g-202010122202206323.jpg" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6> Ngũ cốc dinh dưỡng Yumfood 500g</h6>
+                                            <span>105.000đ</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="ImageproductNew/Dau/dau-den-viet-san/dau-den-viet-san-150g-202205231452334172_300x300.jpg" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>Đậu đen Việt San 150g</h6>
+                                            <span>25.000đ</span>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -69,7 +126,76 @@
                     </div>
                     <div class="row">
                         <div class="product__discount__slider owl-carousel">
-                            <!-- Discounted products here -->
+                            <div th:each="product : ${listPr}" class="col-lg-4">
+                                <div class="product__discount__item">
+                                    <div class="product__discount__item__pic set-bg" th:style="'background-image: url('+'/' + ${product.getAvt().getUrl()} + ')'">
+                                        <div class="product__discount__percent">-<span th:text="${product.discount}"></span>%</div>
+                                        <div th:if="${user != null}">
+                                            <ul class="product__item__pic__hover">
+                                                <li th:if="${listlike.contains(product.getIdPr())}">
+                                                    <button th:id="'heart' + ${product.getIdPr()}" class="background-button" style="color: white" th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">
+                                                        <i class="fa fa-heart"></i>
+                                                    </button>
+                                                </li>
+                                                <li th:if="${!listlike.contains(product.getIdPr())}">
+<!--                                                    <button th:id="'heart' + ${product.getIdPr()}" th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">-->
+<!--                                                        <i class="fa fa-heart"></i>-->
+<!--                                                    </button>-->
+                                                    <button th:id="'heart' + ${product.getIdPr()}"
+                                                            onclick="loveInListProd([[${product.getIdPr()}]], 'heart' + [[${product.getIdPr()}]])">
+                                                        <i class="fa fa-heart"></i></button>
+                                                </li>
+                                                <!-- Kiểm tra giỏ hàng -->
+<!--                                                <li th:if="${cart.contains(product.getIdPr())}">-->
+<!--                                                    <button th:id="'cart' + ${product.idPr}" class="background-button" style="color: white" th:onclick="'addToCartInListProd(' + ${product.getIdPr()} + ', ' + 'cart' + ${product.getIdPr()} + ')'">-->
+<!--                                                        <i class="fa fa-shopping-cart"></i>-->
+<!--                                                    </button>-->
+<!--                                                </li>-->
+<!--                                                <li th:if="${!cart.contains(product.getIdPr())}">-->
+<!--                                                    <button th:id="'cart' + ${product.getIdPr()}" th:onclick="'addToCartInListProd(' + ${product.getIdPr()} + ', ' + 'cart' + ${product.getIdPr()} + ')'">-->
+<!--                                                        <i class="fa fa-shopping-cart"></i>-->
+<!--                                                    </button>-->
+<!--                                                </li>-->
+                                            </ul>
+                                        </div>
+                                        <!--                                        <div th:if="${userId == null}">-->
+                                        <!--                                            <ul class="product__item__pic__hover">-->
+                                        <!--                                                <li th:if="${listlike != null and listlike.contains(product.getIdPr())}">-->
+                                        <!--                                                    <button th:id="'heart' + ${product.getIdPr()}" class="background-button" style="color: white" th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.idPr} + ')'">-->
+                                        <!--                                                        <i class="fa fa-heart"></i>-->
+                                        <!--                                                    </button>-->
+                                        <!--                                                </li>-->
+                                        <!--                                                <li th:if="${listlike == null or !listlike.contains(product.getIdPr())}">-->
+                                        <!--                                                    <button th:id="'heart' + ${product.getIdPr()}" th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">-->
+                                        <!--                                                        <i class="fa fa-heart"></i>-->
+                                        <!--                                                    </button>-->
+                                        <!--                                                </li>-->
+                                        <!--                                                &lt;!&ndash; Kiểm tra giỏ hàng &ndash;&gt;-->
+                                        <!--&lt;!&ndash;                                                <li th:if="${cartSession != null and cartSession.containsKey(product.idPr)}">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;                                                    <button th:id="'cart' + ${product.idPr}" class="background-button" style="color: white" th:onclick="'addToCartInListProd(' + ${product.idPr} + ', ' + 'cart' + ${product.idPr} + ')'">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;                                                        <i class="fa fa-shopping-cart"></i>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;                                                    </button>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;                                                </li>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;                                                <li th:if="${cartSession == null or !cartSession.containsKey(product.idPr)}">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;                                                    <button th:id="'cart' + ${product.idPr}" th:onclick="'addToCartInListProd(' + ${product.idPr} + ', ' + 'cart' + ${product.idPr} + ')'">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;                                                        <i class="fa fa-shopping-cart"></i>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;                                                    </button>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;                                                </li>&ndash;&gt;-->
+                                        <!--                                            </ul>-->
+                                        <!--                                        </div>-->
+                                    </div>
+                                    <div class="product__discount__item__text">
+                                        <a th:href="@{/oneProduct(id=${product.idPr})}">
+                                            <span>Gạo</span>
+                                            <h5 th:text="${product.namePr}"></h5>
+                                            <div class="product__item__price">
+                                                <span th:text="${product.getPriceNow()} + 'đ'"></span>
+                                                <!--                                                <span th:text="${#numbers.formatNumber(product.price, 0, 'decimal').replace(',','.')} + 'đ'"></span>-->
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -93,7 +219,67 @@
 
                 <!-- Product list -->
                 <div id="content" class="row">
-                    <!-- Product items here -->
+                    <div th:each="product : ${listPr}" class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg" th:style="'background-image: url(/' + ${product.getAvt().getUrl()} + ')'" th:classappend="${product.getDiscount() > 0} ? 'has-discount' : ''">
+                                <div  th:classappend="${product.getDiscount() > 0} ? 'discount__percent' : ''"><span th:text="${product.getDiscount >0} ? '-'+ ${product.getDiscount}+'%' : ''"></span></div>
+                                <div th:if="${user != null}">
+                                        <ul class="product__item__pic__hover">
+                                        <li th:if="${listlike.contains(product.getIdPr())}">
+                                            <button th:id="'heart' + ${product.getIdPr()}" class="background-button" style="color: white" th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">
+                                                <i class="fa fa-heart"></i>
+                                            </button>
+                                        </li>
+                                        <li th:if="${!listlike.contains(product.getIdPr())}">
+<!--                                            <button th:id="'heart' + ${product.getIdPr()}" th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">-->
+<!--                                                <i class="fa fa-heart"></i>-->
+<!--                                            </button>-->
+                                        </li>
+                                        <!--                                        <li th:if="${#bools.isTrue(cartService.checkExist(user.idUser, product.idPr))}">-->
+                                        <!--                                            <button th:id="'cart' + ${product.getIdPr()}" class="background-button" style="color: white" th:onclick="'addToCartInListProd(' + ${product.getIdPr()} + ', ' + 'cart' + ${product.getIdPr()} + ')'">-->
+                                        <!--                                                <i class="fa fa-shopping-cart"></i>-->
+                                        <!--                                            </button>-->
+                                        <!--                                        </li>-->
+                                        <!--                                        <li th:if="${#bools.isFalse(cartService.checkExist(user.idUser, product.idPr))}">-->
+                                        <!--                                            <button th:id="'cart' + ${product.getIdPr()}" th:onclick="'addToCartInListProd(' + ${product.getIdPr()} + ', ' + 'cart' + ${product.getIdPr()} + ')'">-->
+                                        <!--                                                <i class="fa fa-shopping-cart"></i>-->
+                                        <!--                                            </button>-->
+                                        <!--                                        </li>-->
+                                    </ul>
+                                </div>
+                                <div th:if="${user == null}">
+                                    <!--                                    <ul class="product__item__pic__hover">-->
+                                    <!--                                        <li th:if="${loveProductInSession != null and loveProductInSession.contains(product.idPr)}">-->
+                                    <!--                                            <button th:id="'heart' + ${product.idPr}" class="background-button" style="color: white" th:onclick="'loveInListProd(' + ${product.idPr} + ', ' + 'heart' + ${product.idPr} + ')'">-->
+                                    <!--                                                <i class="fa fa-heart"></i>-->
+                                    <!--                                            </button>-->
+                                    <!--                                        </li>-->
+                                    <!--                                        <li th:if="${loveProductInSession == null or !loveProductInSession.contains(product.idPr)}">-->
+                                    <!--                                            <button th:id="'heart' + ${product.idPr}" th:onclick="'loveInListProd(' + ${product.idPr} + ', ' + 'heart' + ${product.idPr} + ')'">-->
+                                    <!--                                                <i class="fa fa-heart"></i>-->
+                                    <!--                                            </button>-->
+                                    <!--                                        </li>-->
+                                    <!--                                        <li th:if="${listProductFromCartInSession != null and listProductFromCartInSession.containsKey(product.idPr)}">-->
+                                    <!--                                            <button th:id="'cart' + ${product.idPr}" class="background-button" style="color: white" th:onclick="'addToCartInListProd(' + ${product.idPr} + ', ' + 'cart' + ${product.idPr} + ')'">-->
+                                    <!--                                                <i class="fa fa-shopping-cart"></i>-->
+                                    <!--                                            </button>-->
+                                    <!--                                        </li>-->
+                                    <!--                                        <li th:if="${listProductFromCartInSession == null or !listProductFromCartInSession.containsKey(product.idPr)}">-->
+                                    <!--                                            <button th:id="'cart' + ${product.idPr}" th:onclick="'addToCartInListProd(' + ${product.idPr} + ', ' + 'cart' + ${product.idPr} + ')'">-->
+                                    <!--                                                <i class="fa fa-shopping-cart"></i>-->
+                                    <!--                                            </button>-->
+                                    <!--                                        </li>-->
+                                    <!--                                    </ul>-->
+                                </div>
+                            </div>
+                            <div class="product__item__text">
+                                <a th:href="@{/oneProduct(id=${product.getIdPr()})}">
+                                    <span th:text="${product.getNamePr()}"></span><br>
+                                    <span th:text="${product.getPriceNow()} + 'đ'"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Pagination -->
@@ -258,11 +444,11 @@
     }
 
 </script>
-<script src="body_design/js/jquery-3.3.1.min.js"></script>
-<script src="body_design/js/jquery-ui.min.js"></script>
-<script src="body_design/js/jquery.slicknav.js"></script>
-<script src="body_design/js/mixitup.min.js"></script>
-<script src="body_design/js/owl.carousel.min.js"></script>
-<script src="body_design/js/main.js"></script>
+<script th:src="@{/body_design/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/body_design/js/jquery-ui.min.js}"></script>
+<script th:src="@{/body_design/js/jquery.slicknav.js}"></script>
+<script th:src="@{/body_design/js/mixitup.min.js}"></script>
+<script th:src="@{/body_design/js/owl.carousel.min.js}"></script>
+<script th:src="@{/static/body_design/js/main.js}"></script>
 </body>
 </html>

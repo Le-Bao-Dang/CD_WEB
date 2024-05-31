@@ -35,7 +35,6 @@ public class SignUp {
         }
         if (exist) {
             redirectAttributes.addFlashAttribute("errorAcc", "* Tài khoản đã được sử dụng");
-            System.out.println();
             return "redirect:/signup";
 
         } else if (!passw.equals(repassw)) {

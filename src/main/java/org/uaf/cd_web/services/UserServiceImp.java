@@ -34,8 +34,9 @@ public class UserServiceImp implements IUserService {
         return userReponesitory.count();
     }
 
+
     @Override
-    public User getUserById(String id) {
+    public List<User> getUserById(String id) {
         return userReponesitory.getUserByIdUser(id);
     }
 
