@@ -24,36 +24,37 @@ public class OrderServiceImp implements IOrderService {
         this.orderReponesitory = orderReponesitory;
         this.soldPrReponesitory = soldPrReponesitory;
     }
-
+    @Override
     public void addOrder(Orders orders) {
         orders.setIdOrders(this.generateIdOrder());
         this.orderReponesitory.save(orders);
     }
-
+    @Override
     public String generateIdOrder() {
         int size = (int) this.orderReponesitory.count() + 1;
         return "orders" + size;
     }
-
+    @Override
     public void changeConditionOrder(String idOrder, int status) {
         Orders orders = (Orders) this.orderReponesitory.getReferenceById(idOrder);
         orders.setStatus(status);
         this.orderReponesitory.save(orders);
     }
-
+    @Override
     public Page<Orders> getListOrder(int page) {
         Pageable paging = PageRequest.of(page - 1, 10);
         return this.orderReponesitory.findAll(paging);
     }
-
+    @Override
     public Orders getOrderById(String id) {
         return (Orders) this.orderReponesitory.getReferenceById(id);
     }
 
+    @Override
     public List<Sold_Pr> getListIdProductInOrder(String idOrder) {
         return this.soldPrReponesitory.findAllByIdOrders(idOrder);
     }
-
+    @Override
     public long sumOrder(String idOrder) {
         List<Sold_Pr> listPr = this.getListIdProductInOrder(idOrder);
         long sum = 0L;
@@ -66,6 +67,7 @@ public class OrderServiceImp implements IOrderService {
         return sum;
     }
 
+    @Override
     public List<Orders> getListOrderAll() {
         return this.orderReponesitory.findAll();
     }
@@ -139,5 +141,24 @@ public class OrderServiceImp implements IOrderService {
         return mapResult;
     }
 
+    @Override
+    public int getTurnover(int month, int year){
+        Integer result = orderReponesitory.getTurnOver(month,year);
+        return result != null ? result : 0;
+    }
+    @Override
+    public int getAllTurnover(){
+        return orderReponesitory.getAllTurnOver();
+    }
+
+    @Override
+    public int getSalerPRAll(){
+        return orderReponesitory.getAllSalePr();
+    }
+
+    @Override
+    public int getSalerPR(){
+        return orderReponesitory.getAllSalePr();
+    }
 
 }

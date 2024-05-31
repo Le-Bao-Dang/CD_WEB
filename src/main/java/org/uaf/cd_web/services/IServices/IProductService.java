@@ -43,4 +43,8 @@ public interface IProductService {
     void deleteImg(String url);
 
     List<Product> listLikeProduct(String idUser);
+
+    List<Product> getListProductHostSale();
+
+    int getStopPr();
 }

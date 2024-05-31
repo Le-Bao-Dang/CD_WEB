@@ -22,7 +22,7 @@ public class Login {
 
     @PostMapping("/login")
     public String login(HttpSession session, Model model, @RequestParam("username") String username,
-                        @RequestParam("passw") String passw, RedirectAttributes redirectAttributes) {
+            @RequestParam("passw") String passw, RedirectAttributes redirectAttributes) {
         User user = userService.checkLogin(username);
         passw = Encryption.toSHA1(passw);
 

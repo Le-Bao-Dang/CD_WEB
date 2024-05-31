@@ -67,6 +67,7 @@ public class UserServiceImp implements IUserService {
         userReponesitory.updateUser(decentralization, userId);
     }
 
+    @Override
     @Transactional
     public List<User> searchUser(String keyword) {
         List<User> list = new ArrayList<>();
@@ -120,5 +121,9 @@ public class UserServiceImp implements IUserService {
     public Date getDateSignup(String idUser) {
         User user = userReponesitory.findById(idUser).orElse(null);
         return (user != null) ? user.getDateSignup() : null;
+    }
+    @Override
+    public List<User> getNewbie(){
+        return userReponesitory.getNewbie(LocalDateTime.now().getMonthValue());
     }
 }

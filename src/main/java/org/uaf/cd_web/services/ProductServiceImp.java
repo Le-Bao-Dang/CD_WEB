@@ -101,6 +101,7 @@ public class ProductServiceImp implements IProductService {
         int size = getListProductByKind(kind).size();
         return size;
     }
+
     // format thời gian ngày tháng năm giờ phút
     @Override
     public String formatTime(LocalDateTime dateTime) {
@@ -179,6 +180,15 @@ public class ProductServiceImp implements IProductService {
         imageReponesitory.deleteImageByUrl(url);
     }
 
+    @Override
+    public List<Product> getListProductHostSale() {
+        return productReponesitory.getListHostSalePr();
+    }
 
+    @Override
+    public int getStopPr() {
+        Integer result = productReponesitory.getStopPr();
+        return result != null ? result : 0;
+    }
 }
 
