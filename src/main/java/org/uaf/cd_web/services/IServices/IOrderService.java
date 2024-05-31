@@ -31,4 +31,12 @@ public interface IOrderService {
     List<Sold_Pr> getManagerOrderUser(String idUser);
 
     Map<String, Integer> sumOrder(Map<String, List<Orders>> map);
+
+    int getTurnover(int month, int year);
+
+    int getAllTurnover();
+
+    int getSalerPRAll();
+
+    int getSalerPR();
 }

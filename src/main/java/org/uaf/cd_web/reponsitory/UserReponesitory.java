@@ -26,9 +26,9 @@ public interface UserReponesitory extends JpaRepository<User, String> {
     @Query("select u from User u  where u.idUser=:id")
     List<User> getUserByIdUser(String id);
 
-    User getUserByIdUser(String id);
+    User findUserByIdUser(String id);
 
-    @Query("SELECT u from User u where month(u.dateSignup)=: date")
-    List<User> getNewbie(LocalDateTime date);
+    @Query("SELECT u from User u where month(u.dateSignup)=:month")
+    List<User> getNewbie(int month);
 
 }

@@ -416,7 +416,7 @@
                                                                     <td>
                                                                         <a th:href="@{/ShowProductToUpdate(id=${p.getIdPr()})}">
                                                                             <div class="d-flex">
-                                                                                <img th:src="@{/static/ImageproductNew/add/gao-con-cam-vinh-hien-khong-tuoc-nguyen-tui-5kg.jpg}" alt="">
+                                                                                <img th:src="'/'+${p.getAvt().getUrl()}" alt="">
                                                                                 <div>
                                                                                     <h6 th:text="${p.getNamePr()}"></h6>
                                                                                     <p th:text="${p.getIdPr()}"></p>

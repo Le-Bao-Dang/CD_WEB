@@ -46,6 +46,7 @@ public class ProductManager {
         int tempSize = productServiceImp.getSize() / 15;
         int count = productServiceImp.getSize() % 15 > 0 ? tempSize + 1 : tempSize;
         List<Product> list = productServiceImp.getListProductInPage(pages);
+        System.out.println(list.get(0).getImage());
         model.addAttribute("listProduct", list);
         model.addAttribute("page", pages);
         model.addAttribute("count", count);

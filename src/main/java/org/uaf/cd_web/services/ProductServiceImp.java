@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.uaf.cd_web.entity.Detail_Pr;
 import org.uaf.cd_web.entity.Image;
 import org.uaf.cd_web.entity.Product;
-import org.uaf.cd_web.entity.Sold_Pr;
 import org.uaf.cd_web.reponsitory.ImageReponesitory;
 import org.uaf.cd_web.reponsitory.ProductReponesitory;
 import org.uaf.cd_web.reponsitory.SoldPrReponesitory;
@@ -17,9 +16,7 @@ import org.uaf.cd_web.services.IServices.IProductService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ProductServiceImp implements IProductService {
@@ -104,6 +101,7 @@ public class ProductServiceImp implements IProductService {
         int size = getListProductByKind(kind).size();
         return size;
     }
+
     // format thời gian ngày tháng năm giờ phút
     @Override
     public String formatTime(LocalDateTime dateTime) {
@@ -182,6 +180,15 @@ public class ProductServiceImp implements IProductService {
         imageReponesitory.deleteImageByUrl(url);
     }
 
+    @Override
+    public List<Product> getListProductHostSale() {
+        return productReponesitory.getListHostSalePr();
+    }
 
+    @Override
+    public int getStopPr() {
+        Integer result = productReponesitory.getStopPr();
+        return result != null ? result : 0;
+    }
 }
 
