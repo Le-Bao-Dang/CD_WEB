@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface IProductService {
     List<Product> getListProduct();
+
     List<Product> getListProductByKind(String kind);
 
     Product listProductById(String idpr);
@@ -21,18 +22,25 @@ public interface IProductService {
     List<Product> getListProductInPage(int page);
 
     int getSize();
+
     int getSize(String kind);
 
     String formatTime(LocalDateTime dateTime);
 
     Product getProductById(String id);
+
     void add(Product product);
 
     void addImgforProduct(Image image);
 
     void update(Product product);
+
     void delete(String id);
-    List<Product> search(String keyword);
+
+
+    List<Product> searchAutocomplete(String keyword);
+
     void deleteImg(String url);
+
     List<Product> listLikeProduct(String idUser);
 }

@@ -38,10 +38,10 @@ public class Login {
             } else if (user.getPassw().equals(passw)) {
                 if (user.getDecentralization() == 1) {
                     session.setAttribute("auth", user);
-                    return "redirect:/admin";
+                    return "redirect:/admin/main";
                 } else if (user.getDecentralization() == 2) {
                     session.setAttribute("auth", user);
-                    return "redirect:/employee";
+                    return "redirect:/admin/productManager?page=1";
                 } else if (user.getDecentralization() == 0) {
                     session.setAttribute("auth", user);
                     session.setAttribute("idUser", user.getIdUser());

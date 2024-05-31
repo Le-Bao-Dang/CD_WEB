@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.uaf.cd_web.entity.Detail_Pr;
 import org.uaf.cd_web.entity.Image;
 import org.uaf.cd_web.entity.Product;
-import org.uaf.cd_web.entity.Sold_Pr;
 import org.uaf.cd_web.reponsitory.ImageReponesitory;
 import org.uaf.cd_web.reponsitory.ProductReponesitory;
 import org.uaf.cd_web.reponsitory.SoldPrReponesitory;
@@ -17,9 +16,7 @@ import org.uaf.cd_web.services.IServices.IProductService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ProductServiceImp implements IProductService {
@@ -172,8 +169,8 @@ public class ProductServiceImp implements IProductService {
     }
 
     @Override
-    public List<Product> search(String keyword) {
-        return null;
+    public List<Product> searchAutocomplete(String keyword) {
+        return productReponesitory.searchAutocomplete(keyword);
     }
 
     @Override
