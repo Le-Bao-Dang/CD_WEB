@@ -1,6 +1,9 @@
 package org.uaf.cd_web.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.uaf.cd_web.entity.Detail_Pr;
@@ -18,6 +21,7 @@ import java.util.List;
 public class ProductServiceImp implements IProductService {
     private final ProductReponesitory productReponesitory;
     private final ImageReponesitory imageReponesitory;
+
 
     @Autowired
     public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory) {
@@ -53,7 +57,6 @@ public class ProductServiceImp implements IProductService {
     }
 
     @Override
-
     public List<Product> getListProductByKind(String kind) {
         List<Product> list = new ArrayList<>();
         list = productReponesitory.getListProductByKind(kind);
@@ -67,15 +70,11 @@ public class ProductServiceImp implements IProductService {
     }
 
     @Override
-    public List<Product> getListProductInPage(String kind, int page) { // phân trang
-        List<Product> list = new ArrayList<>();
-        List<Product> prByKind = getListProductByKind(kind);
-        int start = (page - 1) * 15 < 0 ? 0 : (page - 1) * 15;
-        int end = page <= prByKind.size() / 15 ? page * 15 : prByKind.size() - ((page - 1) * 15) + start;
-        for (int i = start; i < end; i++) {
-            list.add(prByKind.get(i));
-        }
-        return list;
+    public Page<Product> getListProductInPage(String kind, int page) { // phân trang
+        kind = "m" + kind;
+        Pageable pageable = PageRequest.of(page, 15);
+//        return productReponesitory.getProductByPaMenu(kind, pageable);
+        return null;
     }
 
     @Override
@@ -169,6 +168,5 @@ public class ProductServiceImp implements IProductService {
     }
 
 
-
-    }
+}
 

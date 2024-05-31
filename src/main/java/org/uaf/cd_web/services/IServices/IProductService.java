@@ -1,5 +1,6 @@
 package org.uaf.cd_web.services.IServices;
 
+import org.springframework.data.domain.Page;
 import org.uaf.cd_web.entity.Image;
 import org.uaf.cd_web.entity.Product;
 
@@ -15,7 +16,7 @@ public interface IProductService {
     public List<Product> getIdMenuPr();
 
 
-    List<Product> getListProductInPage(String kind, int page);
+    Page<Product> getListProductInPage(String kind, int page);
 
     List<Product> getListProductInPage(int page);
 

@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.util.List;
 
 @Entity
@@ -32,7 +33,7 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Image> image;
 
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Sold_Pr> prList;
 
     public Product(String idPr, String idMenu, int discount, int price, String namePr, Detail_Pr detailPr) {
@@ -43,7 +44,6 @@ public class Product implements Serializable {
         this.namePr = namePr;
         this.detailPr = detailPr;
     }
-
     @Override
     public String toString() {
         return "Product{" +

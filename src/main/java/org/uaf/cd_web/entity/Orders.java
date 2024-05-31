@@ -33,8 +33,6 @@ public class Orders implements Serializable {
     private String note;
     @Column(name = "CONDITION")
     private int condition;
-
-
     @ManyToMany(mappedBy = "orders", cascade = CascadeType.ALL)
     private List<Sold_Pr> prList;
 

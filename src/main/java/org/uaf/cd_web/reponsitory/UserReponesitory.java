@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 import org.uaf.cd_web.entity.User;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -24,4 +25,8 @@ public interface UserReponesitory extends JpaRepository<User, String> {
     List<User> checkUserExit(String email, String phone);
 
     User getUserByIdUser(String id);
+
+    @Query("SELECT u from User u where month(u.dateSignup)=: date")
+    List<User> getNewbie(LocalDateTime date);
+
 }
