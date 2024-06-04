@@ -1,385 +1,426 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>BHNFoods Admin </title>
-  <!-- plugins:css -->
-  <link rel="stylesheet" th:href="@{/admin_template/vendors/feather/feather.css}">
-  <link rel="stylesheet" th:href="@{/admin_template/vendors/mdi/css/materialdesignicons.min.css}">
-  <link rel="stylesheet" th:href="@{/admin_template/vendors/ti-icons/css/themify-icons.css}">
-  <link rel="stylesheet" th:href="@{/admin_template/vendors/typicons/typicons.css}">
-  <link rel="stylesheet" th:href="@{/admin_template/vendors/simple-line-icons/css/simple-line-icons.css}">
-  <link rel="stylesheet" th:href="@{/admin_template/vendors/css/vendor.bundle.base.css}">
-  <!-- endinject -->
-  <!-- Plugin css for this page -->
-  <link rel="stylesheet" th:href="@{/admin_template/js/select.dataTables.min.css}">
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" th:href="@{/admin_template/css/vertical-layout-light/style.css}">
-  <!-- endinject -->
-  <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css}">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>BHNFoods Admin </title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" th:href="@{/admin_template/vendors/feather/feather.css}">
+    <link rel="stylesheet" th:href="@{/admin_template/vendors/mdi/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" th:href="@{/admin_template/vendors/ti-icons/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/admin_template/vendors/typicons/typicons.css}">
+    <link rel="stylesheet" th:href="@{/admin_template/vendors/simple-line-icons/css/simple-line-icons.css}">
+    <link rel="stylesheet" th:href="@{/admin_template/vendors/css/vendor.bundle.base.css}">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" th:href="@{/admin_template/js/select.dataTables.min.css}">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" th:href="@{/admin_template/css/vertical-layout-light/style.css}">
+    <!-- endinject -->
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css}">
 
 </head>
 <style>
-  .card-body a .btn_add_delete {
-    width: 60px;
-    height: 30px;
-    border: none;
-    color: #1f1f1fbf;
-    font-weight: 600 !important;
-    border-radius: 5px;
+    .card-body a .btn_add_delete {
+        width: 60px;
+        height: 30px;
+        border: none;
+        color: #1f1f1fbf;
+        font-weight: 600 !important;
+        border-radius: 5px;
 
-  }
+    }
 
-  .row .form-group .form-control {
-    font-size: 16px;
-  }
+    .row .form-group .form-control {
+        font-size: 16px;
+    }
 
-  .align-items-end .row_input .col_addprod {
-    flex: auto;
-    margin-top: 8px;
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-  }
+    .align-items-end .row_input .col_addprod {
+        flex: auto;
+        margin-top: 8px;
+        position: relative;
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
 
 
-  .input_addpr {
-    height: calc(1.5em + .75rem);
-  }
+    .input_addpr {
+        height: calc(1.5em + .75rem);
+    }
 
-  .col-xl-7 .row .col-md-12 .edit_img {
-    width: 100%;
-    height: 100px;
-    border: gray;
-    border-style: dashed;
-    margin: 0 20px;
-    padding: 0;
+    .col-xl-7 .row .col-md-12 .edit_img {
+        width: 100%;
+        height: 100px;
+        border: gray;
+        border-style: dashed;
+        margin: 0 20px;
+        padding: 0;
 
-  }
+    }
 
-  .col-xl-7 .row .col-md-12 .edit_img .btnX_img {
-    padding: 0 4px;
+    .col-xl-7 .row .col-md-12 .edit_img .btnX_img {
+        padding: 0 4px;
 
-  }
+    }
 
-  .padd_right {
-    padding-right: 50px;
-  }
+    .padd_right {
+        padding-right: 50px;
+    }
 
-  .edit_formUser {
-    height: 500%;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.73);
-    position: absolute;
-    z-index: 1500;
-    top: 0;
-  }
+    .edit_formUser {
+        height: 500%;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.73);
+        position: absolute;
+        z-index: 1500;
+        top: 0;
+    }
 
-  .edit_formUser .cen-div {
-    margin: auto;
-    background: #f1f1f1;
-    width: 50%;
-    margin-top: 5%;
-    border-radius: 5px;
-  }
+    .edit_formUser .cen-div {
+        margin: auto;
+        background: #f1f1f1;
+        width: 50%;
+        margin-top: 5%;
+        border-radius: 5px;
+    }
 
-  .edit_formUser .btn_huy_update button {
-    background: none;
-    border: none;
-  }
+    .edit_formUser .btn_huy_update button {
+        background: none;
+        border: none;
+    }
 
-  .btn_huy_update {
-    margin-bottom: 20px;
-    justify-content: end;
-  }
+    .btn_huy_update {
+        margin-bottom: 20px;
+        justify-content: end;
+    }
 
-  .btn_huy_update input {
-    border-radius: 5px;
-    background: #7fad39;
-    border: none;
-    padding: 8px 20px;
-    color: white;
-  }
+    .btn_huy_update input {
+        border-radius: 5px;
+        background: #7fad39;
+        border: none;
+        padding: 8px 20px;
+        color: white;
+    }
 
-  .btn_huy_update input:last-child {
-    margin-left: 20px;
-  }
-  .btn_edit button {
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-  }
+    .btn_huy_update input:last-child {
+        margin-left: 20px;
+    }
+
+    .btn_edit button {
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+    }
 </style>
 
 <body>
 <!-- partial:partials/_navbar.html -->
 <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
-  <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
-    <div>
-      <a class="navbar-brand brand-logo" href="index.html">
-        BHNFoods
-      </a>
-    </div>
-  </div>
-  <div class="navbar-menu-wrapper d-flex align-items-top colorheader ">
-    <ul class="navbar-nav ms-auto">
-      <li class="nav-item dropdown d-none d-lg-block">
-        <a class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split" id="messageDropdown"
-           href="#"
-           data-bs-toggle="dropdown" aria-expanded="false"> Lọc theo </a>
-        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
-             aria-labelledby="messageDropdown">
-
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item preview-item" href="/AdminManageUser">
-            <div class="preview-item-content flex-grow py-2">
-              <p class="preview-subject ellipsis font-weight-medium text-dark">Người dùng </p>
-              <p class="fw-light small-text mb-0">Trang chi tiết người dùng</p>
-            </div>
-          </a>
-          <a class="dropdown-item preview-item" href="/AdminMain">
-            <div class="preview-item-content flex-grow py-2">
-              <p class="preview-subject ellipsis font-weight-medium text-dark">Admin</p>
-              <p class="fw-light small-text mb-0">Trang chi tiết Admin</p>
-            </div>
-          </a>
-          <a class="dropdown-item preview-item"
-             href="/AdminManagePr?kind=0&page=1">
-            <div class="preview-item-content flex-grow py-2">
-              <p class="preview-subject ellipsis font-weight-medium text-dark">Sản Phẩm </p>
-              <p class="fw-light small-text mb-0">Trang chi tiết quản lý sản phẩm</p>
-            </div>
-          </a>
-          <a class="dropdown-item preview-item" href="#">
-            <div class="preview-item-content flex-grow py-2">
-              <p class="preview-subject ellipsis font-weight-medium text-dark">Đơn hàng </p>
-              <p class="fw-light small-text mb-0">Trang quản lý đơn hàng</p>
-            </div>
-          </a>
-
+    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+        <div>
+            <a class="navbar-brand brand-logo" href="index.html">
+                BHNFoods
+            </a>
         </div>
-      </li>
-      <li class="nav-item d-none d-lg-block">
-        <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
+    </div>
+    <div class="navbar-menu-wrapper d-flex align-items-top colorheader ">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown d-none d-lg-block">
+                <a class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split" id="messageDropdown"
+                   href="#"
+                   data-bs-toggle="dropdown" aria-expanded="false"> Lọc theo </a>
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
+                     aria-labelledby="messageDropdown">
+
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item preview-item" href="/AdminManageUser">
+                        <div class="preview-item-content flex-grow py-2">
+                            <p class="preview-subject ellipsis font-weight-medium text-dark">Người dùng </p>
+                            <p class="fw-light small-text mb-0">Trang chi tiết người dùng</p>
+                        </div>
+                    </a>
+                    <a class="dropdown-item preview-item" href="/AdminMain">
+                        <div class="preview-item-content flex-grow py-2">
+                            <p class="preview-subject ellipsis font-weight-medium text-dark">Admin</p>
+                            <p class="fw-light small-text mb-0">Trang chi tiết Admin</p>
+                        </div>
+                    </a>
+                    <a class="dropdown-item preview-item"
+                       href="/AdminManagePr?kind=0&page=1">
+                        <div class="preview-item-content flex-grow py-2">
+                            <p class="preview-subject ellipsis font-weight-medium text-dark">Sản Phẩm </p>
+                            <p class="fw-light small-text mb-0">Trang chi tiết quản lý sản phẩm</p>
+                        </div>
+                    </a>
+                    <a class="dropdown-item preview-item" href="#">
+                        <div class="preview-item-content flex-grow py-2">
+                            <p class="preview-subject ellipsis font-weight-medium text-dark">Đơn hàng </p>
+                            <p class="fw-light small-text mb-0">Trang quản lý đơn hàng</p>
+                        </div>
+                    </a>
+
+                </div>
+            </li>
+            <li class="nav-item d-none d-lg-block">
+                <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
             <span class="input-group-addon input-group-prepend border-right">
               <span class="icon-calendar input-group-text calendar-icon"></span>
             </span>
-          <input type="text" class="form-control">
-        </div>
-      </li>
-      <li class="nav-item">
-        <form class="search-form" action="" method="">
-          <i class="icon-search"></i>
-          <input id="myInput" onkeyup="searchUser(this)" type="search" class="form-control" name="" placeholder="Search Here"
-                 title="Search here">
-        </form>
-      </li>
-    </ul>
-    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
-            data-bs-toggle="offcanvas">
-      <span class="mdi mdi-menu"></span>
-    </button>
-  </div>
+                    <input type="text" class="form-control">
+                </div>
+            </li>
+            <li class="nav-item">
+                <form class="search-form" action="" method="">
+                    <i class="icon-search"></i>
+                    <input id="myInput" onkeyup="searchUser(this)" type="search" class="form-control" name=""
+                           placeholder="Search Here"
+                           title="Search here">
+                </form>
+            </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                data-bs-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+        </button>
+    </div>
 </nav>
 <!-- partial -->
 <div class="container-fluid page-body-wrapper">
-  <div th:include="header_Admin.html"></div>
-  <!-- partial -->
-  <div class="main-panel">
-    <div class="content-wrapper">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="home-tab">
-            <div class="d-sm-flex align-items-center justify-content-between border-bottom">
-              <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview"
-                     role="tab"
-                     aria-controls="overview" aria-selected="true">Tổng quan</a>
-                </li>
+    <div th:include="header_Admin.html"></div>
+    <!-- partial -->
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="home-tab">
+                        <div class="d-sm-flex align-items-center justify-content-between border-bottom">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview"
+                                       role="tab"
+                                       aria-controls="overview" aria-selected="true">Tổng quan</a>
+                                </li>
 
-              </ul>
-              <div>
-                <button onclick="downloadFile()">ExportPDF</button>
-                <button onclick="downloadFileEX()">ExportExcel</button>
-                <script>
-                  function downloadFileEX() {
+                            </ul>
+                            <div>
+                                <button onclick="downloadFile()">ExportPDF</button>
+                                <button onclick="downloadFileEX()">ExportExcel</button>
+                                <script>
+                                    function downloadFileEX() {
 
-                    window.location.href = "/ExportUserExcel";
-                  }
-                  function downloadFile() {
-                    window.location.href = "/ExportUserPDF";
-                  }
-                </script>
-              </div>
-            </div>
-            <div class="tab-content tab-content-basic">
-              <div class="tab-pane fade show active" id="overview" role="tabpanel"
-                   aria-labelledby="overview">
-                <div class="row">
-                  <div class="col-lg-8 d-flex flex-column">
-                    <div class="row flex-grow">
-                      <div class="col-12 grid-margin stretch-card">
-                        <div class="card card-rounded">
-                          <div class="card-body" style="padding-top: 0">
-                            <div class="d-sm-flex justify-content-between align-items-start">
-                              <div>
-                              </div>
+                                        window.location.href = "/ExportUserExcel";
+                                    }
+
+                                    function downloadFile() {
+                                        window.location.href = "/ExportUserPDF";
+                                    }
+                                </script>
                             </div>
-                            <div class="table-responsive  mt-1">
-                              <table class="table select-table">
-                                <thead>
-                                <tr>
-                                  <th>Khách hàng</th>
-                                  <th>Số điện thoại và Email</th>
-                                  <th>Địa chỉ</th>
-                                  <th></th>
-                                </tr>
-                                </thead>
-                                <tbody id="idTbody">
-                                <tr th:each="u : ${listUser}">
-                                  <td>
-                                    <div class="d-flex">
-                                      <img th:src="@{/ImageproductNew/background/images.png}" alt="">
-                                      <div>
-                                        <h6 th:text="${u.getNameUser()}"></h6>
-                                        <p th:text="${u.checkDecentralization()}"></p>
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <h6 th:text="${u.getPhone()}"></h6>
-                                    <p th:text="${u.getEmail()}"></p>
-                                  </td>
-                                  <td></td>
-                                  <td>
-                                    <div th:text="${u.getAddress()}"></div>
-                                  </td>
-                                  <td>
-                                    <div class="btn_edit">
-                                      <button  onclick="editUser(this)" th:attr="data-idUser=${u.idUser}, data-nameUser=${u.nameUser}, data-passw=${u.passw}, data-email=${u.email}, data-phone=${u.phone}, data-dateSignup=${u.dateSignup}, data-address=${u.address}">
-                                        <h4 class="card-title card-title-dash">
-                                          Xem <i class="fa-regular fa-pen-to-square"></i>
-                                        </h4>
-                                      </button>
-                                    </div>
-                                  </td>
-                                </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
                         </div>
-                      </div>
+                        <div class="tab-content tab-content-basic">
+                            <div class="tab-pane fade show active" id="overview" role="tabpanel"
+                                 aria-labelledby="overview">
+                                <div class="row">
+                                    <div class="col-lg-8 d-flex flex-column">
+                                        <div class="row flex-grow">
+                                            <div class="col-12 grid-margin stretch-card">
+                                                <div class="card card-rounded">
+                                                    <div class="card-body" style="padding-top: 0">
+                                                        <div class="d-sm-flex justify-content-between align-items-start">
+                                                            <div>
+                                                            </div>
+                                                        </div>
+                                                        <div><input type="search" placeholder="tìm kiếm"
+                                                                    id="search-input" class="search-tag-desc-result"
+                                                                    onkeyup="searchUser(this)"></div>
+                                                        <div class="table-responsive  mt-1">
+                                                            <table class="table select-table">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Khách hàng</th>
+                                                                    <th>Số điện thoại và Email</th>
+                                                                    <th>Địa chỉ</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody id="idTbody">
+                                                                <tr th:each="u : ${listUser}">
+                                                                    <td>
+                                                                        <div class="d-flex">
+                                                                            <img th:src="@{/ImageproductNew/background/images.png}"
+                                                                                 alt="">
+                                                                            <div>
+                                                                                <h6 th:text="${u.getNameUser()}"></h6>
+                                                                                <p th:text="${u.checkDecentralization()}"></p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <h6 th:text="${u.getPhone()}"></h6>
+                                                                        <p th:text="${u.getEmail()}"></p>
+                                                                    </td>
+                                                                    <td></td>
+                                                                    <td>
+                                                                        <div th:text="${u.getAddress()}"></div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="btn_edit">
+                                                                            <button onclick="editUser(this)"
+                                                                                    th:attr="data-idUser=${u.idUser}">
+                                                                                <h4 class="card-title card-title-dash">
+                                                                                    Xem <i
+                                                                                        class="fa-regular fa-pen-to-square"></i>
+                                                                                </h4>
+                                                                            </button>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 
-<%-- xem và update user--%>
+<!--<%&#45;&#45; xem và update user&#45;&#45;%>-->
 <div id="formEditUser">
 
 </div>
 
 
 <script>
-  var myInput = document.getElementById("myInput");
+    var myInput = document.getElementById("myInput");
 
-  myInput.addEventListener("keydown", function(event) {
-    if(event.keyCode===13){
+    myInput.addEventListener("keydown", function (event) {
+        if (event.keyCode === 13) {
 
-      event.preventDefault()
-    }
-  });
-
-  //search name user
-  function searchUser(data){
-    var name= data.value;
-    console.log(name)
-    $.ajax({
-      url:"/admin/searchUser",
-      type: 'get',
-      data:{
-        keyword: name
-      },
-      success: function (data){
-        var row= document.getElementById('idTbody');
-        row.innerHTML= data;
-        console.log(data)
-      }
-    })
-  }
-  // xem và update user
-
-  function editUser(button) {
-    var idUser = button.getAttribute('data-idUser');
-    var nameUser = button.getAttribute('data-nameUser');
-    var passw = button.getAttribute('data-passw');
-    var email = button.getAttribute('data-email');
-    var phone = button.getAttribute('data-phone');
-    var dateSignup = button.getAttribute('data-dateSignup');
-    var address = button.getAttribute('data-address');
-
-    // Gọi hàm JavaScript với các giá trị vừa lấy được
-    clickEdit(idUser, nameUser, passw, email, phone, dateSignup, address);
-  }
-    function clickEdit(idUser, nameUser, passw, email, phone, datesignup, address) {
-      $.ajax({
-        url: "/admin/appearEditUser",
-        type: 'get',
-        data: {
-          idUser: idUser,
-          nameUser: nameUser,
-          passw: passw,
-          email: email,
-          phone: phone,
-          datesignup: datesignup,
-          address: address,
-        },
-        success: function (data) {
-          const content = document.getElementById('formEditUser');
-          content.innerHTML = data;
-        },
-        error: function () {
+            event.preventDefault()
         }
-      });
-      $(".edit_formUser").css("display", "block");
+    });
+
+    //search name user
+    // function searchUser(data){
+    //   var name= data.value;
+    //   console.log(name)
+    //   $.ajax({
+    //     url:"/admin/searchUser",
+    //     type: 'get',
+    //     data:{
+    //       keyword: name
+    //     },
+    //     success: function (data){
+    //       var row= document.getElementById('idTbody');
+    //       row.innerHTML= data;
+    //     }
+    //   })
+    // }
+    function searchUser(data) {
+        var name = data.value;
+        console.log(name);
+        $.ajax({
+            url: "/admin/searchUser",
+            type: 'get',
+            data: {
+                keyword: name
+            },
+            success: function (data) {
+                var row = document.getElementById('idTbody');
+                row.innerHTML = ''; // Clear existing rows
+                data.forEach(user => {
+                    let rowHtml = `<tr>
+            <td>
+              <div class="d-flex">
+                <img src="/ImageproductNew/background/images.png" alt="">
+                <div>
+                  <h6>${user.nameUser}</h6>
+                  <p>${user.decentralization}</p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <h6>${user.phone}</h6>
+              <p>${user.email}</p>
+            </td>
+            <td>${user.address}</td>
+            <td>
+              <div class="btn_edit">
+                <button onclick="editUser(this)" data-idUser="${user.idUser}" data-nameUser="${user.nameUser}" data-passw="***********" data-email="${user.email}" data-phone="${user.phone}" data-dateSignup="${user.dateSigup}" data-address="${user.address}">
+                  <h4 class="card-title card-title-dash">
+                    Xem <i class="fa-regular fa-pen-to-square"></i>
+                  </h4>
+                </button>
+              </div>
+            </td>
+          </tr>`;
+                    row.innerHTML += rowHtml;
+                });
+            }
+        });
+    }
+
+    // xem và update user
+
+    function editUser(button) {
+        var idUser = button.getAttribute('data-idUser');
+
+        // Gọi hàm JavaScript với các giá trị vừa lấy được
+        clickEdit(idUser);
+    }
+
+    function clickEdit(idUser) {
+        $.ajax({
+            url: "/admin/appearEditUser",
+            type: 'get',
+            data: {
+                idUser: idUser,
+            },
+            success: function (data) {
+                const content = document.getElementById('formEditUser');
+                content.innerHTML = data;
+            },
+            error: function () {
+            }
+        });
+        $(".edit_formUser").css("display", "block");
     }
 
 
-
-  function huy() {
-    $(".edit_formUser").css("display", "none");
-  }
-
-  // checkbox chon tat ca
-  function checkAll(elementInput) {
-    if (elementInput.checked) { // check select status
-      $(':checkbox').each(function () { //loop through each checkbox
-        this.checked = true;  //select all checkboxes with class "checkbox1"
-      });
-
-    } else {
-      $(':checkbox').each(function () { //loop through each checkbox
-        this.checked = false; //deselect all checkboxes with class "checkbox1"
-      });
+    function huy() {
+        $(".edit_formUser").css("display", "none");
     }
-  }
+
+    // checkbox chon tat ca
+    function checkAll(elementInput) {
+        if (elementInput.checked) { // check select status
+            $(':checkbox').each(function () { //loop through each checkbox
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+
+        } else {
+            $(':checkbox').each(function () { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    }
 </script>
 
-<script th:src="@{https://code.jquery.com/jquery-3.6.1.js}" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+<script th:src="@{https://code.jquery.com/jquery-3.6.1.js}"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
         crossorigin="anonymous"></script>
 <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
 <!-- container-scroller -->

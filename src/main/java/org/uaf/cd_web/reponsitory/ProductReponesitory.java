@@ -14,7 +14,6 @@ import org.uaf.cd_web.entity.Product;
 import java.util.List;
 
 @Repository
-
 public interface ProductReponesitory
         extends JpaRepository<Product, String>, PagingAndSortingRepository<Product, String> {
     @Query("SELECT p, l, i FROM Product p JOIN Love l ON l.idPr = p.idPr JOIN Image i ON p.idPr = i.idPr WHERE i.status = 0 AND l.iduser=:idUser")
@@ -25,10 +24,10 @@ public interface ProductReponesitory
 
     Product getProductByIdPr(String id);
 
-    @Query("SELECT  p FROM Product p WHERE p.idMenu =:idMenu")
+    @Query("SELECT  p FROM Product p WHERE p.menu.idMenu =:idMenu")
     List<Product> getListProductByKind(String idMenu);
 
-    @Query("SELECT p FROM Product p join Menu m on p.idMenu=m.idMenu where m.paMenu=:idMenu")
+    @Query("SELECT p FROM Product p join Menu m on p.menu.idMenu=m.idMenu where m.paMenu=:idMenu")
     Page<Product> getProductByPaMenu(String idMenu, Pageable pageable);
 
     @Query("SELECT p from Product p  WHERE p.namePr like CONCAT('%', :keyword, '%')")

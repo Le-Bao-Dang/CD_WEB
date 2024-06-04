@@ -373,38 +373,14 @@
                                                                         Thêm
                                                                     </button>
                                                                 </a>
-                                                                <!--                                                                <%&#45;&#45; <a href="" id="checkClick"-->
-                                                                <!--                                                                        STYLE="text-decoration: none">&#45;&#45;%>-->
-                                                                <!--                                                                <%&#45;&#45;-->
-                                                                <!--                                                                <button class="card-title card-title-dash btn_add_delete">-->
-                                                                <!--                                                                    &#45;&#45;%>-->
-                                                                <!--                                                                    <%&#45;&#45; Xóa&#45;&#45;%>-->
-                                                                <!--                                                                    <%&#45;&#45;-->
-                                                                <!--                                                                </button>-->
-                                                                <!--                                                                &#45;&#45;%>-->
-                                                                <!--                                                                <%&#45;&#45; </a>&#45;&#45;%>-->
                                                             </div>
                                                         </div>
                                                         <div class="table-responsive  mt-1">
                                                             <table class="table select-table">
                                                                 <thead>
                                                                 <tr>
-                                                                    <!--                                                                    <%&#45;&#45;-->
-                                                                    <!--                                                                    <th>&#45;&#45;%>-->
-                                                                    <!--                                                                        <%&#45;&#45;-->
-                                                                    <!--                                                                        <div class="form-check form-check-flat mt-0">-->
-                                                                    <!--                                                                            &#45;&#45;%>-->
-                                                                    <!--                                                                            <%&#45;&#45; <label class="form-check-label">&#45;&#45;%>-->
-                                                                    <!--                                                                            <%&#45;&#45; <input onclick="checkAll(this)" &#45;&#45;%>-->
-                                                                    <!--                                                                            <%&#45;&#45; type="checkbox">&#45;&#45;%>-->
-                                                                    <!--                                                                            <%&#45;&#45; <i class="input-helper"></i></label>&#45;&#45;%>-->
-                                                                    <!--                                                                            <%&#45;&#45;-->
-                                                                    <!--                                                                        </div>-->
-                                                                    <!--                                                                        &#45;&#45;%>-->
-                                                                    <!--                                                                        <%&#45;&#45;-->
-                                                                    <!--                                                                    </th>-->
-                                                                    <!--                                                                    &#45;&#45;%>-->
                                                                     <th>Sản phẩm</th>
+                                                                    <th>Loại</th>
                                                                     <th>Thương hiệu</th>
                                                                     <th>Số lượng hàng đã bán</th>
                                                                     <th>Giá</th>
@@ -423,6 +399,9 @@
                                                                                 </div>
                                                                             </div>
                                                                         </a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <h6 th:text="${p.getMenu().getNameMenu()}"></h6>
                                                                     </td>
                                                                     <td>
                                                                         <h6 th:text="${p.getDetailPr().getBrand()}"></h6>
@@ -464,21 +443,21 @@
                                 <div class="product__pagination">
                                     <div th:if="${page >= 2}">
                                         <button type="button" class="btn btn-secondary">
-                                            <a th:href="@{/admin/productManager(kind=${kind}, page=${page - 1})}" style="text-decoration: none; color: #b2b2b2;">
+                                            <a th:href="@{/admin/productManager(page=${page - 1})}" style="text-decoration: none; color: #b2b2b2;">
                                                 <i class="fa fa-long-arrow-left"></i>
                                             </a>
                                         </button>
                                     </div>
                                     <div th:each="pageNumber : ${#numbers.sequence(1, count)}">
                                         <button type="button" class="btn btn-secondary">
-                                            <a th:href="@{/admin/productManager(kind=${kind}, page=${pageNumber})}" style="text-decoration: none; color: #b2b2b2;">
+                                            <a th:href="@{/admin/productManager(page=${pageNumber})}" style="text-decoration: none; color: #b2b2b2;">
                                                 <span th:text="${pageNumber}"></span>
                                             </a>
                                         </button>
                                     </div>
                                     <div th:if="${page <= count - 1}">
                                         <button type="button" class="btn btn-secondary">
-                                            <a th:href="@{/admin/productManager(kind=${kind}, page=${page + 1})}" style="text-decoration: none; color: #b2b2b2;">
+                                            <a th:href="@{/admin/productManager(page=${page + 1})}" style="text-decoration: none; color: #b2b2b2;">
                                                 <i class="fa fa-long-arrow-right"></i>
                                             </a>
                                         </button>

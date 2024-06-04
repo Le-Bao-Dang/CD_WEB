@@ -226,19 +226,11 @@
                                 <select id="menu" type="text"
                                         class="form-control input_addpr"
                                         name="menu">
-                                    <option value="m1">Gạo
-                                    </option>
-                                    <option value="m2">Nếp
-                                    </option>
-                                    <option value="m3">Các
-                                        loại hạt
-                                    </option>
-                                    <option value="m4">Các
-                                        loại bột
-                                    </option>
-                                    <option value="m5">Các
-                                        loại củ, trái
-                                    </option>
+                                    <option value="m1" th:selected="${product.menu.getIdMenu() == 'm1'}">Gạo</option>
+                                    <option value="m2" th:selected="${product.menu.getIdMenu()  == 'm2'}">Nếp</option>
+                                    <option value="m3" th:selected="${product.menu.getIdMenu()  == 'm3'}">Các loại hạt</option>
+                                    <option value="m4" th:selected="${product.menu.getIdMenu()  == 'm4'}">Các loại bột</option>
+                                    <option value="m5" th:selected="${product.menu.getIdMenu()  == 'm5'}">Các loại củ, trái</option>
                                 </select>
                             </div>
                         </div>
@@ -353,15 +345,15 @@
                         </div>
                         <div class="form-group  padd_right me-3">
                             <input type="radio"
-                                   class="form-"
-                                   placeholder="">
+                                   class="form-"  value="2"
+                                   placeholder="" th:checked="${product.getDetailPr().getConditionPR()==2}">
                             <label class="">Nổi bật</label>
                         </div>
                         <div class="form-group padd_right me-3"
                              style="">
                             <input type="radio"
-                                   class="form-"
-                                   placeholder="">
+                                   class="form-" value="1"
+                                   th:checked="${product.getDetailPr().getConditionPR()==1}">
                             <label class="">Mới</label>
                         </div>
                         <div class="form-group padd_right me-3"
@@ -369,7 +361,7 @@
                             <input id="condition" type="radio"
                                    class="form-"
                                    name="condition"
-                                   value="1" placeholder="">
+                                   value="-1" th:checked="${product.getDetailPr().getConditionPR()==-1}">
                             <label class="">Ẩn</label>
                         </div>
                         <div class="form-group padd_right me-3"
@@ -377,7 +369,7 @@
                             <input id="" type="radio" checked
                                    class="form-"
                                    name="condition"
-                                   value="0" placeholder="">
+                                   value="0" th:checked="${product.getDetailPr().getConditionPR()==-1}">
                             <label class="">Không</label>
                         </div>
                     </div>

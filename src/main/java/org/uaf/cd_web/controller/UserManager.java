@@ -27,10 +27,10 @@ public class UserManager {
     }
 
     @GetMapping("/searchUser")
-    public String searchUser(Model model,@RequestParam("keyword") String keyword) {
+    @ResponseBody
+    public List<User> searchUser(Model model,@RequestParam("keyword") String keyword) {
         List<User> listUser = userService.searchUser(keyword);
-        model.addAttribute("listUser",listUser);
-        return "search_user";
+       return listUser;
     }
 
     @PostMapping("/updateUser")
@@ -52,20 +52,10 @@ public class UserManager {
 
     @GetMapping("/appearEditUser")
     public String appearEditUser(@RequestParam("idUser") String idUser,
-                                 @RequestParam("nameUser") String nameUser,
-                                 @RequestParam("passw") String passw,
-                                 @RequestParam("email") String email,
-                                 @RequestParam("phone") String phone,
-                                 @RequestParam("datesignup") String datesignup,
-                                 @RequestParam("address") String address,
                                  Model model) {
-        model.addAttribute("idUser", idUser);
-        model.addAttribute("nameUser", nameUser);
-        model.addAttribute("passw", passw);
-        model.addAttribute("email", email);
-        model.addAttribute("phone", phone);
-        model.addAttribute("datesignup", datesignup);
-        model.addAttribute("address", address);
+        User user = userService.getUserByIdUser(idUser);
+        model.addAttribute("user", user);
+
 
         return "edit_user_form";
     }

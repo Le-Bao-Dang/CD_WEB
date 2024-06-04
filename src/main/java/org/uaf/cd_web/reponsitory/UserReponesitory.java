@@ -23,6 +23,7 @@ public interface UserReponesitory extends JpaRepository<User, String> {
 
     @Query("select u from User u  where u.email=:email or u.phone=:phone")
     List<User> checkUserExit(String email, String phone);
+
     @Query("select u from User u  where u.idUser=:id")
     List<User> getUserByIdUser(String id);
 
@@ -31,4 +32,6 @@ public interface UserReponesitory extends JpaRepository<User, String> {
     @Query("SELECT u from User u where month(u.dateSignup)=:month")
     List<User> getNewbie(int month);
 
+    @Query("SELECT u from  User u where u.nameUser like %?1% or u.email like %?1% or u.email like %?1%")
+    List<User> findUser(String keyword);
 }

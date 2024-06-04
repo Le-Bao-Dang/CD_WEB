@@ -1,5 +1,7 @@
 package org.uaf.cd_web.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,8 +42,10 @@ public class User implements Serializable {
     private int decentralization;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Love> listLove;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Cart> listcart;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Orders> listOrders;
