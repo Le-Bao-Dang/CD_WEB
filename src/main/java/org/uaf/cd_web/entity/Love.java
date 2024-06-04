@@ -1,5 +1,6 @@
 package org.uaf.cd_web.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class Love implements Serializable {
 
     @ManyToOne()
     @JoinColumn(name = "ID_USER", referencedColumnName = "ID_USER",insertable=false, updatable=false)
+    @JsonManagedReference
     private User user;
 
     @Override

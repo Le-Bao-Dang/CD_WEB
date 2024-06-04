@@ -131,8 +131,9 @@ public class ProductServiceImp implements IProductService {
         Image i = image;
         i.setIdPr(image.getIdPr());
         i.setIdImg(image.getIdImg());
-        // imageReponesitory.save(i);
-        imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(), i.getStatus());
+        i.setUrl(image.getUrl());
+        imageReponesitory.save(i);
+//        imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(), i.getStatus());
     }
 
     public List<Product> getProducts(int page, int size) {
@@ -148,7 +149,7 @@ public class ProductServiceImp implements IProductService {
     public void update(Product product) {
         Product pr = productReponesitory.getProductByIdPr(product.getIdPr());
         pr.setPrice(product.getPrice());
-        pr.setIdMenu(product.getIdMenu());
+        pr.setMenu(product.getMenu());
         pr.setDiscount(product.getDiscount());
         pr.setNamePr(product.getNamePr());
         Detail_Pr detail_pr = pr.getDetailPr();

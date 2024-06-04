@@ -8,13 +8,13 @@
                         <div class="col-md-6 col_addprod">
                             <div class="form-group">
                                 <label>Tên Khách Hàng</label>
-                                <input th:value="${nameUser}" disabled type="text" class="form-control input_addpr" placeholder="">
+                                <input th:value="${user.getNameUser()}" disabled type="text" class="form-control input_addpr" placeholder="">
                             </div>
                         </div>
                         <div class="col-md-6 col_addprod">
                             <div class="form-group">
                                 <label>Password</label>
-                                <input th:value="${passw}" disabled type="text" class="form-control input_addpr" placeholder="">
+                                <input th:value="'**************'" disabled type="text" class="form-control input_addpr" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -22,26 +22,26 @@
                         <div class="col-md-6 col_addprod">
                             <div class="form-group">
                                 <label>Email</label>
-                                <input th:value="${email}" disabled type="text" class="form-control input_addpr" placeholder="">
+                                <input th:value="${user.getEmail()}" disabled type="text" class="form-control input_addpr" placeholder="">
                             </div>
                         </div>
                         <div class="col-md-6 col_addprod">
                             <div class="form-group">
                                 <label>Số điện thoại</label>
-                                <input th:value="${phone}" disabled class="form-control input_addpr" placeholder="">
+                                <input th:value="${user.getPhone()}" disabled class="form-control input_addpr" placeholder="">
                             </div>
                         </div>
                         <div class="col-md-6 col_addprod" style="display: none">
                             <div class="form-group">
                                 <label>idUser</label>
-                                <input th:value="${idUser}" name="idUser" class="form-control input_addpr" placeholder="">
+                                <input th:value="${user.getIdUser()}" name="idUser" class="form-control input_addpr" placeholder="">
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12 ">
                         <div class="form-group">
                             <label>Địa chỉ</label>
-                            <input th:value="${address}" disabled class="form-control input_addpr" placeholder="">
+                            <input th:value="${user.getAddress()}" disabled class="form-control input_addpr" placeholder="">
                         </div>
                     </div>
                     <div class="col-md d-flex col_addprod">
@@ -49,19 +49,19 @@
                             <label class="">Trạng thái:</label>
                         </div>
                         <div class="form-group padd_right" style="">
-                            <input type="radio" name="decentralization" value="0" class="form-" placeholder="">
+                                <input type="radio" name="decentralization" value="0" class="form-" th:checked="${user.decentralization == 0}">
                             <label class="">User</label>
                         </div>
                         <div class="form-group padd_right " style="">
-                            <input type="radio" name="decentralization" class="form-" value="2" placeholder="">
+                            <input type="radio" name="decentralization" class="form-" value="2" th:checked="${user.decentralization == 2}">
                             <label class="">Admin</label>
                         </div>
                         <div class="form-group padd_right " style="">
-                            <input type="radio" name="decentralization" class="form-" value="1" placeholder="">
+                            <input type="radio" name="decentralization" class="form-" value="1" th:checked="${user.decentralization == 1}">
                             <label class="">Employee</label>
                         </div>
                         <div class="form-group padd_right " style="">
-                            <input type="radio" name="decentralization" class="form-" value="-1" placeholder="">
+                            <input type="radio" name="decentralization" class="form-" value="-1" th:checked="${user.decentralization == -1}">
                             <label class="">Ẩn</label>
                         </div>
                     </div>

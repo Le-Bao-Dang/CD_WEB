@@ -57,7 +57,8 @@ public class Detail_Pr implements Serializable {
         if (conditionPR == 0) {
             return "Đang bán";
         }
-
+        if(conditionPR == 1) return "Sản phẩm mới";
+        if(conditionPR == 2) return "Sản phẩm nổi bật";
         return "Ngừng bán";
 
     }

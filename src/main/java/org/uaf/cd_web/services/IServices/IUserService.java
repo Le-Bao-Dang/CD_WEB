@@ -22,4 +22,6 @@ public interface IUserService {
     void updateAccount(String iduser, String address, String passw, String name, String phone, String email, String birthday, Date datesignup, boolean sex);
 
     List<User> getNewbie();
+
+    User getUserByIdUser(String idUser);
 }
