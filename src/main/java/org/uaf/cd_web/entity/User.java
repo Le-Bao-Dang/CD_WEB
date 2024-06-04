@@ -43,45 +43,21 @@ public class User implements Serializable {
     private List<Love> listLove;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Cart> listcart;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Orders> listOrders;
 
 
-    public User(String user14353, String dsd, String number, String dang, String number1, String mail, Date date, Date date1, boolean b, int i) {
-    }
 
-    //lấy thông tin của tk gg
-//    @Column(name="idgg")
-//    private String idgg;
-//    @Column(name="date_sigup")
-//    private Date date_sigup_gg;
-//    @Column(name="name")
-//    private  String name;
-//    @Column(name="id")
-//    private String id;
+
     public String checkDecentralization( ){
         if(this.decentralization==0) return "User";
         if(this.decentralization==2) return "Admin";
         if(this.decentralization==-1) return "Ẩn";
         return "Employee";
     }
-    @Override
-    public String toString() {
-        return "User{" +
-                "idUser='" + idUser + '\'' +
-                ", address='" + address + '\'' +
-                ", passw='" + passw + '\'' +
-                ", nameUser='" + nameUser + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", birthday=" + birthday +
-                ", dateSignup=" + dateSignup +
-                ", sex=" + sex +
-                ", decentralization=" + decentralization +
-//                ", idgg='" + idgg + '\'' +
-//                ", date_sigup_gg=" + date_sigup_gg +
-//                ", name='" + name + '\'' +
-//                ", id='" + id + '\'' +
-                '}';
-    }
+
+
+
     public String printCtAccount(String vl){
         if (this.birthday==null || this.phone==null|| this.email==null  || this.address==null ) {
             return "";

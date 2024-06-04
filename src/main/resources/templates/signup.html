@@ -52,7 +52,7 @@
                 Đăng ký
               </p>
               <form class="forms-sample" action="/signup" method="post" th:action="@{/signup}">
-                <label th:if="${errorAcc==true}" for="exampleInputName1" style="color: #CC3636"
+                <label th:if="${errorAcc}" for="exampleInputName1" style="color: #CC3636"
                        th:text="${errorAcc}"></label>
                 <div class="form-group">
                   <label for="exampleInputName1">Họ và tên </label>
@@ -112,24 +112,24 @@
       alert('* Mật khẩu không trùng khớp');
       event.preventDefault();
     }
-      const email = document.querySelector('input[name="email"]').value;
-      const phone = document.querySelector('input[name="phone"]').value;
-      const errorLabel = document.getElementById('errorLabel');
-      errorLabel.innerText = ''; // Clear previous errors
+    const email = document.querySelector('input[name="email"]').value;
+    const phone = document.querySelector('input[name="phone"]').value;
+    const errorLabel = document.getElementById('errorLabel');
+    errorLabel.innerText = ''; // Clear previous errors
 
-      if (!validateEmail(email)) {
-        event.preventDefault();
-        errorLabel.innerText = "Địa chỉ email không hợp lệ!";
-        return false;
-      }
+    if (!validateEmail(email)) {
+      event.preventDefault();
+      errorLabel.innerText = "Địa chỉ email không hợp lệ!";
+      return false;
+    }
 
-      if (!validatePhoneNumber(phone)) {
-        event.preventDefault();
-        errorLabel.innerText = "Số điện thoại phải chứa đúng 10 số và không có chữ cái!";
-        return false;
-      }
+    if (!validatePhoneNumber(phone)) {
+      event.preventDefault();
+      errorLabel.innerText = "Số điện thoại phải chứa đúng 10 số và không có chữ cái!";
+      return false;
+    }
 
-      return true;
+    return true;
   }
   function validateEmail(email) {
     const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;

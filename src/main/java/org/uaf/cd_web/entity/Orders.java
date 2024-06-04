@@ -2,6 +2,7 @@ package org.uaf.cd_web.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.aspectj.apache.bcel.classfile.Code;
 import org.uaf.cd_web.components.Format;
 
 import java.io.Serializable;
@@ -15,16 +16,20 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = {"prList", "user","discount"})
 public class Orders implements Serializable {
     @Id
     @Column(name = "ID_ORDERS")
     private String idOrders;
-    @Column(name = "NAME")
-    private String name;
-    @Column(name = "PHONE")
-    private String phone;
-    @Column(name = "ADDRESS")
-    private String address;
+    @ManyToOne
+    @JoinColumn(name = "ID_USER")
+    private User user;
+    @ManyToOne
+    @JoinColumn(name="ID_CODE")
+    private Discount discount;
+    @ManyToOne
+    @JoinColumn(name = "ID_CUSTOMERS")
+    private Customers customers;
     @Column(name = "TIME_ORDERS")
     private LocalDateTime timeOrders;
     @Column(name = "TIME_PICKUP")
@@ -33,14 +38,12 @@ public class Orders implements Serializable {
     private String note;
     @Column(name = "STATUS")
     private int status;
-
-
-    @ManyToMany(mappedBy = "orders", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
     private List<Sold_Pr> prList;
 
     public String checkstatus() {
         if (status == -2) return "Đã hủy";
-        if (status == -1) return "giao không thành công";
+        if (status == -1) return "Giao không thành công";
         if (status == 0) return "Đang chuẩn bị";
         if (status == 1) return "Đang giao";
         if (status == 2) return "Đã giao";
@@ -72,26 +75,11 @@ public class Orders implements Serializable {
         DecimalFormat dc = new DecimalFormat("#,###");
         return dc.format(sum).replace(',', '.');
     }
-    public String getDate(){
+
+    public String getDate() {
         Format f = new Format();
-       return f.formatDateTimeNow(this.getTimeOrders());
+        return f.formatDateTimeNow(this.getTimeOrders());
     }
 
-    @Override
-    public String toString() {
-        return "Orders{" +
-                "idOrders='" + idOrders + '\'' +
-                ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
-                ", timeOrders=" + timeOrders +
-                ", timePickup=" + timePickup +
-                ", note='" + note + '\'' +
-                ", status=" + status +
-                '}';
-    }
 
-    public int getStatus() {
-        return status;
-    }
 }

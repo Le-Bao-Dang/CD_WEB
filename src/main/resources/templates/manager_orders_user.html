@@ -75,14 +75,14 @@
                         </table>
                         <div class="d-flex justify-content-between pt-5 align-items-center" th:each=" s1 : ${entry.value.get(0)}">
                             <div>
-                                <h5 th:if="${s1.status == 0}">
+                                <h5 th:if="${s1.orders.status == 0}">
                                     Tình trạng đơn hàng: <span style="color: red;">Đang chuẩn bị</span>
                                 </h5>
-                                <h5 th:if="${s1.status!= 0}">
+                                <h5 th:if="${s1.orders.status!= 0}">
                                     Tình trạng đơn hàng: <span style="color: red;">Đang giao hàng</span>
                                 </h5>
                             </div>
-                            <div th:if="${s1.status == 0}">
+                            <div th:if="${s1.orders.status == 0}">
 <!--                                th:onclick="'huyDon(' + ${entry.key} + ')'"-->
                                 <button class="uCanClick" style="background:#7fad39; padding:10px 25px; color: white; border: none;">
                                     Hủy đơn

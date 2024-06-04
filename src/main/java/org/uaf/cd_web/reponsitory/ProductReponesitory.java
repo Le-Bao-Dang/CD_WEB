@@ -40,7 +40,7 @@ public interface ProductReponesitory
     @Query("SELECT p, MAX(i.url) as URL, MAX(c.brand) as BRAND, SUM(s.amount) as saled FROM Product p JOIN Image i ON p.idPr = i.idPr "
             +
             "JOIN Detail_Pr c ON c.idPr = p.idPr " +
-            "JOIN Sold_Pr s ON s.idPr = p.idPr WHERE i.status = 0 " +
+            "JOIN Sold_Pr s ON s.product.idPr = p.idPr WHERE i.status = 0 " +
             "GROUP BY p,c ORDER BY saled DESC")
 
     public List<Product> getListHostSalePr();

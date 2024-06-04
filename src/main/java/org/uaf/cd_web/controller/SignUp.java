@@ -17,8 +17,6 @@ public class SignUp {
     private UserServiceImp userService;
 
     @GetMapping("/signup")
-
-
     public String showSignUpForm(Model model) {
         return "signup";
     }
