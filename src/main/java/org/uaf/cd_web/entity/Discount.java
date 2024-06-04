@@ -20,8 +20,8 @@ public class Discount {
     private int soluong;
     @Column(name = "CODE")
     private String code;
-    @Column(name = "NUMBER")
-    private int number;
+    @Column(name = "VALUE")
+    private int value;
     @Column(name = "TYPE")
     private boolean type;
     @Column(name = "MINIMUM")

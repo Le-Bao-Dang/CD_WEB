@@ -33,26 +33,29 @@ public class OrderManager {
     }
 
     @GetMapping("/listOrder")
-    public String listOrder(Model model, HttpSession session, @RequestParam(value = "page", defaultValue = "1") Integer page) {
-//        User user = (User) session.getAttribute("auth");
-//        if (user == null) {
-//            return "redirect:/";
-//        }
-//        if (user.getDecentralization() != Powers.ADMIN && user.getDecentralization() != Powers.EMPLOYEE)
-//            return "redirect:/login";
-//        else {
-            Page<Orders> ordersPage = orderServiceImp.getListOrder(page);
-            model.addAttribute("listOrder", ordersPage.getContent());
-            model.addAttribute("totalPage", ordersPage.getTotalPages());
-            model.addAttribute("currentPage", page);
-            return "OrderManager";
+    public String listOrder(Model model, HttpSession session,
+            @RequestParam(value = "page", defaultValue = "1") Integer page) {
+        User user = (User) session.getAttribute("auth");
+        // if (user == null) {
+        // return "redirect:/";
+        // }
+        // if (user.getDecentralization() != Powers.ADMIN && user.getDecentralization()
+        // != Powers.EMPLOYEE)
+        // return "redirect:/login";
+        // else {
+        Page<Orders> ordersPage = orderServiceImp.getListOrder(page);
+        model.addAttribute("listOrder", ordersPage.getContent());
+        model.addAttribute("totalPage", ordersPage.getTotalPages());
+        model.addAttribute("currentPage", page);
+        return "OrderManager";
 
-//        }
+        // }
     }
+
     @GetMapping("/orderDetail")
-    public String orderDetail(Model model, HttpSession session, @RequestParam("id") String id){
-            Orders orders = orderServiceImp.getOrderById(id);
-            model.addAttribute("order",orders);
+    public String orderDetail(Model model, HttpSession session, @RequestParam("id") String id) {
+        Orders orders = orderServiceImp.getOrderById(id);
+        model.addAttribute("order", orders);
         return "detailOrder";
     }
 }

@@ -17,8 +17,6 @@ public class SignUp {
     private UserServiceImp userService;
 
     @GetMapping("/signup")
-
-
     public String showSignUpForm(Model model) {
         return "signup";
     }
@@ -33,7 +31,7 @@ public class SignUp {
             redirectAttributes.addFlashAttribute("errorName", "*Xin hãy nhập tên của bạn");
             return "redirect:/signup";
         }
-        if (exist) {
+        if (exist==true) {
             redirectAttributes.addFlashAttribute("errorAcc", "* Tài khoản đã được sử dụng");
             return "redirect:/signup";
 

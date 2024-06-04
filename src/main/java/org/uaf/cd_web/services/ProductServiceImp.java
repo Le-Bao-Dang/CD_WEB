@@ -171,8 +171,8 @@ public class ProductServiceImp implements IProductService {
     }
 
     @Override
-    public List<Product> search(String keyword) {
-        return null;
+    public List<Product> searchAutocomplete(String keyword) {
+        return productReponesitory.searchAutocomplete(keyword);
     }
 
     @Override

@@ -52,7 +52,7 @@ public class OrderServiceImp implements IOrderService {
 
     @Override
     public List<Sold_Pr> getListIdProductInOrder(String idOrder) {
-        return this.soldPrReponesitory.findAllByIdOrders(idOrder);
+        return this.orderReponesitory.findById(idOrder).get().getPrList();
     }
     @Override
     public long sumOrder(String idOrder) {
@@ -81,7 +81,7 @@ public class OrderServiceImp implements IOrderService {
     public Map<String, List<Sold_Pr>> getMapHistoryOrders(List<Sold_Pr> soldProductList) {
         Map<String, List<Sold_Pr>> mapResult = new HashMap<>();
         for (Sold_Pr s : soldProductList) {
-            mapResult.computeIfAbsent(s.getIdOrders(), k -> new ArrayList<>()).add(s);
+            mapResult.computeIfAbsent(s.getOrders().getIdOrders(), k -> new ArrayList<>()).add(s);
         }
         return mapResult;
     }
