@@ -34,21 +34,20 @@ public class OrderManager {
 
     @GetMapping("/listOrder")
     public String listOrder(Model model, HttpSession session, @RequestParam(value = "page", defaultValue = "1") Integer page) {
-        User user = (User) session.getAttribute("auth");
-        user = new User("user14353", "dsd", "1", "dang", "0231342323", "dangle@gmail.com", new Date(20021219), Date.valueOf(LocalDate.now()), true, 2);
-        if (user == null) {
-            return "redirect:/";
-        }
-        if (user.getDecentralization() != Powers.ADMIN && user.getDecentralization() != Powers.EMPLOYEE)
-            return "redirect:/login";
-        else {
+//        User user = (User) session.getAttribute("auth");
+//        if (user == null) {
+//            return "redirect:/";
+//        }
+//        if (user.getDecentralization() != Powers.ADMIN && user.getDecentralization() != Powers.EMPLOYEE)
+//            return "redirect:/login";
+//        else {
             Page<Orders> ordersPage = orderServiceImp.getListOrder(page);
             model.addAttribute("listOrder", ordersPage.getContent());
             model.addAttribute("totalPage", ordersPage.getTotalPages());
             model.addAttribute("currentPage", page);
             return "OrderManager";
 
-        }
+//        }
     }
     @GetMapping("/orderDetail")
     public String orderDetail(Model model, HttpSession session, @RequestParam("id") String id){

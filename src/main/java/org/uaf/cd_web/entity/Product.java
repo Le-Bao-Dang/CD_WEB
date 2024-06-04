@@ -20,8 +20,9 @@ public class Product implements Serializable {
     @Id
     @Column(name = "ID_PR")
     private String idPr;
-    @Column(name = "ID_MENU")
-    private String idMenu;
+    @OneToOne
+    @JoinColumn(name = "ID_MENU")
+    private Menu menu;
     @Column(name = "DISCOUNT")
     private int discount;
     @Column(name = "PRICE")
@@ -41,9 +42,9 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Cart> listCart;
 
-    public Product(String idPr, String idMenu, int discount, int price, String namePr, Detail_Pr detailPr) {
+    public Product(String idPr, Menu idMenu, int discount, int price, String namePr, Detail_Pr detailPr) {
         this.idPr = idPr;
-        this.idMenu = idMenu;
+        this.menu = idMenu;
         this.discount = discount;
         this.price = price;
         this.namePr = namePr;
@@ -53,7 +54,7 @@ public class Product implements Serializable {
     public String toString() {
         return "Product{" +
                 "idPr='" + idPr + '\'' +
-                ", idMenu='" + idMenu + '\'' +
+                ", idMenu='" + menu + '\'' +
                 ", discount='" + discount + '\'' +
                 ", price=" + price +
                 ", namePr='" + namePr + '\'' +

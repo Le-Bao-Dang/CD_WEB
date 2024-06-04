@@ -8,10 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.uaf.cd_web.components.RandomOTP;
-import org.uaf.cd_web.entity.Detail_Pr;
-import org.uaf.cd_web.entity.Image;
-import org.uaf.cd_web.entity.Product;
-import org.uaf.cd_web.entity.User;
+import org.uaf.cd_web.entity.*;
+import org.uaf.cd_web.services.MenuServiceImp;
 import org.uaf.cd_web.services.ProductServiceImp;
 
 import java.io.IOException;
@@ -28,11 +26,13 @@ public class ProductManager {
     @Value("${upload.directory}")
     private String uploadDirectory;
     private static final long serialVersionUID = 1;
-    private ProductServiceImp productServiceImp;
+    private final ProductServiceImp productServiceImp;
+    private final MenuServiceImp menuServiceImp;
 
     @Autowired
-    public ProductManager(ProductServiceImp productServiceImp) {
+    public ProductManager(ProductServiceImp productServiceImp, MenuServiceImp menuServiceImp) {
         this.productServiceImp = productServiceImp;
+        this.menuServiceImp = menuServiceImp;
     }
 
     @GetMapping("/productManager")
@@ -46,7 +46,6 @@ public class ProductManager {
         int tempSize = productServiceImp.getSize() / 15;
         int count = productServiceImp.getSize() % 15 > 0 ? tempSize + 1 : tempSize;
         List<Product> list = productServiceImp.getListProductInPage(pages);
-        System.out.println(list.get(0).getImage());
         model.addAttribute("listProduct", list);
         model.addAttribute("page", pages);
         model.addAttribute("count", count);
@@ -80,11 +79,11 @@ public class ProductManager {
         // Thực hiện lưu sản phẩm
         int index = productServiceImp.getListProduct().size() + 1;
         Detail_Pr detailPr = new Detail_Pr("", Date.valueOf(nsx), Date.valueOf(hsd), brand, mota, weight, origin, Date.valueOf(LocalDate.now()), inventory, 0);
-        Product product = new Product("", menu, discount, price, name, detailPr);
+        Menu menu1 = menuServiceImp.getMenuById(menu);
+        Product product = new Product("", menu1, discount, price, name, detailPr);
         productServiceImp.add(product);
         // Lưu các tệp hình ảnh
         int count = 0;
-        Image image;
         for (MultipartFile file : imageFiles) {
             if (file.isEmpty()) {
                 continue;
@@ -100,7 +99,11 @@ public class ProductManager {
                 String fileUrl = "/static/ImageproductNew/add/" + fileName;
                 count++;
                 String idImg = menu + brand + count + RandomOTP.generateRandomString();
-                image = new Image("prod" + index, idImg, fileUrl, 1);
+                String idPr = "prod"+index;
+                System.out.println(index);
+                Image image = new Image(idPr, idImg, fileUrl, 1);
+                System.out.println(idPr);
+                System.out.println(image);
                 productServiceImp.addImgforProduct(image);
 
             } catch (IOException e) {
@@ -182,7 +185,8 @@ public class ProductManager {
                               @RequestParam("condition") int condition) {
 
         Detail_Pr detailPr = new Detail_Pr(id, Date.valueOf(nsx), Date.valueOf(hsd), brand, mota, weight, origin, null, inventory, condition);
-        Product pr = new Product(id, menu, discount, price, name, detailPr);
+        Menu menu1 = menuServiceImp.getMenuById(menu);
+        Product pr = new Product(id, menu1, discount, price, name, detailPr);
         productServiceImp.update(pr);
 
         return "redirect:/admin/formEdit?&id=" + id;

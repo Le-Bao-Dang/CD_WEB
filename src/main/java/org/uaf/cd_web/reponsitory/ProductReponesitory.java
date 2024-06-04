@@ -15,7 +15,6 @@ import org.uaf.cd_web.entity.Product;
 import java.util.List;
 
 @Repository
-
 public interface ProductReponesitory extends JpaRepository<Product, String>, PagingAndSortingRepository<Product, String> {
     @Query("SELECT p, l, i FROM Product p JOIN Love l ON l.idPr = p.idPr JOIN Image i ON p.idPr = i.idPr WHERE i.status = 0 AND l.iduser=:idUser")
     List<Product> listLikeProduct(String idUser);
@@ -25,11 +24,11 @@ public interface ProductReponesitory extends JpaRepository<Product, String>, Pag
 
     Product getProductByIdPr(String id);
 
-    @Query("SELECT  p FROM Product p WHERE p.idMenu =:idMenu")
+    @Query("SELECT  p FROM Product p WHERE p.menu.idMenu =:idMenu")
     List<Product> getListProductByKind(String idMenu);
 
 
-    @Query("SELECT p FROM Product p join Menu m on p.idMenu=m.idMenu where m.paMenu=:idMenu")
+    @Query("SELECT p FROM Product p join Menu m on p.menu.idMenu=m.idMenu where m.paMenu=:idMenu")
     Page<Product> getProductByPaMenu(String idMenu, Pageable pageable);
 
     @Query("select count(c) from Detail_Pr c where c.conditionPR = 1 ")

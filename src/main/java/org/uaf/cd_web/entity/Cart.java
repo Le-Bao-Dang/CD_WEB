@@ -1,5 +1,6 @@
 package org.uaf.cd_web.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class Cart implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "ID_USER", insertable = false, updatable = false)
+    @JsonManagedReference
     private User user;
 
     public Cart() {

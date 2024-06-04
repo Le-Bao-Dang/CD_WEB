@@ -10,7 +10,6 @@ import org.uaf.cd_web.services.IServices.IUserService;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -49,7 +48,7 @@ public class UserServiceImp implements IUserService {
     public void createUser(String name, String phone, String email, String passw) {
         String importDate = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
         User u = new User();
-        u.setIdUser("user" + getCountUser()+ 1);
+        u.setIdUser("user" + getCountUser() + 1);
         u.setNameUser(name);
         u.setDateSignup(Date.valueOf(importDate));
         u.setEmail(email);
@@ -62,26 +61,14 @@ public class UserServiceImp implements IUserService {
     @Override
     @Transactional
     public void updateUser(byte decentralization, String userId) {
-//        User u = userReponesitory.getUserByIdUser(userId);
-//        u.setDecentralization(decentralization);
         userReponesitory.updateUser(decentralization, userId);
     }
 
     @Override
     @Transactional
     public List<User> searchUser(String keyword) {
-        List<User> list = new ArrayList<>();
-        String keywordUp = keyword.toUpperCase();
-        List<User> listUser = getListUser();
-        if (keyword.equals("")) {
-            list = listUser;
-        }
-        for (User user : listUser) {
-            if (keywordUp.contains(user.getNameUser().toUpperCase()) || keywordUp.contains(user.getEmail().toUpperCase()) || keywordUp.contains(user.getPhone())) {
-                list.add(user);
-            }
-        }
-        return list;
+        if (keyword.equals("")) return userReponesitory.findAll();
+        return userReponesitory.findUser(keyword);
     }
 
     public User checkLogin(String username) {
@@ -114,16 +101,24 @@ public class UserServiceImp implements IUserService {
         userReponesitory.save(u);
 
     }
+
     public String getEncryptPassUser(String idUser) {
         User user = userReponesitory.findById(idUser).orElse(null);
         return (user != null) ? user.getPassw() : null;
     }
+
     public Date getDateSignup(String idUser) {
         User user = userReponesitory.findById(idUser).orElse(null);
         return (user != null) ? user.getDateSignup() : null;
     }
+
     @Override
-    public List<User> getNewbie(){
+    public List<User> getNewbie() {
         return userReponesitory.getNewbie(LocalDateTime.now().getMonthValue());
+    }
+
+    @Override
+    public User getUserByIdUser(String idUser) {
+        return userReponesitory.findUserByIdUser(idUser);
     }
 }
