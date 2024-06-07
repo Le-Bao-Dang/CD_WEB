@@ -55,9 +55,10 @@
                             <h4>Sản phẩm mới nhất</h4>
                             <div class="latest-product__slider owl-carousel">
                                 <div class="latest-prdouct__slider__item">
-                                    <a href="#" class="latest-product__item" >
+                                    <a href="#" class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="ImageproductNew\Bot\Bot-nang-tan-san\bot-nang-tan-sang-goi-400g-202102060020004073.jpg" alt="" >
+                                            <img src="ImageproductNew\Bot\Bot-nang-tan-san\bot-nang-tan-sang-goi-400g-202102060020004073.jpg"
+                                                 alt="">
                                         </div>
                                         <div class="latest-product__item__text">
                                             <h6>Bột năng Tấn Sang</h6>
@@ -66,7 +67,7 @@
                                     </a>
                                     <a href="#" class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="ImageproductNew/Dau/dau-do-xuan-hong-goi-500g-300x300.jpg" alt="" >
+                                            <img src="ImageproductNew/Dau/dau-do-xuan-hong-goi-500g-300x300.jpg" alt="">
                                         </div>
                                         <div class="latest-product__item__text">
                                             <h6>Đậu đỏ Xuân Hồng 500g</h6>
@@ -75,7 +76,8 @@
                                     </a>
                                     <a href="#" class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="ImageproductNew/Khoai/khoai-mo/khoai-mo-tui-1kg-1-2-cu-202209141012253686_300x300.jpg" alt="">
+                                            <img src="ImageproductNew/Khoai/khoai-mo/khoai-mo-tui-1kg-1-2-cu-202209141012253686_300x300.jpg"
+                                                 alt="">
                                         </div>
                                         <div class="latest-product__item__text">
                                             <h6>Khoai mỡ túi 1kg(1-2 củ)</h6>
@@ -86,7 +88,8 @@
                                 <div class="latest-prdouct__slider__item">
                                     <a href="#" class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="ImageproductNew/Nep/gao-nep-cai-hoa-vang-coop-select-1kg-300x300.jpg" alt="">
+                                            <img src="ImageproductNew/Nep/gao-nep-cai-hoa-vang-coop-select-1kg-300x300.jpg"
+                                                 alt="">
                                         </div>
                                         <div class="latest-product__item__text">
                                             <h6>Gạo nếp Cái Hoa Vàng- CoopSelect 1kg</h6>
@@ -95,7 +98,8 @@
                                     </a>
                                     <a href="#" class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="ImageproductNew/Bot/Ngu-coc-yumfood/thuc-pham-bo-sung-ngu-coc-dinh-duong-yumfood-goi-500g-202010122202206323.jpg" alt="">
+                                            <img src="ImageproductNew/Bot/Ngu-coc-yumfood/thuc-pham-bo-sung-ngu-coc-dinh-duong-yumfood-goi-500g-202010122202206323.jpg"
+                                                 alt="">
                                         </div>
                                         <div class="latest-product__item__text">
                                             <h6> Ngũ cốc dinh dưỡng Yumfood 500g</h6>
@@ -104,7 +108,8 @@
                                     </a>
                                     <a href="#" class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="ImageproductNew/Dau/dau-den-viet-san/dau-den-viet-san-150g-202205231452334172_300x300.jpg" alt="">
+                                            <img src="ImageproductNew/Dau/dau-den-viet-san/dau-den-viet-san-150g-202205231452334172_300x300.jpg"
+                                                 alt="">
                                         </div>
                                         <div class="latest-product__item__text">
                                             <h6>Đậu đen Việt San 150g</h6>
@@ -128,34 +133,39 @@
                         <div class="product__discount__slider owl-carousel">
                             <div th:each="product : ${listPr}" class="col-lg-4">
                                 <div class="product__discount__item">
-                                    <div class="product__discount__item__pic set-bg" th:style="'background-image: url('+'/' + ${product.getAvt().getUrl()} + ')'">
-                                        <div class="product__discount__percent">-<span th:text="${product.discount}"></span>%</div>
+                                    <div class="product__discount__item__pic set-bg"
+                                         th:style="'background-image: url('+'/' + ${product.getAvt().getUrl()} + ')'">
+                                        <div class="product__discount__percent">-<span
+                                                th:text="${product.discount}"></span>%
+                                        </div>
                                         <div th:if="${user != null}">
                                             <ul class="product__item__pic__hover">
                                                 <li th:if="${listlike.contains(product.getIdPr())}">
-                                                    <button th:id="'heart' + ${product.getIdPr()}" class="background-button" style="color: white" th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">
+                                                    <button th:id="'heart' + ${product.getIdPr()}"
+                                                            class="background-button" style="color: white"
+                                                            th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">
                                                         <i class="fa fa-heart"></i>
                                                     </button>
                                                 </li>
                                                 <li th:if="${!listlike.contains(product.getIdPr())}">
-<!--                                                    <button th:id="'heart' + ${product.getIdPr()}" th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">-->
-<!--                                                        <i class="fa fa-heart"></i>-->
-<!--                                                    </button>-->
+                                                    <!--                                                    <button th:id="'heart' + ${product.getIdPr()}" th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">-->
+                                                    <!--                                                        <i class="fa fa-heart"></i>-->
+                                                    <!--                                                    </button>-->
                                                     <button th:id="'heart' + ${product.getIdPr()}"
                                                             onclick="loveInListProd([[${product.getIdPr()}]], 'heart' + [[${product.getIdPr()}]])">
                                                         <i class="fa fa-heart"></i></button>
                                                 </li>
                                                 <!-- Kiểm tra giỏ hàng -->
-<!--                                                <li th:if="${cart.contains(product.getIdPr())}">-->
-<!--                                                    <button th:id="'cart' + ${product.idPr}" class="background-button" style="color: white" th:onclick="'addToCartInListProd(' + ${product.getIdPr()} + ', ' + 'cart' + ${product.getIdPr()} + ')'">-->
-<!--                                                        <i class="fa fa-shopping-cart"></i>-->
-<!--                                                    </button>-->
-<!--                                                </li>-->
-<!--                                                <li th:if="${!cart.contains(product.getIdPr())}">-->
-<!--                                                    <button th:id="'cart' + ${product.getIdPr()}" th:onclick="'addToCartInListProd(' + ${product.getIdPr()} + ', ' + 'cart' + ${product.getIdPr()} + ')'">-->
-<!--                                                        <i class="fa fa-shopping-cart"></i>-->
-<!--                                                    </button>-->
-<!--                                                </li>-->
+                                                <!--                                                <li th:if="${cart.contains(product.getIdPr())}">-->
+                                                <!--                                                    <button th:id="'cart' + ${product.idPr}" class="background-button" style="color: white" th:onclick="'addToCartInListProd(' + ${product.getIdPr()} + ', ' + 'cart' + ${product.getIdPr()} + ')'">-->
+                                                <!--                                                        <i class="fa fa-shopping-cart"></i>-->
+                                                <!--                                                    </button>-->
+                                                <!--                                                </li>-->
+                                                <!--                                                <li th:if="${!cart.contains(product.getIdPr())}">-->
+                                                <!--                                                    <button th:id="'cart' + ${product.getIdPr()}" th:onclick="'addToCartInListProd(' + ${product.getIdPr()} + ', ' + 'cart' + ${product.getIdPr()} + ')'">-->
+                                                <!--                                                        <i class="fa fa-shopping-cart"></i>-->
+                                                <!--                                                    </button>-->
+                                                <!--                                                </li>-->
                                             </ul>
                                         </div>
                                         <!--                                        <div th:if="${userId == null}">-->
@@ -221,19 +231,25 @@
                 <div id="content" class="row">
                     <div th:each="product : ${listPr}" class="col-lg-4 col-md-6 col-sm-6">
                         <div class="product__item">
-                            <div class="product__item__pic set-bg" th:style="'background-image: url(/' + ${product.getAvt().getUrl()} + ')'" th:classappend="${product.getDiscount() > 0} ? 'has-discount' : ''">
-                                <div  th:classappend="${product.getDiscount() > 0} ? 'discount__percent' : ''"><span th:text="${product.getDiscount >0} ? '-'+ ${product.getDiscount}+'%' : ''"></span></div>
+                            <div class="product__item__pic set-bg"
+                                 th:style="'background-image: url(/' + ${product.getAvt().getUrl()} + ')'"
+                                 th:classappend="${product.getDiscount() > 0} ? 'has-discount' : ''">
+                                <div th:classappend="${product.getDiscount() > 0} ? 'discount__percent' : ''"><span
+                                        th:text="${product.getDiscount >0} ? '-'+ ${product.getDiscount}+'%' : ''"></span>
+                                </div>
                                 <div th:if="${user != null}">
-                                        <ul class="product__item__pic__hover">
+                                    <ul class="product__item__pic__hover">
                                         <li th:if="${listlike.contains(product.getIdPr())}">
-                                            <button th:id="'heart' + ${product.getIdPr()}" class="background-button" style="color: white" th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">
+                                            <button th:id="'heart' + ${product.getIdPr()}" class="background-button"
+                                                    style="color: white"
+                                                    th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">
                                                 <i class="fa fa-heart"></i>
                                             </button>
                                         </li>
                                         <li th:if="${!listlike.contains(product.getIdPr())}">
-<!--                                            <button th:id="'heart' + ${product.getIdPr()}" th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">-->
-<!--                                                <i class="fa fa-heart"></i>-->
-<!--                                            </button>-->
+                                            <!--                                            <button th:id="'heart' + ${product.getIdPr()}" th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">-->
+                                            <!--                                                <i class="fa fa-heart"></i>-->
+                                            <!--                                            </button>-->
                                         </li>
                                         <!--                                        <li th:if="${#bools.isTrue(cartService.checkExist(user.idUser, product.idPr))}">-->
                                         <!--                                            <button th:id="'cart' + ${product.getIdPr()}" class="background-button" style="color: white" th:onclick="'addToCartInListProd(' + ${product.getIdPr()} + ', ' + 'cart' + ${product.getIdPr()} + ')'">-->
@@ -291,8 +307,10 @@
     </div>
 </section>
 
-<footer th:include="footer"></footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<footer th:include="footer.html"></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     var current = 1;
     var maxCountPage = $('button.btn-loadMore').length;
@@ -301,6 +319,7 @@
     var urlParams = new URLSearchParams(queryString);
     var kind = urlParams.get('kind');
     var page = urlParams.get('page');
+
     function loadMoreProduct(index) {
         $("#btn" + current).removeClass('background-button');
         current = index;
@@ -310,12 +329,12 @@
             url: "/loadMoreProduct",
             type: 'get',
             data: {
-                kind : kind,
-                page : page,
-                step : current,
+                kind: kind,
+                page: page,
+                step: current,
                 sort: $('#sort-tableID').val().trim()
             },
-            success: function(data) {
+            success: function (data) {
                 const content = document.getElementById("content");
                 content.innerHTML = data;
             },
@@ -323,6 +342,7 @@
             }
         });
     }
+
     function loadMoreProductLeft() {
         $("#btn" + current).removeClass('background-button');
         if (current - 1 >= 1) {
@@ -333,12 +353,12 @@
             url: "/loadMoreProduct",
             type: 'get',
             data: {
-                kind : kind,
-                page : page,
-                step : current,
+                kind: kind,
+                page: page,
+                step: current,
                 sort: $('#sort-tableID').val().trim()
             },
-            success: function(data) {
+            success: function (data) {
                 const content = document.getElementById("content");
                 content.innerHTML = data;
             },
@@ -346,6 +366,7 @@
             }
         });
     }
+
     function loadMoreProductRight() {
         $("#btn" + current).removeClass('background-button');
         if (parseInt(current) + 1 <= maxCountPage) {
@@ -356,12 +377,12 @@
             url: "/loadMoreProduct",
             type: 'get',
             data: {
-                kind : kind,
-                page : page,
-                step : current,
+                kind: kind,
+                page: page,
+                step: current,
                 sort: $('#sort-tableID').val().trim()
             },
-            success: function(data) {
+            success: function (data) {
                 const content = document.getElementById("content");
                 content.innerHTML = data;
             },
@@ -369,9 +390,10 @@
             }
         });
     }
+
     function loveInListProd(id, idTag) {
         let condition = 0; //0 la detele khoi database, 1 la insert vao database
-        if(document.getElementById(idTag).classList.contains('background-button')) {
+        if (document.getElementById(idTag).classList.contains('background-button')) {
             $('button#' + idTag).removeClass('background-button');
             $('button#' + idTag).css('color', 'black')
             condition = 0;
@@ -390,6 +412,7 @@
             }
         });
     }
+
     function addToCartInListProd(id, idTag) {
         $('button#' + idTag).addClass('background-button');
         $('button#' + idTag).css('color', 'white');
@@ -415,7 +438,7 @@
             type: "get",
             data: {
                 kind: kind,
-                step : current,
+                step: current,
                 sort: $(this).val().trim()
             },
             success: function (data) {
@@ -426,6 +449,7 @@
             }
         })
     })
+
     function searchByName(param) {
         var txtSearch = param.value;
         $.ajax({
@@ -443,6 +467,36 @@
         })
     }
 
+   function search(keyword) {
+        const query = keyword.value;
+        console.log(query)
+        if (query.length != "") {
+            $.ajax({
+                url: '/search',
+                type: 'GET',
+                contentType: 'application/json',
+                data: {
+                    keyword: query
+                },
+                success: function (data) {
+                    var row = document.getElementById('searchResults');
+                    console.log(data)
+                    row.innerHTML= '';
+                    data.forEach(product => {
+                        let rowHtml = ` <li class='search-item'> ${product.namePr} </li>`;
+                        row.innerHTML += rowHtml;
+                    });
+
+                }
+            });
+
+        }
+    };
+
+    // $(document).on('click', '.search-item', function () {
+    //     $('#searchInput').val($(this).text());
+    //     $('#searchResults').fadeOut();
+    // });
 </script>
 <script th:src="@{/body_design/js/jquery-3.3.1.min.js}"></script>
 <script th:src="@{/body_design/js/jquery-ui.min.js}"></script>

@@ -27,24 +27,19 @@ public class ListCart {
         List<Cart> listCart = cartServiceImp.getListCart(user.getIdUser());
         System.out.println(listCart);
         int sum = cartServiceImp.sumCart(listCart);
+        int smart= sumAmount(cartServiceImp.getCountCart(user.getIdUser()));
         model.addAttribute("listCart", listCart);
         model.addAttribute("sum", sum);
+        model.addAttribute("smart", smart);
         return "cart";
-//        Map<String, Integer> listProductFromCartInSession = (Map<String, Integer>)
-//                session.getAttribute("listProductFromCartInSession");
-//        if(user == null) {  // user chưa đăng nhập
-//            List<Product> listProduct = new ArrayList<>();
-//            listCart = new ArrayList<>();
-//            if(listProductFromCartInSession != null) {
-//                for (String idProduct : listProductFromCartInSession.keySet()) {
-//                    listProduct.add(productServiceImp.getProductById(idProduct));
-//                }
-//                for (Product p : listProduct) {
-//                    listCart.add(new Cart(user.getIdUser(),p.getIdPr(),listProductFromCartInSession.get(p.getIdPr()),  p, user ));
-//                }
-//            }
-//        } else {
-//        }
+    }
 
+
+    public int sumAmount(List<Integer> listCart) {
+        int sum = 0;
+        for (int amount : listCart) {
+            sum += amount;
+        }
+        return sum;
     }
 }

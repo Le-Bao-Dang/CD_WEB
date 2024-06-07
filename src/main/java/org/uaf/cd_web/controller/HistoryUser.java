@@ -22,7 +22,7 @@ public class HistoryUser {
         List<Sold_Pr> listHistory = orderServiceImp.getHistory(idUser);
         Map<String, List<Sold_Pr>> mapOrders = orderServiceImp.getMapHistoryOrders(listHistory);
         Map<String, Integer> sumOrders = orderServiceImp.sumHistoryOrder(mapOrders);
-        System.out.println(listHistory);
+        System.out.println("history"+listHistory);
         model.addAttribute("sumOrders", sumOrders);
         model.addAttribute("mapOrders", mapOrders);
         model.addAttribute("listHistory", listHistory);
@@ -30,4 +30,4 @@ public class HistoryUser {
     }
 
 
-}
+}   

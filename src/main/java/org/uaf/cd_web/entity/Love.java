@@ -19,8 +19,11 @@ public class Love implements Serializable {
     @Id
     @Column(name = "ID_PR")
     private String idPr;
+
     @Column(name = "ID_USER")
-    private String iduser;
+    private String idUser;
+
+
 
     @ManyToOne()
     @JoinColumn(name = "ID_PR", referencedColumnName = "ID_PR", insertable = false, updatable = false)
@@ -35,7 +38,12 @@ public class Love implements Serializable {
     public String toString() {
         return "Love{" +
                 "idPr='" + idPr + '\'' +
-                ", iduser='" + iduser + '\'' +
+                ", iduser='" + idUser + '\'' +
                 '}';
+    }
+
+    public Love(String idPr, String idUser) {
+        this.idPr = idPr;
+        this.idUser = idUser;
     }
 }
