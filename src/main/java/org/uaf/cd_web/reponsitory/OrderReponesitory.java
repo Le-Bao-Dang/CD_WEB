@@ -7,6 +7,9 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 import org.uaf.cd_web.components.Turnover;
 import org.uaf.cd_web.entity.Orders;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -28,4 +31,12 @@ public interface OrderReponesitory extends JpaRepository<Orders, String>, Paging
 
     @Query("select sum(s.amount) as turnover   from Orders o join Sold_Pr s on o.idOrders=s.orders.idOrders ")
     Integer getAllSalePr();
+
+    List<Orders> findOrdersByIdOrders(String keyword);
+
+    @Query("SELECT o FROM Orders o WHERE o.timePickup = :date OR o.timeOrders = :date")
+    List<Orders> findOrdersByDate(LocalDate date);
+
+    @Query("SELECT MAX(CAST(REPLACE(o.idOrders, 'orders', '') AS INTEGER )) FROM Orders o")
+    int getMaxId();
 }

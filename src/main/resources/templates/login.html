@@ -2,83 +2,99 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Đăng nhập</title>
-  <!-- plugins:css -->
-  <link rel="stylesheet" href="admin_template/vendors/feather/feather.css">
-  <link rel="stylesheet" href="admin_template/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="admin_template/vendors/ti-icons/css/themify-icons.css">
-  <link rel="stylesheet" href="admin_template/vendors/typicons/typicons.css">
-  <link rel="stylesheet" href="admin_template/vendors/simple-line-icons/css/simple-line-icons.css">
-  <link rel="stylesheet" href="admin_template/vendors/css/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- Plugin css for this page -->
-  <link rel="stylesheet" href="admin_template/vendors/select2/select2.min.css">
-  <link rel="stylesheet" href="admin_template/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="admin_template/css/vertical-layout-light/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Đăng nhập</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="admin_template/vendors/feather/feather.css">
+    <link rel="stylesheet" href="admin_template/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="admin_template/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="admin_template/vendors/typicons/typicons.css">
+    <link rel="stylesheet" href="admin_template/vendors/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="admin_template/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="admin_template/vendors/select2/select2.min.css">
+    <link rel="stylesheet" href="admin_template/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="admin_template/css/vertical-layout-light/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
-
+<style>
+    a {
+        color: black;
+    }
+</style>
 <body>
 <div class="container-scroller background">
-  <!-- partial -->
-  <div style="padding: 0" class="container-fluid page-body-wrapper ">
-    <div class="main-panel" style=" width: 100%;">
-      <div class="content-wrapper">
-        <div class="row">
-          <div class="card" style=" margin:auto;">
-            <div class="card-body">
-              <p class="card-description">
-                <a href="/" style="text-decoration: none ; color: rgb(112, 112, 112);"> <i
-                        class="fa-solid fa-chevron-left"></i>Quay lại</a>
-              </p>
-              <h4 class="card-title logoBHN">BHNFoods</h4>
-              <p class="card-description login">Đăng nhập</p>
-              <form class="forms-sample" action="/login" method="post" th:action="@{/login}">
-                <div class="form-group" th:if="${error}">
-                  <label for="exampleInputName1" style="color: #CC3636" th:text="${error}"></label>
+    <!-- partial -->
+    <div style="padding: 0" class="container-fluid page-body-wrapper ">
+        <div class="main-panel" style=" width: 100%;">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="card" style=" margin:auto;">
+                        <div class="card-body">
+                            <div class="d-lg-flex">
+                                <p class="card-description">
+                                    <a href="/" style="text-decoration: none ; color: rgb(112, 112, 112);"> <i
+                                            class="fa-solid fa-chevron-left"></i><span th:text="#{comeback}"></span></a>
+                                </p>
+                                <select name="lang" onchange="changeLanguage(this.value)" style="margin-left: auto;border: none">
+                                    <option value="en" th:selected="${#locale.language == 'en'}">English</option>
+                                    <option value="vi" th:selected="${#locale.language == 'vi'}">Tiếng Việt</option>
+                                    <option value="ja" th:selected="${#locale.language == 'ja'}">Japanese</option>
+                                </select>
+                            </div>
+                            <h4 class="card-title logoBHN">BHNFoods</h4>
+                            <p class="card-description login" th:text="#{welcome.login}"></p>
+                            <form class="forms-sample" action="/login" method="post" th:action="@{/login}">
+                                <div class="form-group" th:if="${error}">
+                                    <label for="exampleInputName1" style="color: #CC3636" th:text="${error}"></label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputName1"><p th:text="#{usernames}"></p></label>
+                                    <input type="text" class="form-control" name="username" id="exampleInputName1"
+                                           placeholder="Nhập Email hoặc số điện thoại" required
+                                           th:value="${param.username}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword4"><p th:text="#{passwords}"></p></label>
+                                    <input type="password" name="passw" class="form-control"
+                                           id="exampleInputPassword4" placeholder="Nhập mật khẩu">
+                                </div>
+                                <div class="login_social">
+                                    <a href="#">Login Google</a>
+                                    <a href="#">Login Facebook</a>
+                                </div>
+                                <div class="form-group forgot_pass" style="padding-bottom:30px;">
+                                    <a href="changepass.jsp" th:text="#{forgotPass}"></a>
+                                </div>
+                                <div class="form-group  button_primary">
+                                    <button type="submit" class="btn btn-primary  button_primary_height me-2"
+                                            th:text="#{welcome.login}">
+                                    </button>
+                                    <button style="padding: 0" type="submit"
+                                            class="btn btn-primary  button_primary_height me-2">
+                                        <a href="/signup"
+                                           style="color: #ffffff; width: 100%; height: 100%; padding: 14px 24px;"
+                                           th:text="#{welcome.register}"></a>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                  <label for="exampleInputName1">Email hoặc Số điện thoại</label>
-                  <input type="text" class="form-control" name="username" id="exampleInputName1"
-                         placeholder="Nhập Email hoặc số điện thoại" required
-                         th:value="${param.username}">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword4">Mật khẩu</label>
-                  <input type="password" name="passw" class="form-control"
-                         id="exampleInputPassword4" placeholder="Nhập mật khẩu">
-                </div>
-                <div class="login_social">
-                  <a href="#">Login Google</a>
-                  <a href="#">Login Facebook</a>
-                </div>
-                <div class="form-group forgot_pass" style="padding-bottom:30px;">
-                  <a href="changepass.jsp">Quên mật khẩu?</a>
-                </div>
-                <div class="form-group  button_primary">
-                  <button type="submit" class="btn btn-primary  button_primary_height me-2">Đăng
-                    nhập
-                  </button>
-                  <button style="padding: 0" type="submit"
-                          class="btn btn-primary  button_primary_height me-2">
-                    <a href="/signup"
-                       style="color: #ffffff; width: 100%; height: 100%; padding: 14px 24px;">Đăng
-                      ký</a>
-                  </button>
-                </div>
-              </form>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
+<script type="text/javascript">
+    function changeLanguage(lang) {
+        window.location.href = '?lang=' + lang;
+    }
+</script>
 <script src="admin_template/vendors/js/vendor.bundle.base.js"></script>
 <script src="admin_template/vendors/typeahead.js/typeahead.bundle.min.js"></script>
 <script src="admin_template/vendors/select2/select2.min.js"></script>

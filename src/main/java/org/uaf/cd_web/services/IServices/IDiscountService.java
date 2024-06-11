@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface IDiscountService {
     List<Discount> getListDiscount();
+
+    Discount getDiscountByCode(String code);
+
+    void subttractQuantity(String idDiscount);
 }

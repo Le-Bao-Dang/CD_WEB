@@ -6,4 +6,5 @@ import org.uaf.cd_web.entity.Discount;
 
 @Repository
 public interface DiscountReponesitory extends JpaRepository<Discount, String> {
+    Discount getDiscountByCode(String code);
 }

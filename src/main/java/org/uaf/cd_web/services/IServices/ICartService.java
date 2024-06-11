@@ -12,4 +12,8 @@ public interface ICartService {
 
     // hàm tính tổng ở cart
     int sumCart(List<Cart> l);
+
+    void deleteFromCart(String id, String idUser);
+
+    void updateAmountToCart(String idProduct, String idUser, int amount);
 }

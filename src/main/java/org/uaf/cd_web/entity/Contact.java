@@ -1,9 +1,6 @@
 package org.uaf.cd_web.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
@@ -16,23 +13,22 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Contact implements Serializable {
     @Id
     @Column(name = "ID_CONTACT")
     private String idContact;
-    @Column(name = "ID_USER")
-    private String idUser;
+    @ManyToOne
+    @JoinColumn(name = "ID_USER", nullable = false)
+    private User user;
+    @OneToOne
+    @JoinColumn(name = "ID_CUSTOMERS", referencedColumnName = "ID_CUSTOMERS")
+    private Customers customers;
     @Column(name = "CONTENT")
     private String content;
     @Column(name = "DATETIME")
     private LocalDateTime dateTime;
-    @Column(name = "NAMEUSER")
-    private String nameUser;
-    @Column(name = "EMAIL")
-    private String email;
-    @Column(name = "PHONE")
-    private String phone;
-    @Column(name = "CONDITION")
+    @Column(name = "STATUS")
     private int condition;
 
     public String checkConditionContact() {
@@ -43,11 +39,5 @@ public class Contact implements Serializable {
         return "Chưa xem";
     }
 
-    @Override
-    public String toString() {
-        return "Contact [idContact=" + idContact + ", idUser=" + idUser + ", content=" + content + ", dateTime="
-                + dateTime + ", nameUser=" + nameUser + ", email=" + email + ", phone=" + phone + ", condition="
-                + condition + "]";
-    }
 
 }

@@ -47,4 +47,8 @@ public interface IProductService {
     List<Product> getListProductHostSale();
 
     int getStopPr();
+
+    Page<Product> listAll(int page, String sortField, String sortDir, String keyword);
+
+    void updateInventoryCT_PR(String idProduct, int i);
 }

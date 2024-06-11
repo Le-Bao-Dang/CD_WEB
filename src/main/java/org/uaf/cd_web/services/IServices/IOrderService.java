@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.domain.Page;
+import org.uaf.cd_web.entity.Cart;
 import org.uaf.cd_web.entity.Orders;
 import org.uaf.cd_web.entity.Sold_Pr;
 
@@ -39,4 +40,7 @@ public interface IOrderService {
     int getSalerPRAll();
 
     int getSalerPR();
+
+    List<Orders> searchOrder(String keyword);
+
 }

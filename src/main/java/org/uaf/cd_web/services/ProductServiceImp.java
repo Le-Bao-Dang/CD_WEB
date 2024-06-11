@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.uaf.cd_web.entity.Detail_Pr;
@@ -190,6 +191,24 @@ public class ProductServiceImp implements IProductService {
     public int getStopPr() {
         Integer result = productReponesitory.getStopPr();
         return result != null ? result : 0;
+    }
+
+    @Override
+    public Page<Product> listAll(int page, String sortField, String sortDir, String keyword) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        Pageable pageable = PageRequest.of(page - 1, 10, sort);
+        if (!keyword.equals("")) {
+            return productReponesitory.findProduct(keyword, pageable);
+        }
+        return productReponesitory.findAll(pageable);
+    }
+
+    @Override
+    public void updateInventoryCT_PR(String idProduct, int inventoryOrder) {
+        productReponesitory.updateInventory(idProduct,inventoryOrder);
+
+
     }
 }
 
