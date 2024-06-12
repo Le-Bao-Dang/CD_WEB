@@ -2,16 +2,13 @@ package org.uaf.cd_web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 import org.uaf.cd_web.entity.Cart;
 import org.uaf.cd_web.entity.Product;
 import org.uaf.cd_web.entity.User;
 import org.uaf.cd_web.services.CartServiceImp;
 import org.uaf.cd_web.services.ProductServiceImp;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.HashMap;
@@ -35,6 +32,7 @@ public class ListLoveProduct {
     }
 
     @GetMapping("/addToCart")
+    @ResponseBody
     public String addToCart(@SessionAttribute(value = "auth", required = false) User user,
                             @RequestParam("idPr") String idPr,
                             @RequestParam("amount") int amount,

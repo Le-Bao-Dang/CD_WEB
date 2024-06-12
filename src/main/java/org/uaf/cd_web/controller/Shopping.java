@@ -48,16 +48,16 @@ public class Shopping {
 //        return "cart";
 //    }
     //Thêm sản phẩm vào giỏ hàng
-    @GetMapping("/addToCart")
-    public String addCart(Model model, @RequestParam("idPr") String idPr, @RequestParam("amount") Integer amount, HttpSession session) {
-        User user = (User) session.getAttribute("auth");
-        if (user == null) {
-            return "/";
-        }
-        Cart cart = new Cart(user.getIdUser(), idPr, amount);
-        cartServiceImp.addCart(cart);
-        return "cart";
-    }
+//    @GetMapping("/add2Cart")
+//    public String add2Cart(Model model, @RequestParam("idPr") String idPr, @RequestParam("amount") Integer amount, HttpSession session) {
+//        User user = (User) session.getAttribute("auth");
+//        if (user == null) {
+//            return "/";
+//        }
+//        Cart cart = new Cart(user.getIdUser(), idPr, amount);
+//        cartServiceImp.addCart(cart);
+//        return "cart";
+//    }
 
     // Bỏ chọn sản phẩm trong giỏ hàng
     @GetMapping("/unCheckFromCart")

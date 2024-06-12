@@ -3,7 +3,6 @@ package org.uaf.cd_web.services;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.uaf.cd_web.entity.Cart;
 import org.uaf.cd_web.entity.Product;
 import org.uaf.cd_web.reponsitory.CartReponesitory;
