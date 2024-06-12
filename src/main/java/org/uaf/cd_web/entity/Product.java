@@ -32,15 +32,19 @@ public class Product implements Serializable {
 
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     private Detail_Pr detailPr;
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Image> image;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Sold_Pr> prList;
+
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
     private List<Love> listLove;
+
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Cart> listCart;
+
 
     public Product(String idPr, Menu idMenu, int discount, int price, String namePr, Detail_Pr detailPr) {
         this.idPr = idPr;
@@ -66,7 +70,7 @@ public class Product implements Serializable {
 
     public String getPriceNow() {
         DecimalFormat dec = new DecimalFormat("#,###");
-        return dec.format(this.price - (this.price * this.discount) / 100).replace(',', '.');
+        return dec.format(this.price - (this.price * this.discount) / 100).replace(',', '.')+"đ";
     }
     public Image getAvt(){
         return getImage().get(0);

@@ -14,8 +14,7 @@ import org.uaf.cd_web.entity.Product;
 import java.util.List;
 
 @Repository
-public interface ProductReponesitory
-        extends JpaRepository<Product, String>, PagingAndSortingRepository<Product, String> {
+public interface ProductReponesitory extends JpaRepository<Product, String>, PagingAndSortingRepository<Product, String> {
     @Query("SELECT p, l, i FROM Product p JOIN Love l ON l.idPr = p.idPr JOIN Image i ON p.idPr = i.idPr WHERE i.status = 0 AND l.idUser=:idUser")
     List<Product> listLikeProduct(String idUser);
 
@@ -43,4 +42,11 @@ public interface ProductReponesitory
             "GROUP BY p,c ORDER BY saled DESC")
 
     public List<Product> getListHostSalePr();
+
+    @Query(" Select p from Product p where p.discount >0")
+    List<Product> getListPrDiscount();
+
+    @Query("SELECT p FROM Product p join Menu m on m.idMenu= p.menu.idMenu where m.paMenu= :idMenu ")
+    List<Product> findRelatedProductsByIdMenu(String idMenu);
+
 }
