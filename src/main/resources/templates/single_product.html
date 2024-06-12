@@ -46,8 +46,8 @@
                 <div class="product__details__text">
                     <h3 th:text="${singleProduct[0].product.namePr}">Product Name</h3>
                     <div class="product__details__rating">
-                        <i th:each="i : ${#numbers.sequence(1, singleProduct[0].avgScore)}" class="fa fa-star"></i>
-                        <i th:if="${singleProduct[0].avgScore - #numbers.floor(singleProduct[0].avgScore) != 0.0}" class="fa fa-star-half-o"></i>
+                        <i th:each="i : ${#numbers.sequence(1, fullStars)}" class="fa fa-star"></i>
+                        <i th:if="${avgScore - fullStars != 0.0}" class="fa fa-star-half-o"></i>
                         <span th:text="'(' + ${listFeedback.size()} + ' đánh giá)'"></span>
                     </div>
                     <div class="product__details__price" th:text="${singleProduct[0].product.getPriceNow()}">0đ</div>
@@ -73,25 +73,41 @@
                 </div>
             </div>
         </div>
-
-<!--        <button th:if="${listFeedback.size() > 3}" onclick="loadMoreCommentLeft()"><i class="fa fa-long-arrow-left"></i></button>-->
-<!--        <button th:each="i : ${#numbers.sequence(1, count)}" th:id="'btn' + ${i}" class="btn-loadMore" onclick="loadMoreComment(${i})" style="margin: 10px 4px; color: black;" th:text="${i}">1</button>-->
-<!--        <button th:if="${listFeedback.size() > 3}" onclick="loadMoreCommentRight()"><i class="fa fa-long-arrow-right"></i></button>-->
-<!--        <div class="comment-input mt-4">-->
-<!--            <h3 class="aboveTextComment" th:if="${listFeedback.size() > 0}">Phản hồi về sản phẩm</h3>-->
-<!--            <h3 class="aboveTextComment" th:if="${listFeedback.size() == 0}">Sản phẩm hiện chưa có phản hồi, bạn hãy nêu cảm nhận của mình</h3>-->
-<!--            <div id="abc" class="btn-star pt-2">-->
-<!--                <button value="1" onclick="marking(this.id)" id="oneStar" style="color: #0b0b0b">1 <i class="fa fa-star star-color-yellow"></i></button>-->
-<!--                <button value="2" onclick="marking(this.id)" id="twoStar" style="color: #0b0b0b">2 <i class="fa fa-star star-color-yellow"></i></button>-->
-<!--                <button value="3" onclick="marking(this.id)" id="threeStar" style="color: #0b0b0b">3 <i class="fa fa-star star-color-yellow"></i></button>-->
-<!--                <button value="4" onclick="marking(this.id)" id="fourStar" style="color: #0b0b0b">4 <i class="fa fa-star star-color-yellow"></i></button>-->
-<!--                <button value="5" onclick="marking(this.id)" id="fiveStar" style="color: #0b0b0b">5 <i class="fa fa-star star-color-yellow"></i></button>-->
-<!--            </div>-->
-<!--            <textarea id="textComment" style="resize: none; width: 100%; margin-top: 10px;" rows="5" placeholder="Hãy nhập phản hồi về sản phẩm"></textarea>-->
-<!--            <div class="btn-star pt-2" style="display: flex; justify-content: end">-->
-<!--                <button onclick="sendComment()" id="sendComment" class="" style="color: #ffffff; background: #0b0b0b !important;">Gửi</button>-->
-<!--            </div>-->
-<!--        </div>-->
+            <h3 th:if="${listFeedback.size() > 0}">Đánh giá sản phẩm</h3>
+            <div id="comment">
+                <div th:each="feedback : ${listFeedback}">
+                    <div class="comment">
+                        <div class="comment-user mt-4">
+                            <span class="comment-name mr-3" th:text="${feedback.user.getNameUser()}">User Name</span>
+                            <span class="comment-star">
+                            <i th:each="i : ${#numbers.sequence(1, feedback.getScorestar())}" class="fa fa-star"></i>
+                        </span>
+                            <div class="content-padding">
+                                <span class="comment-content" th:text="${feedback.text}">Comment Content</span>
+                            </div>
+                            <span class="comment-date" th:text="${feedback.date}">Comment Date</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <button th:if="${listFeedback.size() > 3}" onclick="loadMoreCommentLeft()"><i class="fa fa-long-arrow-left"></i></button>
+        <button th:each="i : ${#numbers.sequence(1, count)}" th:id="'btn' + ${i}" class="btn-loadMore" onclick="loadMoreComment(${i})" style="margin: 10px 4px; color: black;" th:text="${i}">1</button>
+        <button th:if="${listFeedback.size() > 3}" onclick="loadMoreCommentRight()"><i class="fa fa-long-arrow-right"></i></button>
+        <div class="comment-input mt-4">
+            <h3 class="aboveTextComment" th:if="${listFeedback.size() > 0}">Phản hồi về sản phẩm</h3>
+            <h3 class="aboveTextComment" th:if="${listFeedback.size() == 0}">Sản phẩm hiện chưa có phản hồi, bạn hãy nêu cảm nhận của mình</h3>
+            <div id="abc" class="btn-star pt-2">
+                <button value="1" onclick="marking(this.id)" id="oneStar" style="color: #0b0b0b">1 <i class="fa fa-star star-color-yellow"></i></button>
+                <button value="2" onclick="marking(this.id)" id="twoStar" style="color: #0b0b0b">2 <i class="fa fa-star star-color-yellow"></i></button>
+                <button value="3" onclick="marking(this.id)" id="threeStar" style="color: #0b0b0b">3 <i class="fa fa-star star-color-yellow"></i></button>
+                <button value="4" onclick="marking(this.id)" id="fourStar" style="color: #0b0b0b">4 <i class="fa fa-star star-color-yellow"></i></button>
+                <button value="5" onclick="marking(this.id)" id="fiveStar" style="color: #0b0b0b">5 <i class="fa fa-star star-color-yellow"></i></button>
+            </div>
+            <textarea id="textComment" style="resize: none; width: 100%; margin-top: 10px;" rows="5" placeholder="Hãy nhập phản hồi về sản phẩm"></textarea>
+            <div class="btn-star pt-2" style="display: flex; justify-content: end">
+                <button onclick="sendComment()" id="sendComment" class="" style="color: #ffffff; background: #0b0b0b !important;">Gửi</button>
+            </div>
+        </div>
     </div>
 </section>
 <!-- Product Details Section End -->

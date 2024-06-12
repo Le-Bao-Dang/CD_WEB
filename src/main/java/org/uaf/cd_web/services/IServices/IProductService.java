@@ -59,4 +59,6 @@ public interface IProductService {
     List<FeedBack> getFeedBack(String idPro);
 
     List<Product> getRelatedProducts(String idMenu);
+
+    List<FeedBack> getFeedBackInPage(String idProd, int page);
 }

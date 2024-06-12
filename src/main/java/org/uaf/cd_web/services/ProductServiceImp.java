@@ -217,6 +217,20 @@ public class ProductServiceImp implements IProductService {
     public List<Product> getRelatedProducts(String idMenu){
         return productReponesitory.findRelatedProductsByIdMenu(idMenu);
     }
+    @Override
+    public List<FeedBack> getFeedBackInPage(String idProd, int page) {
+        if (page < 1) {
+            page = 1;
+        }
+        List<FeedBack> feedbackList = new ArrayList<FeedBack>();
+        List<FeedBack> allFeedbacks = getFeedBack(idProd);
+        int n = allFeedbacks.size() - (page - 1) * 3 >= 3 ? 3 : allFeedbacks.size() % 3;
+        for (int i = (page - 1) * 3; i < (page - 1) * 3 + n; i++) {
+            feedbackList.add(allFeedbacks.get(i));
+        }
+        return feedbackList;
+    }
+
 
 }
 
