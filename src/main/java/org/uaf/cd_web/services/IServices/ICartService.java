@@ -1,6 +1,8 @@
 package org.uaf.cd_web.services.IServices;
 
+import jakarta.transaction.Transactional;
 import org.uaf.cd_web.entity.Cart;
+import org.uaf.cd_web.entity.Love;
 import org.uaf.cd_web.entity.Product;
 
 import java.util.List;
@@ -12,4 +14,18 @@ public interface ICartService {
 
     // hàm tính tổng ở cart
     int sumCart(List<Cart> l);
+
+
+    List<Integer> getCountCart(String idUser);
+
+    int sumAmount(List<Cart> l);
+
+    boolean checkExit(String idUser, String idPr);
+
+    void insertToCart(String idUser, String idPr, int amount);
+
+    void updateToCart(String idUser, String idPr, int amount);
+
+    @Transactional
+    void deleteFromLove(String idPr, String idUser);
 }

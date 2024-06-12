@@ -14,9 +14,8 @@ import org.uaf.cd_web.entity.Product;
 import java.util.List;
 
 @Repository
-public interface ProductReponesitory
-        extends JpaRepository<Product, String>, PagingAndSortingRepository<Product, String> {
-    @Query("SELECT p, l, i FROM Product p JOIN Love l ON l.idPr = p.idPr JOIN Image i ON p.idPr = i.idPr WHERE i.status = 0 AND l.iduser=:idUser")
+public interface ProductReponesitory extends JpaRepository<Product, String>, PagingAndSortingRepository<Product, String> {
+    @Query("SELECT p, l, i FROM Product p JOIN Love l ON l.idPr = p.idPr JOIN Image i ON p.idPr = i.idPr WHERE i.status = 0 AND l.idUser=:idUser")
     List<Product> listLikeProduct(String idUser);
 
     @Query("select p from Product  p where p.idPr=:idpr ")
@@ -31,7 +30,7 @@ public interface ProductReponesitory
     Page<Product> getProductByPaMenu(String idMenu, Pageable pageable);
 
     @Query("SELECT p from Product p  WHERE p.namePr like CONCAT('%', :keyword, '%')")
-    List<Product> searchAutocomplete(@Param("keyword") String keyword);
+    List<Product> searchAutocomplete(String keyword);
 
     @Query("select count(c) from Detail_Pr c where c.conditionPR = 1 ")
     Integer getStopPr();
@@ -43,4 +42,11 @@ public interface ProductReponesitory
             "GROUP BY p,c ORDER BY saled DESC")
 
     public List<Product> getListHostSalePr();
+
+    @Query(" Select p from Product p where p.discount >0")
+    List<Product> getListPrDiscount();
+
+    @Query("SELECT p FROM Product p join Menu m on m.idMenu= p.menu.idMenu where m.paMenu= :idMenu ")
+    List<Product> findRelatedProductsByIdMenu(String idMenu);
+
 }

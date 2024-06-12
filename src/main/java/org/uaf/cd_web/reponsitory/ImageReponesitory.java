@@ -17,4 +17,8 @@ public interface ImageReponesitory extends JpaRepository<Image,String> {
     void savePr(String idPr, String idImg,String url, int status);
 
     void deleteImageByUrl(String url);
+
+    List<Image> findByIdPr(String idPro);
 }
+
+

@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BHNFoods</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="body_design/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="body_design/css/style.css" type="text/css">
+</head>
+
+<body>
+
+<header th:replace="header.html"></header> <!-- Thymeleaf header inclusion -->
+
+<!-- Product Section Begin -->
+<section class="product-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="product__details__pic">
+                    <div class="product__details__pic__item">
+                        <img style="width: 504px; height: 405px" class="product__details__pic__item--large"
+                             th:src="${singleProduct[0].product.getAvt().getUrl()}" alt="">
+                    </div>
+                    <div class="product__details__pic__slider owl-carousel">
+                        <img th:each="s : ${listURL}" th:data-imgbigurl="${s.url}"
+                             th:src="${s.url}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="product__details__text">
+                    <h3 th:text="${singleProduct[0].product.namePr}">Product Name</h3>
+                    <div class="product__details__rating">
+                        <i th:each="i : ${#numbers.sequence(1, singleProduct[0].avgScore)}" class="fa fa-star"></i>
+                        <i th:if="${singleProduct[0].avgScore - #numbers.floor(singleProduct[0].avgScore) != 0.0}" class="fa fa-star-half-o"></i>
+                        <span th:text="'(' + ${listFeedback.size()} + ' đánh giá)'"></span>
+                    </div>
+                    <div class="product__details__price" th:text="${singleProduct[0].product.getPriceNow()}">0đ</div>
+                    <p th:text="${singleProduct[0].describe}">Product Description</p>
+                    <div class="product__details__quantity">
+                        <div class="quantity">
+                            <div class="pro-qty">
+                                <input id="amountProd" type="text" value="1">
+                            </div>
+                    </div>
+                    <button onclick="addToCart()" style="padding: 15px 28px 12px; height: auto !important; background-color: #82ae46; color: white" class="primary-btn">THÊM VÀO GIỎ HÀNG</button>
+<!--                    <button th:if="${user == null}" th:if="${loveProductInSession == null}" id="heart" onclick="love()" class="heart-icon" style="padding: 12px 17px 12px; height: auto !important;color: #82ae46" ><span class="icon_heart_alt"></span></button>-->
+<!--                    <button th:if="${user == null}" th:if="${loveProductInSession != null}" th:if="${loveProductInSession.contains(param.id)}" id="heart" onclick="love()" class="heart-icon background-button" style="padding: 12px 17px 12px; height: auto !important;color: white" ><span class="icon_heart_alt"></span></button>-->
+<!--                    <button th:if="${user == null}" th:if="${loveProductInSession != null}" th:if="${!loveProductInSession.contains(param.id)}" id="heart" onclick="love()" class="heart-icon" style="padding: 12px 17px 12px; height: auto !important;color: #82ae46" ><span class="icon_heart_alt"></span></button>-->
+<!--                    <button th:if="${user != null}" th:if="${loveProdService.checkLiked(user.idUser, param.id)}" id="heart" onclick="love()" class="heart-icon background-button" style="padding: 12px 17px 12px; height: auto !important;color: white" ><span class="icon_heart_alt"></span></button>-->
+<!--                    <button th:if="${user != null}" th:if="${!loveProdService.checkLiked(user.idUser, param.id)}" id="heart" onclick="love()" class="heart-icon" style="padding: 12px 17px 12px; height: auto !important;color: #82ae46" ><span class="icon_heart_alt"></span></button>-->
+                    <ul>
+                        <li><b>Xuất xứ</b> <span th:text="${singleProduct[0].origin}">Xuất xứ</span></li>
+                        <li><b>Hạn sử dụng</b> <span th:text="${singleProduct[0].hsd}">Hạn sử dụng</span></li>
+                        <li><b>Trọng lượng</b> <span th:text="${singleProduct[0].weight} + 'kg'">Trọng lượng</span></li>
+                        <li><b>Giao hàng</b> <span>Trong 2 giờ <span>Miễn phí trong thành phố Thủ Đức</span></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+<!--        <button th:if="${listFeedback.size() > 3}" onclick="loadMoreCommentLeft()"><i class="fa fa-long-arrow-left"></i></button>-->
+<!--        <button th:each="i : ${#numbers.sequence(1, count)}" th:id="'btn' + ${i}" class="btn-loadMore" onclick="loadMoreComment(${i})" style="margin: 10px 4px; color: black;" th:text="${i}">1</button>-->
+<!--        <button th:if="${listFeedback.size() > 3}" onclick="loadMoreCommentRight()"><i class="fa fa-long-arrow-right"></i></button>-->
+<!--        <div class="comment-input mt-4">-->
+<!--            <h3 class="aboveTextComment" th:if="${listFeedback.size() > 0}">Phản hồi về sản phẩm</h3>-->
+<!--            <h3 class="aboveTextComment" th:if="${listFeedback.size() == 0}">Sản phẩm hiện chưa có phản hồi, bạn hãy nêu cảm nhận của mình</h3>-->
+<!--            <div id="abc" class="btn-star pt-2">-->
+<!--                <button value="1" onclick="marking(this.id)" id="oneStar" style="color: #0b0b0b">1 <i class="fa fa-star star-color-yellow"></i></button>-->
+<!--                <button value="2" onclick="marking(this.id)" id="twoStar" style="color: #0b0b0b">2 <i class="fa fa-star star-color-yellow"></i></button>-->
+<!--                <button value="3" onclick="marking(this.id)" id="threeStar" style="color: #0b0b0b">3 <i class="fa fa-star star-color-yellow"></i></button>-->
+<!--                <button value="4" onclick="marking(this.id)" id="fourStar" style="color: #0b0b0b">4 <i class="fa fa-star star-color-yellow"></i></button>-->
+<!--                <button value="5" onclick="marking(this.id)" id="fiveStar" style="color: #0b0b0b">5 <i class="fa fa-star star-color-yellow"></i></button>-->
+<!--            </div>-->
+<!--            <textarea id="textComment" style="resize: none; width: 100%; margin-top: 10px;" rows="5" placeholder="Hãy nhập phản hồi về sản phẩm"></textarea>-->
+<!--            <div class="btn-star pt-2" style="display: flex; justify-content: end">-->
+<!--                <button onclick="sendComment()" id="sendComment" class="" style="color: #ffffff; background: #0b0b0b !important;">Gửi</button>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+</section>
+<!-- Product Details Section End -->
+
+<!-- Related Product Section Begin -->
+<section class="related-product">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title related__product__title">
+                    <h2>SẢN PHẨM LIÊN QUAN</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div th:each="product : ${relatedProducts}" class="col-lg-3 col-md-4 col-sm-6">
+                <div class="product__item">
+                    <div class="product__item__pic set-bg" th:attr="data-setbg=${product.getAvt().getUrl()}">
+                        <ul class="product__item__pic__hover">
+                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="product__item__text">
+                        <h6>
+                            <a th:href="@{/oneProduct(id=${product.idPr})}" th:text="${product.namePr}">Product Name</a>
+                        </h6>
+                        <h5 th:text="${product.getPriceNow()}"></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer th:replace="footer.html"></footer> <!-- Thymeleaf footer inclusion -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    var current = 1;
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var idProd = urlParams.get('id');
+    var idUser = 'user1';
+    var maxCountPage = $('button.btn-loadMore').length;
+    $("#btn" + current).addClass('background-button');
+
+    var proQty = $('.pro-qty');
+    proQty.prepend('<span onclick="" class="dec qtybtn">-</span>');
+    proQty.append('<span class="inc qtybtn">+</span>');
+    proQty.on('click', '.qtybtn', function () {
+        var $button = $(this);
+        var oldValue = $button.parent().find('input').val();
+        if ($button.hasClass('inc')) {
+            var newVal = parseFloat(oldValue) + 1;
+        } else {
+            if (oldValue > 1) {
+                var newVal = parseFloat(oldValue) - 1;
+            } else {
+                newVal = 1;
+            }
+        }
+        $button.parent().find('input').val(newVal);
+    });
+
+    function loadMoreComment(index) {
+        $("#btn" + current).removeClass('background-button');
+        current = index;
+        $("#btn" + current).addClass('background-button');
+        $.ajax({
+            url: "/loadMoreComment",
+            type: 'get',
+            data: {
+                id: idProd,
+                step: current
+            },
+            success: function (data) {
+                const content = document.getElementById("comment");
+                content.innerHTML = data;
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function loadMoreCommentLeft() {
+        $("#btn" + current).removeClass('background-button');
+        if (current - 1 >= 1) {
+            current -= 1;
+        }
+        $("#btn" + current).addClass('background-button');
+        $.ajax({
+            url: "/loadMoreComment",
+            type: 'get',
+            data: {
+                id: idProd,
+                step: current
+            },
+            success: function (data) {
+                const content = document.getElementById("comment");
+                content.innerHTML = data;
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function loadMoreCommentRight() {
+        $("#btn" + current).removeClass('background-button');
+        if (parseInt(current) + 1 <= maxCountPage) {
+            current = parseInt(current) + 1;
+        }
+        $("#btn" + current).addClass('background-button');
+        $.ajax({
+            url: "/loadMoreComment",
+            type: 'get',
+            data: {
+                id: idProd,
+                step: current
+            },
+            success: function (data) {
+                const content = document.getElementById("comment");
+                content.innerHTML = data;
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function sendComment() {
+        var user = [[${user}]];
+        if(user != null)  {
+            if($('button.lightGreenBtn').val() !== undefined && $('textarea#textComment').val() !== "") {
+                $.ajax({
+                    url: "/sendComment",
+                    type: 'get',
+                    data: {
+                        text: $('textarea#textComment').val(),
+                        idU: idUser,
+                        idP: idProd,
+                        star: $('button.lightGreenBtn').val()
+                    },
+                    success: function (data) {
+                        if($('div.comment').length >=3) {
+                            $('div.comment:last-child').remove();
+                        }
+                        $('button.lightGreenBtn').removeClass('lightGreenBtn');
+                        $("div#comment").prepend(data);
+                        $("textarea#textComment").val("");
+                        $('h3.aboveTextComment').remove();
+                        $('div.comment-input').prepend("<h3 class=\"aboveTextComment\">Phản hồi về sản phẩm</h3>");
+                    },
+                    error: function () {
+                    }
+                });
+            } else alert("Hãy đánh giá số sao và nhập phản hồi trước khi gửi nhé!");
+        } else alert("Hãy đăng nhập trước khi bình luận nhé");
+    }
+
+    function marking(id) {
+        $('button.lightGreenBtn').removeClass('lightGreenBtn');
+        $('button#' + id).addClass('lightGreenBtn');
+    }
+
+    function addToCart() {
+        $.ajax({
+            url: "/addToCart",
+            type: 'get',
+            data: {
+                id: idProd,
+                amount: $('#amountProd').val()
+            },
+            success: function (data) {
+                const content = document.getElementById('totalCart');
+                content.innerHTML = data;
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function love() {
+        let condition = 0; // 0 là xóa khỏi database, 1 là thêm vào database
+        if(document.getElementById('heart').classList.contains('background-button')) {
+            $('#heart').removeClass('background-button');
+            $('#heart').css('color', '#82ae46')
+            condition = 0;
+        } else {
+            $('#heart').addClass('background-button');
+            $('#heart').css('color', 'white')
+            condition = 1;
+        }
+        $.ajax({
+            url: "/addToLoveProd",
+            type: 'get',
+            data: {
+                id: idProd,
+            },
+            error: function () {
+            }
+        });
+
+    }
+</script>
+<!-- Js Plugins -->
+<script src="body_design/js/jquery-3.3.1.min.js"></script>
+<script src="body_design/js/jquery.nice-select.min.js"></script>
+<script src="body_design/js/jquery-ui.min.js"></script>
+<script src="body_design/js/jquery.slicknav.js"></script>
+<script src="body_design/js/mixitup.min.js"></script>
+<script src="body_design/js/owl.carousel.min.js"></script>
+<script src="body_design/js/main.js"></script>
+
+</body>
+</html>
