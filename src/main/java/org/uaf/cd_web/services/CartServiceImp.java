@@ -1,11 +1,13 @@
 package org.uaf.cd_web.services;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.uaf.cd_web.entity.Cart;
 import org.uaf.cd_web.entity.Product;
 import org.uaf.cd_web.reponsitory.CartReponesitory;
+import org.uaf.cd_web.reponsitory.LoveReponesitory;
 import org.uaf.cd_web.services.IServices.ICartService;
 
 import java.util.ArrayList;
@@ -14,20 +16,16 @@ import java.util.List;
 @Service
 public class CartServiceImp implements ICartService {
     private final CartReponesitory cartReponesitory;
+    private final LoveReponesitory loveReponesitory;
 
     @Autowired
-    public CartServiceImp(CartReponesitory cartReponesitory) {
+    public CartServiceImp(CartReponesitory cartReponesitory, LoveReponesitory loveReponesitory) {
         this.cartReponesitory = cartReponesitory;
+        this.loveReponesitory = loveReponesitory;
     }
 
     @Override
     public List<Cart> getListCart(String idUser) {
-//
-//        List<Cart> result = cartReponesitory.findAllByIdUser(idUser);
-//        for (Cart cart : result) {
-//            cart.setProduct(getListProductInCart(cart.getIdUser()));
-//        }
-//        return result;
         return cartReponesitory.findAllByIdUser(idUser);
     }
 
@@ -60,6 +58,41 @@ public class CartServiceImp implements ICartService {
         }
         cartReponesitory.save(cartItem);
     }
+    @Override
+    public List<Integer> getCountCart(String idUser) {
+        // Implement logic to get listCart by user id
+        return cartReponesitory.getCountCart(idUser);
+    }
+
+    @Override
+    public int sumAmount(List<Cart> l) {
+        int result = 0;
+        for (Cart c : l) {
+            result += c.getAmount();
+        }
+        return result;
+
+    }
+
+    @Override
+    public boolean checkExit(String idUser, String idPr) {
+        return cartReponesitory.checkExit(idUser, idPr);
+    }
+
+    // them sp
+    @Override
+    public void insertToCart(String idUser, String idPr, int amount) {
+        Cart c = new Cart();
+        c.setIdUser(idUser);
+        c.setIdPr(idPr);
+        c.setAmount(amount);
+        cartReponesitory.save(c);
+    }
+
+    @Override
+    public void updateToCart(String idUser, String idPr, int amount) {
+        cartReponesitory.updateToCart(idUser, idPr, amount);
+    }
 
     @Override
     @Transactional
@@ -80,6 +113,10 @@ public class CartServiceImp implements ICartService {
     public void updateAmountToCart(String idProduct, String idUser, int amount) {
         cartReponesitory.updateAmount(idProduct,idUser,amount);
     }
+    public void deleteFromLove(String idPr, String idUser) {
+        loveReponesitory.deleteByIdPrAndIdUser(idPr, idUser);
+    }
+
 }
 
 

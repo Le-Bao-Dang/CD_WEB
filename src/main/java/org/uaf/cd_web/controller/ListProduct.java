@@ -32,13 +32,15 @@ public class ListProduct {
         List<Product> loveList=null ;
         Page<Product> page = productServiceImp.getListProductInPage(kind, pages);
         List<Discount> listDiscount = discountServiceImp.getListDiscount();
+        List<Product> getListPrDiscount=productServiceImp.getListPrDiscount();
+        System.out.println(getListPrDiscount);
         if (user != null) {
             loveList = productServiceImp.listLikeProduct(user.getIdUser());
         }
 //        System.out.println(page.getContent().get(0).getAvt().getUrl());
         model.addAttribute("listPr", page.getContent());
         model.addAttribute("listlike", loveList);
-        model.addAttribute("listDiscount", listDiscount);
+        model.addAttribute("listDiscount", getListPrDiscount);
         model.addAttribute("pageCurrent", pages);
         model.addAttribute("total", page.getTotalPages());
         model.addAttribute("user", user);

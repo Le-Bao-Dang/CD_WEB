@@ -146,19 +146,19 @@
                     phẩm</a></li>
                 <li class="nav-item active"><a href="/discount" class="nav-link" th:text="#{discountCode}"></a></li>
                 <li class="nav-item cta cta-colored find">
-                    <form th:action="@{/search}" method="post">
-                        <input style="position: relative; padding: 2px 5px;" oninput="searchByName(this)" th:value="${param.searchPR}"
+                    <div>
+                        <input style="position: relative" onkeyup="search(this)"
                                type="text" class="search-input" name="searchPR" id="searchInput" autocomplete="off"
                                th:placeholder="#{search}">
                         <ul id="searchResults"
                             style=" padding:0 10px ; position: fixed; background-color: #82ae4624; cursor: pointer ">
 
                         </ul>
-                    </form>
+                    </div>
                 </li>
                 <li id="totalCart" class="nav-item cta cta-colored amountInCart">
                     <a href="/cart" class="nav-link">
-                        <span class="fa-solid fa-cart-shopping" th:text="'['+${sumCart}+']'"></span></a>
+                        <span class="fa-solid fa-cart-shopping"></span>[<span th:text="${smart}">0</span>]</a>
                 </li>
                 <!-- Lấy thông tin user từ session -->
 
@@ -287,18 +287,3 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
         crossorigin="anonymous"></script>
 </html>
-<!--$connect= mysql_connect("localhost", "root","","testing1";-->
-<!--if(isset($_POST["query"])){-->
-<!--$output='';-->
-<!--$query="SELECT p from Product p  WHERE p.namePr like CONCAT('%', :keyword, '%')"-->
-<!--$result= mysql_query($connect, $query);-->
-<!--$output='<ul class="list">';-->
-<!--    if(mysqli_num_rows($result)>0){-->
-<!--    while($row-mysqli_fetch_array($result)){-->
-<!--    $output .='<li>'.$row[" product_name"].'</li>';-->
-<!--    }}-->
-<!--    else{-->
-<!--    $output .='<li>Not found</li>';-->
-<!--    } $output .='</ul>';-->
-<!--echo $output;-->
-<!--}-->

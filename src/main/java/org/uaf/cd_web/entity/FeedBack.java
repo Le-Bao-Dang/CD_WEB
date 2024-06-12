@@ -8,20 +8,26 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 @Entity
-@Table(name="love")
+@Table(name="feed_back")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Love implements Serializable {
+public class FeedBack implements Serializable {
     @Id
     @Column(name = "ID_PR")
     private String idPr;
-
     @Column(name = "ID_USER")
     private String idUser;
+    @Column(name = "SCORESTAR")
+    private int scorestar;
+    @Column(name = "TEXT")
+    private String text;
+    @Column(name = "DATE")
+    private Date date;
 
 
 
@@ -34,16 +40,6 @@ public class Love implements Serializable {
     @JsonManagedReference
     private User user;
 
-    @Override
-    public String toString() {
-        return "Love{" +
-                "idPr='" + idPr + '\'' +
-                ", iduser='" + idUser + '\'' +
-                '}';
-    }
 
-    public Love(String idPr, String idUser) {
-        this.idPr = idPr;
-        this.idUser = idUser;
-    }
+
 }

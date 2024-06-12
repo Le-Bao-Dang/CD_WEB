@@ -78,11 +78,17 @@
                                 <h5 th:if="${s1.orders.status == 0}">
                                     Tình trạng đơn hàng: <span style="color: red;">Đang chuẩn bị</span>
                                 </h5>
-                                <h5 th:if="${s1.orders.status!= 0}">
+                                <h5 th:if="${s1.orders.status== 1}">
                                     Tình trạng đơn hàng: <span style="color: red;">Đang giao hàng</span>
                                 </h5>
+                                <h5 th:if="${s1.orders.status== 3}">
+                                    Tình trạng đơn hàng: <span style="color: red;">Chờ xác nhận</span>
+                                </h5>
+                                <h5 th:if="${s1.orders.status== 4}">
+                                    Tình trạng đơn hàng: <span style="color: red;">Đã xác nhận</span>
+                                </h5>
                             </div>
-                            <div th:if="${s1.orders.status == 0}">
+                            <div th:if="${s1.orders.status == 0 || s1.orders.status == 3 || s1.orders.status == 4}">
 <!--                                th:onclick="'huyDon(' + ${entry.key} + ')'"-->
                                 <button class="uCanClick" style="background:#7fad39; padding:10px 25px; color: white; border: none;">
                                     Hủy đơn
@@ -90,9 +96,12 @@
 
                             </div>
                             <div>
-                                <h4>
+                                <div>
+                                    <h5>Thời gian đặt hàng: <span th:text="${s1.orders.timeOrders}"></span></h5>
+                                </div>
+                                <h5>
                                     Tổng đơn hàng: <span th:text="${#numbers.formatDecimal(sumOrder[entry.key], 0,'POINT',0, 'COMMA')} + 'đ'"></span>
-                                </h4>
+                                </h5>
                             </div>
                         </div>
                     </div>

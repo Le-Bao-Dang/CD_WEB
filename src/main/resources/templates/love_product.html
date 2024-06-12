@@ -60,10 +60,10 @@
                                 <span th:text="${#numbers.formatDecimal(p.price, 0,'POINT', 0, 'COMMA')} + 'đ'"></span>
                             </td>
                             <td class="shoping__cart__quantity">
-                                <button th:id="'addToCart-' + ${p.idPr}" th:onclick="'addToCart('${p.idPr}')'" >Thêm</button>
+                                <button th:id="'addToCart-' + ${p.idPr}" th:attr="data-idPr=${p.idPr}" onclick="addToCart(this)">Thêm</button>
                             </td>
                             <td class="shoping__cart__item__close">
-                                <span th:onclick="'remove('${p.idPr}')'" class="icon_close"></span>
+                                <span th:attr="data-idPr=${p.idPr}" class="icon_close" onclick="remove(this)"></span>
                             </td>
                         </tr>
                         </tbody>
@@ -76,13 +76,14 @@
 
 <footer th:replace="footer.html"></footer> <!-- Thymeleaf footer inclusion -->
 
-<script th:inline="javascript">
-    function addToCart(idProd) {
+<script>
+    function addToCart(button) {
+        const idPr   = button.getAttribute('data-idPr');
         $.ajax({
             url: "/addToCart",
             type: 'get',
             data: {
-                id: idProd,
+                idPr: idPr,
                 amount: 1
             },
             success: function (data) {
@@ -92,24 +93,24 @@
             error: function () {
             }
         });
-        $('#'+idProd).remove();
+        $(button).closest('tr').remove();
     }
-    function remove(idProd) {
+
+    function remove(button) {
+        const idPr = button.getAttribute('data-idPr');
         $.ajax({
             url: "/removeFromLove",
             type: 'get',
             data: {
-                id: idProd,
+                idPr: idPr,
             },
             success: function (data) {
             },
             error: function () {
             }
         });
-        $('#'+idProd).remove();
-    }
+        $(button).closest('tr').remove();    }
 </script>
-
 <!-- Js Plugins -->
 <script src="body_design/js/jquery-3.3.1.min.js"></script>
 <script src="body_design/js/jquery.nice-select.min.js"></script>

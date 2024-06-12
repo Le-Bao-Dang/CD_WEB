@@ -8,11 +8,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.uaf.cd_web.entity.Detail_Pr;
+import org.uaf.cd_web.entity.FeedBack;
 import org.uaf.cd_web.entity.Image;
 import org.uaf.cd_web.entity.Product;
-import org.uaf.cd_web.reponsitory.ImageReponesitory;
-import org.uaf.cd_web.reponsitory.ProductReponesitory;
-import org.uaf.cd_web.reponsitory.SoldPrReponesitory;
+import org.uaf.cd_web.reponsitory.*;
 import org.uaf.cd_web.services.IServices.IProductService;
 
 import java.time.LocalDateTime;
@@ -24,13 +23,16 @@ public class ProductServiceImp implements IProductService {
     private final ProductReponesitory productReponesitory;
     private final ImageReponesitory imageReponesitory;
     private final SoldPrReponesitory soldPrReponesitory;
-
+    private final DetailProductReponesitory detailProductReponesitory;
+    private final FeedBackReponesitory feedBackReponesitory;
 
     @Autowired
-    public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory, SoldPrReponesitory soldPrReponesitory) {
+    public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory, SoldPrReponesitory soldPrReponesitory, DetailProductReponesitory detailProductReponesitory, FeedBackReponesitory feedBackReponesitory) {
         this.productReponesitory = productReponesitory;
         this.imageReponesitory = imageReponesitory;
         this.soldPrReponesitory = soldPrReponesitory;
+        this.detailProductReponesitory = detailProductReponesitory;
+        this.feedBackReponesitory = feedBackReponesitory;
     }
 
     @Override
@@ -210,5 +212,28 @@ public class ProductServiceImp implements IProductService {
 
 
     }
+    public List<Product> getListPrDiscount() {
+        return productReponesitory.getListPrDiscount();
+    }
+
+    @Override
+    public List<Detail_Pr> getSingleProduct(String idPr) {
+        return detailProductReponesitory.getSingleProduct(idPr);
+    }
+
+    @Override
+    public List<Image> findByIdPr(String idPro) {
+        return imageReponesitory.findByIdPr(idPro);
+    }
+@Override
+    public List<FeedBack> getFeedBack(String idPro) {
+        return feedBackReponesitory.findByIdPr(idPro);
+
+    }
+    @Override
+    public List<Product> getRelatedProducts(String idMenu){
+        return productReponesitory.findRelatedProductsByIdMenu(idMenu);
+    }
+
 }
 
