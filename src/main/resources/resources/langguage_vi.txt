@@ -1,0 +1,62 @@
+# Đăng nhập
+welcome.login=Đăng nhập
+welcome.register=Đăng ký
+welcome.logout=Đăng xuất
+usernames=Email hoặc Số điện thoại
+passwords=Mật khẩu
+forgotPass=Quên mật khẩu
+comeback=Quay lại
+
+# Đăng ký
+register.name=Họ và tên
+register.mail=Địa chỉ mail
+register.phone=Số điện thoại
+register.cPass=Tạo mật khẩu
+register.rPass=Nhập lại mật khẩu
+register.cAcount=Tạo tài khoản
+
+# Header
+shipment=GIAO TRẢ HÀNG TRONG 3-5 NGÀY LÀM VIỆC, TRẢ HÀNG MIỄN PHÍ
+homePage=Trang Chủ
+listProduct=Sản Phẩm
+discountCode=Mã Giảm Giá
+search=Tìm kiếm
+
+#ListProduct
+sale=Giảm giá
+rice=Gạo
+sticky-rice=Nếp
+nuts=Các loại hạt
+powders=Các loại bột
+tubersAndFruits=Các loại củ, trái
+
+#User
+account=Tài khoản
+likeProduct=Sản phẩm yêu thích
+historyOrder=Lịch sử đơn hàng
+contact=Liên hệ hướng dẫn
+
+#Admin
+userManager=Quản lý người dùng
+orderManager=Quản lý đơn hàng
+productManager=Quản lý sản phẩm
+messesManager=Quản lý hộp thoại
+overview=Tổng quan
+customer=khách hàng
+phoneAndEmail=Số điện thoại và email
+address=Địa chỉ
+view=xem
+idOrder=Mã đơn hàng
+status=Trạng thái
+dateOrder=Ngày đặt hàng
+amount=Số lượng
+totalOder=Tổng đơn
+operation=Thao tác
+add=Thêm
+product=Sản phẩm
+type=Loại
+brand=Thương hiệu
+quantitySold=Số lượng đã bán
+price=Giá
+update=Sửa
+filter=Bộ lọc

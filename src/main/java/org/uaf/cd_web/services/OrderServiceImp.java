@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.uaf.cd_web.entity.Cart;
 import org.uaf.cd_web.entity.Orders;
 import org.uaf.cd_web.entity.Sold_Pr;
 import org.uaf.cd_web.reponsitory.OrderReponesitory;
@@ -24,27 +26,31 @@ public class OrderServiceImp implements IOrderService {
         this.orderReponesitory = orderReponesitory;
         this.soldPrReponesitory = soldPrReponesitory;
     }
+
     @Override
     public void addOrder(Orders orders) {
-        orders.setIdOrders(this.generateIdOrder());
-        this.orderReponesitory.save(orders);
+        orderReponesitory.save(orders);
     }
+
     @Override
     public String generateIdOrder() {
-        int size = (int) this.orderReponesitory.count() + 1;
+        int size = orderReponesitory.getMaxId() + 1;
         return "orders" + size;
     }
+
     @Override
     public void changeConditionOrder(String idOrder, int status) {
         Orders orders = (Orders) this.orderReponesitory.getReferenceById(idOrder);
         orders.setStatus(status);
         this.orderReponesitory.save(orders);
     }
+
     @Override
     public Page<Orders> getListOrder(int page) {
-        Pageable paging = PageRequest.of(page - 1, 10);
+        Pageable paging = PageRequest.of(page - 1, 10, Sort.by(Sort.Direction.DESC, "timeOrders"));
         return this.orderReponesitory.findAll(paging);
     }
+
     @Override
     public Orders getOrderById(String id) {
         return (Orders) this.orderReponesitory.getReferenceById(id);
@@ -54,6 +60,7 @@ public class OrderServiceImp implements IOrderService {
     public List<Sold_Pr> getListIdProductInOrder(String idOrder) {
         return this.orderReponesitory.findById(idOrder).get().getPrList();
     }
+
     @Override
     public long sumOrder(String idOrder) {
         List<Sold_Pr> listPr = this.getListIdProductInOrder(idOrder);
@@ -100,7 +107,7 @@ public class OrderServiceImp implements IOrderService {
     }
 
     @Override
-    public List<Sold_Pr> getManagerOrderUser(String idUser){
+    public List<Sold_Pr> getManagerOrderUser(String idUser) {
         return soldPrReponesitory.getManagerOrderUser(idUser);
     }
 
@@ -142,23 +149,30 @@ public class OrderServiceImp implements IOrderService {
     }
 
     @Override
-    public int getTurnover(int month, int year){
-        Integer result = orderReponesitory.getTurnOver(month,year);
+    public int getTurnover(int month, int year) {
+        Integer result = orderReponesitory.getTurnOver(month, year);
         return result != null ? result : 0;
     }
+
     @Override
-    public int getAllTurnover(){
+    public int getAllTurnover() {
         return orderReponesitory.getAllTurnOver();
     }
 
     @Override
-    public int getSalerPRAll(){
+    public int getSalerPRAll() {
         return orderReponesitory.getAllSalePr();
     }
 
     @Override
-    public int getSalerPR(){
+    public int getSalerPR() {
         return orderReponesitory.getAllSalePr();
+    }
+
+    @Override
+    public List<Orders> searchOrder(String keyword) {
+        if(keyword.equals(" ")) return orderReponesitory.findAll();
+        return orderReponesitory.findOrdersByIdOrders(keyword);
     }
 
 }

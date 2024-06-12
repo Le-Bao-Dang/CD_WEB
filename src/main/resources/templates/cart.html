@@ -41,8 +41,8 @@
                             <th></th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr th:each="p : ${listCart}">
+                        <tbody th:each="p : ${listCart}">
+                        <tr th:id="${p.getIdPr()}">
                             <td class="shoping__cart__item">
                                 <img th:src="${p.product.getAvt().getUrl()}" alt="" style="width: 100px;height: auto">
                                 <h5 th:text="${p.product.getNamePr()}"></h5>
@@ -53,9 +53,17 @@
                             <td class="shoping__cart__quantity">
                                 <div class="quantity">
                                     <div class="pro-qty">
-                                        <span th:onclick="'changeAmount(this,' + \'${p.price - (p.price * p.discount)/100}\' + ',' + \'${p.idPr}\' + ',' + document.getElementById(\'totalCart\') + ')'" class="dec qtybtn">-</span>
-                                        <input id="'th'amount${p.idPr}" type="text" th:value="${p.amount}">
-                                        <span th:onclick="'changeAmount(this,' + \'${p.price - (p.price * p.discount)/100}\' + ',' + \'${p.idPr}\' + ',' + document.getElementById(\'totalCart\') + ')'" class="inc qtybtn">+</span>
+                                        <span th:data-orginprice="${p.getProduct().price - (p.getProduct().price  * p.getProduct().discount) / 100}"
+                                              th:data-idprod="${p.idPr}"
+                                              th:data-header="totalCart"
+                                              onclick="changeAmount(this)"
+                                              class="dec qtybtn">-</span>
+                                        <input th:id="'amount' + ${p.idPr}" type="text" th:value="${p.amount}">
+                                        <span th:data-orginprice="${p.getProduct().price - (p.getProduct().price  * p.getProduct().discount) / 100}"
+                                              th:data-idprod="${p.idPr}"
+                                              th:data-header="totalCart"
+                                              onclick="changeAmount(this)"
+                                              class="inc qtybtn">+</span>
                                     </div>
                                 </div>
                             </td>
@@ -64,11 +72,19 @@
                             </td>
                             <td style="padding: 30px">
                                 <input name="checkboxInput" th:id="'box' + ${p.idPr}"
-                                       th:onclick="checkBox(this,'${p.idPr}', '${p.price}', document.getElementById('amount' + ${p.idPr}))"
-                                       class="checkBoxCart" type="checkbox" checked style="transform: scale(1.5)">
+                                       th:data-idcheck="'box' + ${p.idPr}" th:data-id="${p.idPr}"
+                                       th:data-price="${p.product.price}" th:data-amountid="'amount' + ${p.idPr}"
+                                       onclick="checkBox(this)"
+                                       class="checkBoxCart"
+                                       type="checkbox"
+                                       checked
+                                       style="transform: scale(1.5)">
                             </td>
                             <td class="shoping__cart__item__close">
-                                <span th:onclick="removeProduct(document.getElementById('totalCart'), document.getElementById('box' + ${p.idPr}), '${p.idPr}', '${p.price}', document.getElementById('amount' + ${p.idPr}))"
+                                <span th:data-idcheck="'box' + ${p.idPr}" th:data-id="${p.idPr}"
+                                      th:data-price="${p.product.price}"
+                                      th:data-amountid="'amount' + ${p.idPr}"
+                                      onclick="removeProduct(this)"
                                       class="icon_close"></span>
                             </td>
                         </tr>
@@ -89,12 +105,12 @@
                     <div id="boxMaGiamGia" class="shoping__discount">
                         <h5>Mã giảm giá</h5>
                         <input id="maGiamGia" type="text" placeholder="Nhập mã giảm giá">
-                        <button th:onclick="'applyDiscount()'">Áp dụng</button>
+                        <button onclick="applyDiscount()">Áp dụng</button>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6">
-                <form id="checkoutForm" th:action="@{/checkingOut}" method="post">
+                <form id="checkoutForm" th:action="@{/checkout}" method="post">
                     <div id="checkOut" class="shoping__checkout" style="margin-top: 0">
                         <h5>Tổng giỏ hàng</h5>
                         <ul>
@@ -102,7 +118,7 @@
                                 <input name="sumCheckout" th:value="${sum}" style="display: none">
                                 <span th:text="${#numbers.formatDecimal(sum,1,'POINT', 0,'COMMA')} + 'đ'"></span>
                             </li>
-                            <li id="discount" th:value="${0}">Giảm
+                            <li id="discount" th:value="${0}">Tiết kiệm
                                 <input name="discountCheckout" th:value="${0}" style="display: none">
                                 <span th:text="${#numbers.formatDecimal(0,1,'POINT', 0, 'COMMA')} + 'đ'"></span>
                             </li>
@@ -110,7 +126,8 @@
                                 <input name="totalCheckout" th:value="${sum - 0}" style="display: none">
                                 <span th:text="${#numbers.formatDecimal(sum - 0,1,'POINT', 0,'COMMA')} + 'đ'"></span>
                             </li>
-                            <input id="idProdChecked" type="text" name="allIdProdChecked" value="" style="display: none">
+                            <input id="idProdChecked" type="text" name="allIdProdChecked" value=""
+                                   style="display: none">
                             <input id="maGiamGiaHide" name="maGiamGia" value="" style="display: none">
                         </ul>
                         <button type="submit" class="primary-btn">Thanh toán</button>
@@ -120,12 +137,12 @@
         </div>
     </div>
 </section>
-
+<div th:include="chat.html"></div>
 <footer th:replace="footer.html"></footer>
 
 <script>
-    $(document).ready(function() {
-        $("#checkoutForm").submit(function(event) {
+    $(document).ready(function () {
+        $("#checkoutForm").submit(function (event) {
             var idProdChecked = $("#idProdChecked").val();
 
             if (idProdChecked == "") {
@@ -153,19 +170,28 @@
     }
 
     function cancelAppyDiscount() {
+        let allCheckbox = $('.checkBoxCart')
+        var toStringIdChecked = "";
+        for (let i = 0; i < allCheckbox.length; i++) {
+            if (allCheckbox[i].checked === true) {
+                toStringIdChecked += " " + allCheckbox[i].id;
+            }
+        }
+        $('#idProdChecked').val(toStringIdChecked);
         $.ajax({
             url: "/canelApplyDiscount",
             type: 'get',
             data: {
                 sum: $('#sum').val(),
                 discount: $('#discount').val(),
+                listId :toStringIdChecked,
             },
             success: function (data) {
                 const content = document.getElementById('checkOut')
                 content.innerHTML = data;
                 const boxMaGiamGia = document.getElementById('boxMaGiamGia');
                 boxMaGiamGia.innerHTML = "<h5>Mã giảm giá</h5>" +
-                    "<input id=\"maGiamGia\" type=\"text\" value='"+$('#maGiamGia').val()+"' placeholder=\"Nhập mã giảm giá\"> " +
+                    "<input id=\"maGiamGia\" type=\"text\" value='" + $('#maGiamGia').val() + "' placeholder=\"Nhập mã giảm giá\"> " +
                     "<button th:onclick=\"applyDiscount()\">Áp dụng</button>"
                 $('#maGiamGiaHide').val('');
 
@@ -176,7 +202,23 @@
     }
 
 
+
+
+
+
+
+
+
+
     function applyDiscount() {
+        let allCheckbox = $('.checkBoxCart')
+        var toStringIdChecked = "";
+        for (let i = 0; i < allCheckbox.length; i++) {
+            if (allCheckbox[i].checked === true) {
+                toStringIdChecked += " " + allCheckbox[i].id;
+            }
+        }
+        $('#idProdChecked').val(toStringIdChecked);
         $.ajax({
             url: "/applyDiscount",
             type: 'get',
@@ -184,19 +226,20 @@
                 code: $('#maGiamGia').val(),
                 sum: $('#sum').val(),
                 discount: $('#discount').val(),
+                listId :toStringIdChecked,
             },
             success: function (data) {
-                if(data == 0) alert("Mã "+$('#maGiamGia').val()+" tạm thời đã hết")
-                else if(data == 1) alert("Đơn hàng chưa đạt giá trị tối thiểu")
-                else if(data == 2) alert("Bạn đã áp dụng mã rồi")
-                else if(data == 3) alert("Mã giảm giá không tồn tại")
+                if (data == 0) alert("Mã " + $('#maGiamGia').val() + " tạm thời đã hết")
+                else if (data == 1) alert("Đơn hàng chưa đạt giá trị tối thiểu")
+                else if (data == 2) alert("Bạn đã áp dụng mã rồi")
+                else if (data == 3) alert("Mã giảm giá không tồn tại")
                 else {
                     const content = document.getElementById('checkOut')
                     content.innerHTML = data;
                     const boxMaGiamGia = document.getElementById('boxMaGiamGia');
                     boxMaGiamGia.innerHTML = "<h5>Mã giảm giá</h5>" +
-                        "<input id=\"maGiamGia\" type=\"text\" value=\""+$('#maGiamGia').val()+"\" placeholder=\"Nhập mã giảm giá\"> " +
-                        "<button th:onclick=\"cancelAppyDiscount()\">Huỷ áp dụng</button>"
+                        "<input id=\"maGiamGia\" type=\"text\" value=\"" + $('#maGiamGia').val() + "\" placeholder=\"Nhập mã giảm giá\"> " +
+                        "<button onclick=\"cancelAppyDiscount()\">Huỷ áp dụng</button>"
                     $('#maGiamGiaHide').val($('#maGiamGia').val());
                 }
 
@@ -207,16 +250,18 @@
 
     }
 
-    function changeAmount(button, orginPrice, idProd, elementHeader) {
+    function changeAmount(button) {
         let newVal;
-        let sum = $('#sum').val();
-        let discount = $('#discount').val();
-        let total = $('#total').val();
-        var proQty = $('.pro-qty');
-        var elementI = $('#amount' + idProd);
-        var oldValue = elementI.val();
-        let allCheckbox = $('.checkBoxCart')
-        var toStringIdChecked = "";
+        let orginPrice = button.getAttribute('data-orginprice');
+        let idProd = button.getAttribute('data-idprod');
+        let elementHeader = document.getElementById(button.getAttribute('data-header'));
+        let sum = document.getElementById('sum').value;
+        let discount = document.getElementById('discount').value;
+        let total = document.getElementById('total').value;
+        let elementI = $('#amount' + idProd);
+        let oldValue = elementI.val();
+        let allCheckbox = document.getElementsByClassName('checkBoxCart');
+        let toStringIdChecked = "";
         for (let i = 0; i < allCheckbox.length; i++) {
             if (allCheckbox[i].checked === true) {
                 toStringIdChecked += " " + allCheckbox[i].id;
@@ -232,19 +277,19 @@
             success: function (data) {
                 if (button.classList.contains('inc')) {
 
-                    if(parseInt(data) > parseInt(oldValue)) {
+                    if (parseInt(data) > parseInt(oldValue)) {
                         newVal = parseFloat(oldValue) + 1;
                         sumCart += 1;
                     } else {
                         newVal = oldValue;
                     }
-                    if(document.getElementById('box'+ idProd).checked) sum = parseInt(sum) + parseInt(orginPrice);
+                    if (document.getElementById('box' + idProd).checked) sum = parseInt(sum) + parseInt(orginPrice);
                 } else {
                     // Don't allow decrementing below one
                     if (oldValue > 1) {
                         newVal = parseFloat(oldValue) - 1;
                         sumCart -= 1;
-                        if(document.getElementById('box'+ idProd).checked) sum = parseInt(sum) - parseInt(orginPrice);
+                        if (document.getElementById('box' + idProd).checked) sum = parseInt(sum) - parseInt(orginPrice);
                     } else {
                         newVal = 1;
                     }
@@ -263,7 +308,7 @@
                         discount: discount,
                         total: total,
                         amount: newVal,
-                        listId :toStringIdChecked
+                        listId: toStringIdChecked
                     },
                     success: function (data) {
                         const content = document.getElementById('checkOut')
@@ -279,7 +324,11 @@
     }
 
 
-    function removeProduct(elementHeader, elementInput, idProduct, price, elementInputAmount) {
+    function removeProduct(element) {
+        let elementInput = element.getAttribute('data-idcheck');
+        let idProduct = element.getAttribute('data-id');
+        let price = parseFloat(element.getAttribute('data-price'));
+        let elementInputAmount = element.getAttribute('data-amountid');
         document.getElementById(idProduct).remove();
 
         let allCheckbox = $('.checkBoxCart')
@@ -307,71 +356,78 @@
                 sum: sum,
                 discount: discount,
                 total: total,
-                listId : toStringIdChecked
+                listId: toStringIdChecked
             },
             success: function (data) {
                 const content = document.getElementById('checkOut')
                 content.innerHTML = data;
                 sumCart = sumCart - amount;
-                elementHeader.innerHTML = "<a href=\"/Cart?\" class=\"nav-link\">\n" +
+                $('#totalCart').innerHTML = "<a href=\"/Cart?\" class=\"nav-link\">\n" +
                     "                        <span class=\"fa-solid fa-cart-shopping\"></span>[" + sumCart + "]</a>";
             },
             error: function () {
+                console.error("Error processing request.");
             }
         });
     }
 
-    function checkBox(box, idProduct, price, elementInputAmount) {
+    function checkBox(box) {
+        let idProduct = box.getAttribute('data-id');
+        let price = box.getAttribute('data-price');
+        let amountId = box.getAttribute('data-amountid');
+
         let sum;
         let total;
-        let amount = elementInputAmount.value;
+        let amount = $('#' + amountId).val();
+        console.log(amount)
 
-        let allCheckbox = $('.checkBoxCart')
+        let allCheckbox = document.querySelectorAll('.checkBoxCart');
         var toStringIdChecked = "";
-        for (let i = 0; i < allCheckbox.length; i++) {
-            if (allCheckbox[i].checked === true) {
-                toStringIdChecked += " " + allCheckbox[i].id;
+        allCheckbox.forEach(checkbox => {
+            if (checkbox.checked) {
+                toStringIdChecked += " " + checkbox.id;
             }
-        }
-        $('#idProdChecked').val(toStringIdChecked);
+        });
+        document.getElementById('idProdChecked').value = toStringIdChecked.trim();
 
-        if (box.checked === true) {
-            sum = parseInt($('#sum').val()) + parseInt(price) * amount;
-            total = parseInt($('#total').val()) + parseInt(price) * amount;
+        if (box.checked) {
+            sum = parseInt(document.getElementById('sum').value) + parseInt(price) * amount;
+            total = parseInt(document.getElementById('total').value) + parseInt(price) * amount;
         } else {
-            sum = $('#sum').val() - price * amount;
-            total = $('#total').val() - price * amount;
+            sum = parseInt(document.getElementById('sum').value) - parseInt(price) * amount;
+            total = parseInt(document.getElementById('total').value) - parseInt(price) * amount;
         }
-        let discount = $('#discount').val();
+        let discount = document.getElementById('discount').value;
 
         $.ajax({
-            url: "/unCheckFromCart",
+            url: '/unCheckFromCart',
             type: 'get',
             data: {
                 id: idProduct,
                 sum: sum,
                 discount: discount,
                 total: total,
-                listId : toStringIdChecked
+                listId: toStringIdChecked
             },
             success: function (data) {
-                const content = document.getElementById('checkOut')
+                const content = document.getElementById('checkOut');
                 content.innerHTML = data;
             },
             error: function () {
+                console.error("Error processing request.");
             }
         });
     }
 </script>
 
 <!-- Js Plugins -->
-<script src="body_design/js/jquery-3.3.1.min.js"></script>
-<script src="body_design/js/jquery.nice-select.min.js"></script>
-<script src="body_design/js/jquery-ui.min.js"></script>
-<script src="body_design/js/jquery.slicknav.js"></script>
-<script src="body_design/js/mixitup.min.js"></script>
-<script src="body_design/js/owl.carousel.min.js"></script>
-<script src="body_design/js/main.js"></script>
+<script th:src="@{/body_design/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/body_design/js/jquery.nice-select.min.js}"></script>
+<script th:src="@{/body_design/js/jquery-ui.min.js}"></script>
+<script th:src="@{/body_design/js/jquery.slicknav.js}"></script>
+<script th:src="@{/body_design/js/mixitup.min.js}"></script>
+<script th:src="@{/body_design/js/owl.carousel.min.js}"></script>
+<script th:src="@{/body_design/js/main.js}"></script>
 
 </body>
 </html>

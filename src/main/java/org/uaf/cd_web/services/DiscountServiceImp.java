@@ -14,10 +14,22 @@ public class DiscountServiceImp implements IDiscountService {
     public DiscountServiceImp(DiscountReponesitory discountReponesitory) {
         this.discountReponesitory = discountReponesitory;
     }
+
     @Override
-    public List<Discount> getListDiscount(){
+    public List<Discount> getListDiscount() {
         return discountReponesitory.findAll();
     }
 
+    @Override
+    public Discount getDiscountByCode(String code) {
+        return discountReponesitory.getDiscountByCode(code);
+    }
 
+    @Override
+    public void subttractQuantity(String code) {
+        Discount discount = getDiscountByCode(code);
+        int quantity = discount.getSoluong() - 1;
+        discount.setValue(quantity);
+        discountReponesitory.save(discount);
+    }
 }

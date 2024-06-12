@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>BHNFoods | Chi tiết thanh toán</title>
 </head>
-<body>
+<body id="body">
 
-<header th:replace="header :: header"></header>
+<header th:include="header.html"></header>
 
 <section class="ftco-section">
     <div class="container">
@@ -43,18 +43,17 @@
                         <div class="col-md-12" id="shipAddress">
                             <div class="form-group">
                                 <label>Tỉnh, Thành phố</label>
-                                <select id="city" type="text" class="form-control" onchange="addDistrict">
-                                    <option th:each="entry : ${mapProvince}" th:value="${entry.value}"
-                                            th:text="${entry.key}"></option>
+                                <select id="city" type="text" class="form-control">
+                                    <option>Chọn...</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Quận, Huyện</label>
-                                <select id="district" type="text" class="form-control" onchange="addWard"></select>
+                                <select id="district" type="text" class="form-control"></select>
                             </div>
                             <div class="form-group">
                                 <label>Phường, Xã</label>
-                                <select id="ward" type="text" class="form-control" onchange="changeWard"></select>
+                                <select id="ward" type="text" class="form-control"></select>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -85,18 +84,22 @@
                             <h3 class="billing-heading mb-4" style="font-size: 24px">Tổng giỏ hàng</h3>
                             <ul id="totalCard" style="padding: 0">
                                 <li id="sumCheckout" th:value="${sum}" style="overflow: hidden; margin-bottom: 1rem">
-                                    Tổng tiền hàng<span style="float: right"
-                                                        th:text="${#numbers.formatDecimal(sum, '#,###')} + 'đ'"></span>
+                                    Tổng tiền hàng
+                                    <span style="float: right"
+                                          th:text="${#numbers.formatDecimal(sum, 0, 'POINT', 0, 'COMMA')} + 'đ'"></span>
                                 </li>
                                 <li id="discountCheckout" th:value="${discount}"
-                                    style="overflow: hidden; margin-bottom: 1rem">Giảm<span style="float: right"
-                                                                                            th:text="${#numbers.formatDecimal(discount, '#,###')} + 'đ'"></span>
+                                    style="overflow: hidden; margin-bottom: 1rem">Tiết kiệm
+                                    <span style="float: right"
+                                          th:text="${#numbers.formatDecimal(discount, 0, 'POINT', 0, 'COMMA')} + 'đ'"></span>
                                 </li>
                                 <li id="shipCheckout" th:value="0" style="overflow: hidden; margin-bottom: 1rem">Phí vận
-                                    chuyển<span style="float: right">0đ</span></li>
-                                <li id="totalCheckout" th:value="${total}" style="overflow: hidden">Tổng thanh toán<span
-                                        style="float: right"
-                                        th:text="${#numbers.formatDecimal(total, '#,###')} + 'đ'"></span></li>
+                                    chuyển
+                                    <span style="float: right" th:text="${sum>200000? 0.000: '20.000'}+'đ'"></span></li>
+                                <li id="totalCheckout" th:value="${total}" style="overflow: hidden">Tổng thanh toán
+                                    <span style="float: right"
+                                          th:text="${#numbers.formatDecimal(total, 0, 'POINT', 0, 'COMMA')} + 'đ'"></span>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -119,7 +122,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="text" id="allId" th:value="${all}" style="display: none">
+                            <input type="text" id="allId" th:value="${allIdProdChecked}" style="display: none">
                             <input type="text" id="maGiamGia" th:value="${maGiamGia}" style="display: none">
                             <p>
                                 <button onclick="pay()" class="btn btn-primary py-3 px-4 " style="border-radius:0px">Đặt
@@ -138,6 +141,8 @@
 
 <!-- Js Plugins -->
 <script>
+
+
     function pay() {
         if ($('#fullName').val() == "" || $('#phoneNumber').val() == "" || $('#address').val() == "" || $('#city').val() == "" || $('#district').val() == "" || $('#ward').val() == "") {
             alert('Hãy nhập đầy đủ các thông tin');
@@ -161,6 +166,9 @@
             var selectedTextCity = selectedOptionCity.textContent;
             var selectedTextDistrict = selectedOptionDistrict.textContent;
             var selectedTextWard = selectedOptionWard.textContent;
+
+            // Address
+            var address = $('#address').val() + selectedTextWard + selectedTextDistrict + selectedTextCity
             document.body.style.cursor = 'wait';
 
             $.ajax({
@@ -170,13 +178,7 @@
                     fullName: $('#fullName').val(),
                     phoneNumber: $('#phoneNumber').val(),
                     email: $('#email').val(),
-                    address: $('#address').val(),
-                    idCity: $('#city').val(),
-                    idDistrict: $('#district').val(),
-                    idWard: $('#ward').val(),
-                    city: selectedTextCity,
-                    district: selectedTextDistrict,
-                    ward: selectedTextWard,
+                    address: address,
                     note: $('#note').val(),
                     payment: $('input[type="radio"][name="optradio"]:checked').val(),
                     sumCheckout: $('#sumCheckout').val(),
@@ -209,43 +211,7 @@
 
 
     function Redirect() {
-        window.location.assign('/ListProduct?kind=0&page=1');
-    }
-    function addDistrict() {
-        const idProvince = $("#city").val();
-        $.ajax({
-            url: "/addDistrict",
-            type: 'get',
-            data: {
-                idProvince: idProvince
-            },
-            success: function (data) {
-                const ward = document.getElementById('ward')
-                ward.innerHTML = "";
-                const content = document.getElementById('district')
-                content.innerHTML = data;
-                $.ajax({
-                    url: "/changeDistrict",
-                    type: 'get',
-                    data: {
-                        sumCheckout: $('#sumCheckout').val(),
-                        discountCheckout: $('#discountCheckout').val(),
-                        idDistrict: -1,
-                        idWard: -1,
-                        listId: $('#allId').val(),
-                        totalCheckout: parseInt($('#totalCheckout').val()) + parseInt($('#shipCheckout').val())
-                    },
-                    success: function (data) {
-                        const content = document.getElementById('totalCard')
-                        content.innerHTML = data;
-                    },
-                    error: function () {
-                    }
-                });
-            },
-            error: function () {
-            }
-        });
+        window.location.assign('/listProduct?page=1&kind=1');
     }
 
     function format1(n, currency) {
@@ -254,63 +220,43 @@
         }) + currency;
     }
 
-    function addWard() {
-        const idDistrict = $("#district").val();
-        $.ajax({
-            url: "/addWard",
-            type: 'get',
-            data: {
-                idDistrict: idDistrict
-            },
-            success: function (data) {
-                const content = document.getElementById('ward')
-                content.innerHTML = data;
-                $.ajax({
-                    url: "/changeDistrict",
-                    type: 'get',
-                    data: {
-                        sumCheckout: $('#sumCheckout').val(),
-                        discountCheckout: $('#discountCheckout').val(),
-                        idDistrict: idDistrict,
-                        idWard: $("#ward").val(),
-                        listId: $('#allId').val(),
-                        totalCheckout: parseInt($('#totalCheckout').val()) + parseInt($('#shipCheckout').val())
-                    },
-                    success: function (data) {
-                        const content = document.getElementById('totalCard')
-                        content.innerHTML = data;
-                    },
-                    error: function () {
-                    }
+    $(document).ready(function () {
+        //Lấy tỉnh thành
+        $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function (data_tinh) {
+            if (data_tinh.error == 0) {
+                $.each(data_tinh.data, function (key_tinh, val_tinh) {
+                    $("#city").append('<option value="' + val_tinh.id + '">' + val_tinh.full_name + '</option>');
                 });
-            },
-            error: function () {
+                $("#city").change(function (e) {
+                    var idtinh = $(this).val();
+                    //Lấy quận huyện
+                    $.getJSON('https://esgoo.net/api-tinhthanh/2/' + idtinh + '.htm', function (data_quan) {
+                        if (data_quan.error == 0) {
+                            $("#district").html('<option value="0">Quận Huyện</option>');
+                            $("#ward").html('<option value="0">Phường Xã</option>');
+                            $.each(data_quan.data, function (key_quan, val_quan) {
+                                $("#district").append('<option value="' + val_quan.id + '">' + val_quan.full_name + '</option>');
+                            });
+                            //Lấy phường xã
+                            $("#district").change(function (e) {
+                                var idquan = $(this).val();
+                                $.getJSON('https://esgoo.net/api-tinhthanh/3/' + idquan + '.htm', function (data_phuong) {
+                                    if (data_phuong.error == 0) {
+                                        $("#ward").html('<option value="0">Phường Xã</option>');
+                                        $.each(data_phuong.data, function (key_phuong, val_phuong) {
+                                            $("#ward").append('<option value="' + val_phuong.id + '">' + val_phuong.full_name + '</option>');
+                                        });
+                                    }
+                                });
+                            });
+
+                        }
+                    });
+                });
+
             }
         });
-    }
-
-    function changeWard() {
-        const idDistrict = $("#district").val();
-        $.ajax({
-            url: "/changeDistrict",
-            type: 'get',
-            data: {
-                sumCheckout: $('#sumCheckout').val(),
-                discountCheckout: $('#discountCheckout').val(),
-                idDistrict: idDistrict,
-                idWard: $("#ward").val(),
-                listId: $('#allId').val(),
-                totalCheckout: parseInt($('#totalCheckout').val()) + parseInt($('#shipCheckout').val())
-            },
-            success: function (data) {
-                const content = document.getElementById('totalCard')
-                content.innerHTML = data;
-            },
-            error: function () {
-            }
-        });
-    }
-
+    });
 
 </script>
 

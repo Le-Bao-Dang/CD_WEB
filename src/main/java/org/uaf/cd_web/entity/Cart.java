@@ -2,9 +2,7 @@ package org.uaf.cd_web.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,7 +11,8 @@ import java.util.List;
 @Table(name = "cart")
 @Getter
 @Setter
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cart implements Serializable {
 
     @Column (name = "ID_USER")
@@ -33,15 +32,7 @@ public class Cart implements Serializable {
     @JsonManagedReference
     private User user;
 
-    public Cart() {
-    }
-
-    public Cart(String idUser, String idPr, int amount, Product product, User user) {
-        this.idUser = idUser;
-        this.idPr = idPr;
-        this.amount = amount;
-        this.product = product;
-        this.user = user;
+    public Cart(String idUser, String idPr, Integer amount) {
     }
 
     @Override

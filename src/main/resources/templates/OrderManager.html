@@ -2,332 +2,360 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>BHNFoods Nhân viên </title>
-  <!-- plugins:css -->
-  <link rel="stylesheet" th:href="@{/admin_template/vendors/feather/feather.css}">
-  <link rel="stylesheet" th:href="@{/admin_template/vendors/mdi/css/materialdesignicons.min.css}">
-  <link rel="stylesheet" th:href="@{/admin_template/vendors/ti-icons/css/themify-icons.css}">
-  <link rel="stylesheet" th:href="@{/admin_template/vendors/typicons/typicons.css}">
-  <link rel="stylesheet" th:href="@{/admin_template/vendors/simple-line-icons/css/simple-line-icons.css}">
-  <link rel="stylesheet" th:href="@{/admin_template/vendors/css/vendor.bundle.base.css}">
-  <link rel="stylesheet" th:href="@{/body_design/css/bootstrap.min.css}" type="text/css">
-  <link rel="stylesheet" th:href="@{/body_design/css/font-awesome.min.css}" type="text/css">
-  <link rel="stylesheet" th:href="@{/body_design/css/elegant-icons.css}" type="text/css">
-  <link rel="stylesheet" th:href="@{/body_design/css/nice-select.css}" type="text/css">
-  <link rel="stylesheet" th:href="@{/body_design/css/jquery-ui.min.css}" type="text/css">
-  <link rel="stylesheet" th:href="@{/body_design/css/owl.carousel.min.css}" type="text/css">
-  <link rel="stylesheet" th:href="@{/body_design/css/slicknav.min.css}" type="text/css">
-  <link rel="stylesheet" th:href="@{/body_design/css/style.css}" type="text/css">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>BHNFoods Nhân viên </title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" th:href="@{/admin_template/vendors/feather/feather.css}">
+    <link rel="stylesheet" th:href="@{/admin_template/vendors/mdi/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" th:href="@{/admin_template/vendors/ti-icons/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/admin_template/vendors/typicons/typicons.css}">
+    <link rel="stylesheet" th:href="@{/admin_template/vendors/simple-line-icons/css/simple-line-icons.css}">
+    <link rel="stylesheet" th:href="@{/admin_template/vendors/css/vendor.bundle.base.css}">
+    <link rel="stylesheet" th:href="@{/body_design/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/body_design/css/font-awesome.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/body_design/css/elegant-icons.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/body_design/css/nice-select.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/body_design/css/jquery-ui.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/body_design/css/owl.carousel.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/body_design/css/slicknav.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/body_design/css/style.css}" type="text/css">
 
-  <link rel="stylesheet" th:href="@{/admin_template/js/select.dataTables.min.css}">
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" th:href="@{/admin_template/css/vertical-layout-light/style.css}">
-  <!-- endinject -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/admin_template/js/select.dataTables.min.css}">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" th:href="@{/admin_template/css/vertical-layout-light/style.css}">
+    <!-- endinject -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
 </head>
 <style>
-  .shoping-cart .container .row {
-    border: 2px solid rgb(168, 168, 168);
-    padding-top: 20px;
-    margin: 20px 0;
-  }
+    .shoping-cart .container .row {
+        border: 2px solid rgb(168, 168, 168);
+        padding-top: 20px;
+        margin: 20px 0;
+    }
 
-  .shoping-cart .container::before {
-    content: "Quản lý đơn háng";
-    font-size: 20px;
-    font-weight: bold;
-  }
+    .shoping-cart .container::before {
+        content: "Quản lý đơn háng";
+        font-size: 20px;
+        font-weight: bold;
+    }
 
-  .card-body a .btn_add_delete {
-    width: 60px;
-    height: 30px;
-    border: none;
-    color: #1f1f1fbf;
-    font-weight: 600 !important;
-    border-radius: 5px;
+    .card-body a .btn_add_delete {
+        width: 60px;
+        height: 30px;
+        border: none;
+        color: #1f1f1fbf;
+        font-weight: 600 !important;
+        border-radius: 5px;
 
-  }
+    }
 
-  .row .form-group .form-control {
-    font-size: 16px;
-  }
+    .row .form-group .form-control {
+        font-size: 16px;
+    }
 
-  .align-items-end .row_input .col_addprod {
-    flex: auto;
-    margin-top: 8px;
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-  }
+    .align-items-end .row_input .col_addprod {
+        flex: auto;
+        margin-top: 8px;
+        position: relative;
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
 
 
-  .input_addpr {
-    height: calc(1.5em + .75rem);
-  }
+    .input_addpr {
+        height: calc(1.5em + .75rem);
+    }
 
-  .col-xl-7 .row .col-md-12 .edit_img {
-    width: 100%;
-    height: 100px;
-    border: gray;
-    border-style: dashed;
-    margin: 0 20px;
-    padding: 0;
+    .col-xl-7 .row .col-md-12 .edit_img {
+        width: 100%;
+        height: 100px;
+        border: gray;
+        border-style: dashed;
+        margin: 0 20px;
+        padding: 0;
 
-  }
+    }
 
-  .col-xl-7 .row .col-md-12 .edit_img .btnX_img {
-    padding: 0 4px;
+    .col-xl-7 .row .col-md-12 .edit_img .btnX_img {
+        padding: 0 4px;
 
-  }
+    }
 
-  .padd_right {
-    padding-right: 50px;
-  }
+    .padd_right {
+        padding-right: 50px;
+    }
 
-  .edit_formUser {
-    height: 500%;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.73);
-    position: absolute;
-    z-index: 1500;
-    top: 0;
-  }
+    .edit_formUser {
+        height: 500%;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.73);
+        position: absolute;
+        z-index: 1500;
+        top: 0;
+    }
 
-  .edit_formUser .cen-div {
-    margin: auto;
-    background: #f1f1f1;
-    width: 50%;
-    margin-top: 5%;
-    border-radius: 5px;
-  }
+    .edit_formUser .cen-div {
+        margin: auto;
+        background: #f1f1f1;
+        width: 50%;
+        margin-top: 5%;
+        border-radius: 5px;
+    }
 
-  .edit_formUser .btn_huy_update button {
-    background: none;
-    border: none;
-  }
+    .edit_formUser .btn_huy_update button {
+        background: none;
+        border: none;
+    }
 
-  .btn_huy_update {
-    margin-bottom: 20px;
-    justify-content: end;
-  }
+    .btn_huy_update {
+        margin-bottom: 20px;
+        justify-content: end;
+    }
 
-  .btn_huy_update input {
-    border-radius: 5px;
-    background: #7fad39;
-    border: none;
-    padding: 8px 20px;
-    color: white;
-  }
+    .btn_huy_update input {
+        border-radius: 5px;
+        background: #7fad39;
+        border: none;
+        padding: 8px 20px;
+        color: white;
+    }
 
-  .btn_huy_update input:last-child {
-    margin-left: 20px;
-  }
+    .btn_huy_update input:last-child {
+        margin-left: 20px;
+    }
 
-  .btn_edit button {
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-  }
+    .btn_edit button {
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+    }
 
-  .searchOrder {
-    padding-top: 24px;
-    width: 369px;
-    height: 32px;
-    padding-bottom: 30px;
-  }
-  .product__pagination{
-    display: flex;
+    .searchOrder {
+        padding-top: 24px;
+        width: 369px;
+        height: 32px;
+        padding-bottom: 30px;
+    }
 
-  }
+    .product__pagination {
+        display: flex;
+
+    }
 </style>
 
 <body>
 <!-- partial:partials/_navbar.html -->
 <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
-  <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
-    <div>
-      <a class="navbar-brand brand-logo" href="index.html">
-        BHNFoods
-      </a>
-    </div>
-  </div>
-  <div class="navbar-menu-wrapper d-flex align-items-top colorheader ">
-    <ul class="navbar-nav ms-auto">
-      <li class="nav-item dropdown d-none d-lg-block">
-        <a class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split" id="messageDropdown"
-           href="#"
-           data-bs-toggle="dropdown" aria-expanded="false"> Lọc theo </a>
-        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
-             aria-labelledby="messageDropdown">
-
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item preview-item" href="/AdminManageUser">
-            <div class="preview-item-content flex-grow py-2">
-              <p class="preview-subject ellipsis font-weight-medium text-dark">Người dùng </p>
-              <p class="fw-light small-text mb-0">Trang chi tiết người dùng</p>
-            </div>
-          </a>
-          <a class="dropdown-item preview-item" href="/AdminMain">
-            <div class="preview-item-content flex-grow py-2">
-              <p class="preview-subject ellipsis font-weight-medium text-dark">Admin</p>
-              <p class="fw-light small-text mb-0">Trang chi tiết Admin</p>
-            </div>
-          </a>
-          <a class="dropdown-item preview-item"
-             href="/AdminManagePr?kind=0&page=1">
-            <div class="preview-item-content flex-grow py-2">
-              <p class="preview-subject ellipsis font-weight-medium text-dark">Sản Phẩm </p>
-              <p class="fw-light small-text mb-0">Trang chi tiết quản lý sản phẩm</p>
-            </div>
-          </a>
-          <a class="dropdown-item preview-item" href="#">
-            <div class="preview-item-content flex-grow py-2">
-              <p class="preview-subject ellipsis font-weight-medium text-dark">Đơn hàng </p>
-              <p class="fw-light small-text mb-0">Trang quản lý đơn hàng</p>
-            </div>
-          </a>
+    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+        <div>
+            <a class="navbar-brand brand-logo" href="index.html">
+                BHNFoods
+            </a>
         </div>
-      </li>
-      <li class="nav-item d-none d-lg-block">
-        <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
+    </div>
+    <div class="navbar-menu-wrapper d-flex align-items-top colorheader ">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown d-none d-lg-block">
+                <div class="">
+                    <select name="lang" onchange="changeLanguage(this.value)" style="margin-left: auto;border: none"
+                            class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split">
+                        <option value="en" th:selected="${#locale.language == 'en'}">English</option>
+                        <option value="vi" th:selected="${#locale.language == 'vi'}">Tiếng Việt</option>
+                    </select>
+                </div>
+            </li>
+            <li class="nav-item dropdown d-none d-lg-block">
+                <a class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split" id="messageDropdown"
+                   href="#"
+                   data-bs-toggle="dropdown" aria-expanded="false"> Lọc theo </a>
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
+                     aria-labelledby="messageDropdown">
+
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item preview-item" th:href="@{/admin/userManager}">
+                        <div class="preview-item-content flex-grow py-2">
+                            <p class="preview-subject ellipsis font-weight-medium text-dark">Người dùng </p>
+                            <p class="fw-light small-text mb-0">Trang chi tiết người dùng</p>
+                        </div>
+                    </a>
+                    <a class="dropdown-item preview-item" th:href="@{/admin/main}">
+                        <div class="preview-item-content flex-grow py-2">
+                            <p class="preview-subject ellipsis font-weight-medium text-dark">Admin</p>
+                            <p class="fw-light small-text mb-0">Trang chi tiết Admin</p>
+                        </div>
+                    </a>
+                    <a class="dropdown-item preview-item"
+                       th:href="@{/admin/productManager?page=1}">
+                        <div class="preview-item-content flex-grow py-2">
+                            <p class="preview-subject ellipsis font-weight-medium text-dark">Sản Phẩm </p>
+                            <p class="fw-light small-text mb-0">Trang chi tiết quản lý sản phẩm</p>
+                        </div>
+                    </a>
+                    <a class="dropdown-item preview-item" th:href="@{/admin/listOrder}">
+                        <div class="preview-item-content flex-grow py-2">
+                            <p class="preview-subject ellipsis font-weight-medium text-dark">Đơn hàng </p>
+                            <p class="fw-light small-text mb-0">Trang quản lý đơn hàng</p>
+                        </div>
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item d-none d-lg-block">
+                <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
             <span class="input-group-addon input-group-prepend border-right">
               <span class="icon-calendar input-group-text calendar-icon"></span>
             </span>
-          <input type="text" class="form-control">
-        </div>
-      </li>
-      <li class="nav-item">
-        <!--                <form class="search-form" action="/SearchUser" method="post">-->
-        <!--                    <i class="icon-search"></i>-->
-        <!--                    <input type="search" class="form-control" name="searchUser" placeholder="Search Here"-->
-        <!--                           title="Search here">-->
-        <!--                </form>-->
-      </li>
-    </ul>
-    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
-            data-bs-toggle="offcanvas">
-      <span class="mdi mdi-menu"></span>
-    </button>
-  </div>
+                    <input type="text" class="form-control">
+                </div>
+            </li>
+            <li class="nav-item">
+            </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                data-bs-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+        </button>
+    </div>
 </nav>
 <!-- partial -->
 <div class="container-fluid page-body-wrapper">
-  <div th:include="header_Admin.html"></div>
-  <!-- partial -->
-  <div class="content-wrapper">
-    <div class="row">
-      <div class="col-sm-12">
-        <form action="/UpdateConditionOrders" method="post" class="shoping-cart spad">
-          <div class="container">
-            <div class="searchOrder">
-              <form class="search-form" action="/admin/searchOder" method="post">
-                <input type="search" class="form-control icon-search" name="keyword" placeholder="Search Here"
-                       title="Search here">
-              </form>
-            </div>
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="shoping__cart__table">
-                  <table>
-                    <thead>
-                    <tr>
-                      <th><input type="checkbox"></th>
-                      <th>Mã đơn hàng</th>
-                      <th>Trạng thái</th>
-                      <th>Ngày đặt hàng</th>
-                      <th>Số lượng</th>
-                      <th>Tổng đơn</th>
-                      <th>Thao tác</th>
-                    </tr>
-                    </thead>
-                    <tbody >
+    <div th:include="header_Admin.html"></div>
+    <!-- partial -->
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="shoping-cart spad">
+                    <div class="container">
+                        <form class="searchOrder" action="/admin/searchOrder" method="GET">
+                            <input type="search" th:placeholder="#{search}"
+                                   id="search-input" class="search-tag-desc-result" name="keyword" required>
+                            <input type="submit" class="btn" th:value="#{search}">
+                        </form>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="shoping__cart__table">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th><input type="checkbox"></th>
+                                            <th th:text="#{idOrder}"></th>
+                                            <th th:text="#{status}"></th>
+                                            <th th:text="#{dateOrder}"></th>
+                                            <th th:text="#{amount}"></th>
+                                            <th th:text="#{totalOder}"></th>
+                                            <th th:text="#{operation}"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="idTbody">
 
-                    <tr th:each ="order: ${listOrder}">
-                      <td class="shoping__cart__btns">
-                        <input type="checkbox" th:value="${order.idOrders}" th:name="selectedOrders" />
-                      </td>
-                      <td class="shoping__cart__quantity">
-                        <p th:text="${order.getIdOrders()}"></p>
-                      </td>
-                      <td class="shoping__cart__quantity">
-                        <p th:text="${order.checkstatus()}"></p>
-                      </td>
-                      <td class="shoping__cart__quantity">
-                        <span th:text="${order.getDate()}"></span>
-                      </td>
-                      <td class="shoping__cart__quantity">
-                        <p th:text="${order.getAmountPr()}"></p>
-                      </td>
-                      <td class="shoping__cart__price">
-                        <p th:text="${order.getToStringSumOrder()}"></p>
-                      </td>
-                      <td class="shoping__cart__quantity">
-                        <p><a th:href="@{/admin/orderDetail(id=${order.getIdOrders()})}">xem chi tiết</a></p>
-                      </td>
-                    </tr>
-                    </tbody>
-                  </table>
+                                        <tr th:each="order: ${listOrder}">
+                                            <td class="shoping__cart__btns">
+                                                <input type="checkbox" th:value="${order.idOrders}"
+                                                       th:name="selectedOrders"/>
+                                            </td>
+                                            <td class="shoping__cart__quantity">
+                                                <p th:text="${order.getIdOrders()}"></p>
+                                            </td>
+                                            <td class="shoping__cart__quantity">
+                                                <p th:text="${order.checkstatus()}"></p>
+                                            </td>
+                                            <td class="shoping__cart__quantity">
+                                                <span th:text="${order.getDate()}"></span>
+                                            </td>
+                                            <td class="shoping__cart__quantity">
+                                                <p th:text="${order.getAmountPr()}"></p>
+                                            </td>
+                                            <td class="shoping__cart__price">
+                                                <p th:text="${order.getToStringSumOrder()}"></p>
+                                            </td>
+                                            <td class="shoping__cart__quantity">
+                                                <p><a th:href="@{/admin/orderDetail(id=${order.getIdOrders()})}" th:text="#{view}"></a></p>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product__pagination">
+                            <div th:if="${currentPage >= 2}">
+                                <button type="button" class="btn btn-secondary">
+                                    <a th:href="@{/admin/listOrder( page=${currentPage - 1})}"
+                                       style="text-decoration: none; color: #b2b2b2;">
+                                        <i class="fa fa-long-arrow-left"></i>
+                                    </a>
+                                </button>
+                            </div>
+                            <div th:each="pageNumber : ${#numbers.sequence(1, totalPage)}">
+                                <button type="button" class="btn btn-secondary"
+                                        th:classappend="${currentPage==pageNumber? 'active':''}">
+                                    <a th:href="@{/admin/listOrder(page=${pageNumber})}"
+                                       style="text-decoration: none; color: #b2b2b2;">
+                                        <span th:text="${pageNumber}"></span>
+                                    </a>
+                                </button>
+                            </div>
+                            <div th:if="${currentPage <= totalPage - 1}">
+                                <button type="button" class="btn btn-secondary">
+                                    <a th:href="@{/admin/listOrder(page=${currentPage + 1})}"
+                                       style="text-decoration: none; color: #b2b2b2;">
+                                        <i class="fa fa-long-arrow-right"></i>
+                                    </a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
-              </div>
             </div>
-            <div class="product__pagination">
-              <div th:if="${currentPage >= 2}">
-                <button type="button" class="btn btn-secondary">
-                  <a th:href="@{/admin/listOrder( page=${currentPage - 1})}" style="text-decoration: none; color: #b2b2b2;">
-                    <i class="fa fa-long-arrow-left"></i>
-                  </a>
-                </button>
-              </div>
-              <div th:each="pageNumber : ${#numbers.sequence(1, totalPage)}">
-                <button type="button" class="btn btn-secondary" th:classappend="${currentPage==pageNumber? 'active':''}">
-                  <a th:href="@{/admin/listOrder(page=${pageNumber})}" style="text-decoration: none; color: #b2b2b2;">
-                    <span th:text="${pageNumber}"></span>
-                  </a>
-                </button>
-              </div>
-              <div th:if="${currentPage <= totalPage - 1}">
-                <button type="button" class="btn btn-secondary">
-                  <a th:href="@{/admin/listOrder(page=${currentPage + 1})}" style="text-decoration: none; color: #b2b2b2;">
-                    <i class="fa fa-long-arrow-right"></i>
-                  </a>
-                </button>
-              </div>
-            </div>
-          </div>
-
-
-        </form>
-      </div>
+        </div>
     </div>
-  </div>
 </div>
-</div>
+
 
 <script>
-  function changeColor() {
-    $('.changeColor').css("background", "gray")
-
-  }
-
-  // checkbox chon tat ca
-  function checkAll(elementInput) {
-    if (elementInput.checked) { // check select status
-      $(':checkbox').each(function () { //loop through each checkbox
-        this.checked = true;  //select all checkboxes with class "checkbox1"
-      });
-
-    } else {
-      $(':checkbox').each(function () { //loop through each checkbox
-        this.checked = false; //deselect all checkboxes with class "checkbox1"
-      });
+    function changeLanguage(lang) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('lang', lang);
+        window.location.href = url.toString();
     }
-  }
+    function changeColor() {
+        $('.changeColor').css("background", "gray")
+
+    }
+
+    function searchOrder(data) {
+            var name = data.value;
+            console.log(name);
+            $.ajax({
+                url: "/admin/searchOrder",
+                type: 'get',
+                data: {
+                    keyword: name
+                },success(data){
+
+                }
+            });
+    }
+
+    // checkbox chon tat ca
+    function checkAll(elementInput) {
+        if (elementInput.checked) { // check select status
+            $(':checkbox').each(function () { //loop through each checkbox
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+
+        } else {
+            $(':checkbox').each(function () { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    }
 </script>
 <script th:src="@{https://code.jquery.com/jquery-3.6.1.js}"
         integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="

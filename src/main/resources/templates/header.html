@@ -10,24 +10,24 @@
           rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
 
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
 
-    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
 
-    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
     <link rel="shortcut icon" type="image/png" href="/ImageproductNew/logo.jpg"/>
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}">
 
 
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
           integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -92,6 +92,11 @@
         border: none;
         background: none;
     }
+    .language{
+        background:none;
+        color: black;
+        font-size:11px ;
+    }
 </style>
 <body>
 
@@ -112,7 +117,13 @@
                         <span class="text">BHNFoods@gmail.com</span>
                     </div>
                     <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
-                        <span class="text">Giao trả hàng trong 3-5 ngày làm việc<br>và trả hàng miễn phí</span>
+                        <span class="text" th:text="#{shipment}"></span>
+                    </div>
+                    <div  class="align-items-center text-lg-right language">
+                        <select name="lang" onchange="changeLanguage(this.value)" style="margin-left: auto;border: none" class="language">
+                            <option value="en" th:selected="${#locale.language == 'en'}">English</option>
+                            <option value="vi" th:selected="${#locale.language == 'vi'}">Tiếng Việt</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -130,15 +141,15 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="/" class="nav-link">Trang chủ</a></li>
-                <li class="nav-item active"><a href="/listProduct?kind=1&page=1" class="nav-link">Sản
+                <li class="nav-item active"><a href="/" class="nav-link" th:text="#{homePage}"></a></li>
+                <li class="nav-item active"><a href="/listProduct?kind=1&page=1" class="nav-link" th:text="#{listProduct}">
                     phẩm</a></li>
-                <li class="nav-item active"><a href="/discount" class="nav-link">Mã giảm giá</a></li>
+                <li class="nav-item active"><a href="/discount" class="nav-link" th:text="#{discountCode}"></a></li>
                 <li class="nav-item cta cta-colored find">
                     <div>
                         <input style="position: relative" onkeyup="search(this)"
                                type="text" class="search-input" name="searchPR" id="searchInput" autocomplete="off"
-                               placeholder="Tìm kiếm">
+                               th:placeholder="#{search}">
                         <ul id="searchResults"
                             style=" padding:0 10px ; position: fixed; background-color: #82ae4624; cursor: pointer ">
 
@@ -160,12 +171,12 @@
                     <span href="#" class="nav-link" style="cursor: pointer;"
                           th:text="${session.auth.getNameUser()}"></span>
                     <div class="list_menu">
-                        <div class="dr"><a href="/account">Tài khoản</a></div>
-                        <div class="dr"><a href="/loveProduct">Sản phẩm yêu thích</a></div>
-                        <div class="dr"><a href="/manageOrder">Quản lý đơn hàng</a></div>
-                        <div class="dr"><a href="/history">Lịch sử đơn hàng</a></div>
-                        <div class="dr"><a href="/ContactInUser">Liên hệ- Hướng dẫn</a></div>
-                        <div class="dr"><a href="/logOut">Đăng xuất</a></div>
+                        <div class="dr"><a href="/account" th:text="#{account}"></a></div>
+                        <div class="dr"><a href="/loveProduct" th:text="#{likeProduct}"></a></div>
+                        <div class="dr"><a href="/manageOrder" th:text="#{orderManager}"></a></div>
+                        <div class="dr"><a href="/history" th:text="#{historyOrder}"></a></div>
+                        <div class="dr"><a href="/ContactInUser" th:text="#{contact}"></a></div>
+                        <div class="dr"><a href="/logOut" th:text="#{welcome.logout}"></a></div>
                     </div>
                 </li>
             </ul>
@@ -239,6 +250,39 @@
     //     });
     // });
     // --------------------------------------------------------------------------------
+    $(document).ready(function () {
+        $('#searchInput').keyup(function () {
+            const query = $(this).val();
+            if (query.length !== "") {
+                $.ajax({
+                    url: '/api/search',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({query: query}),
+                    success: function (data) {
+                        let results = "";
+                        data.forEach(function (product) {
+                            results += "<div class='search-item'>" + product.name + "</div>";
+                        });
+                        $('#searchResults').html(results).fadeIn();
+                    }
+                });
+            } else {
+                $('#searchResults').fadeOut();
+                $('#searchResults').html("");
+            }
+        });
+
+        $(document).on('click', '.search-item', function () {
+            $('#searchInput').val($(this).text());
+            $('#searchResults').fadeOut();
+        });
+    });
+    function changeLanguage(lang) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('lang', lang);
+        window.location.href = url.toString();
+    }
 </script>
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
         crossorigin="anonymous"></script>

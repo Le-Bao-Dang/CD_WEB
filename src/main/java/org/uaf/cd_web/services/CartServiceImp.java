@@ -9,6 +9,7 @@ import org.uaf.cd_web.reponsitory.CartReponesitory;
 import org.uaf.cd_web.reponsitory.LoveReponesitory;
 import org.uaf.cd_web.services.IServices.ICartService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,6 +43,20 @@ public class CartServiceImp implements ICartService {
         return result;
     }
 
+    public void addCart(Cart cart) {
+        int amount = cart.getAmount();
+        Cart cartItem = cartReponesitory.findByIdPrAndIdUser(cart.getIdPr(), cart.getIdUser());
+        if (cartItem != null) {
+            amount = cartItem.getAmount() + cart.getAmount();
+            cartItem.setAmount(amount);
+        } else {
+            cartItem = new Cart();
+            cartItem.setAmount(amount);
+            cartItem.setIdPr(cart.getIdPr());
+            cartItem.setIdUser(cart.getIdUser());
+        }
+        cartReponesitory.save(cartItem);
+    }
     @Override
     public List<Integer> getCountCart(String idUser) {
         // Implement logic to get listCart by user id
@@ -80,6 +95,23 @@ public class CartServiceImp implements ICartService {
 
     @Override
     @Transactional
+    public void deleteFromCart(String idPr, String idUser) {
+        cartReponesitory.deleteByIdPrAndIdUser(idPr, idUser);
+    }
+
+    public List<Cart> getProdFormCart(String idUser, String[] listIdArray) {
+        List<Cart> list = new ArrayList<>();
+        for (String idPr : listIdArray) {
+            Cart cart = cartReponesitory.findByIdPrAndIdUser(idPr, idUser);
+            list.add(cart);
+        }
+        return list;
+    }
+
+    @Override
+    public void updateAmountToCart(String idProduct, String idUser, int amount) {
+        cartReponesitory.updateAmount(idProduct,idUser,amount);
+    }
     public void deleteFromLove(String idPr, String idUser) {
         loveReponesitory.deleteByIdPrAndIdUser(idPr, idUser);
     }

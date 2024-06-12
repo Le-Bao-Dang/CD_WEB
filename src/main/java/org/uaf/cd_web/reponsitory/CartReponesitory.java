@@ -22,6 +22,19 @@ public interface CartReponesitory extends JpaRepository<Cart, String> {
     @Query("select c from Cart c JOIN FETCH c.product where   c.idUser=:idUser")
     List<Cart> findAllByIdUser(String idUser);
 
+    Cart findByIdPrAndIdUser(String idUer, String idPr);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM Cart c WHERE c.idPr = :idPr AND c.idUser = :idUser")
+    void deleteByIdPrAndIdUser(String idPr, String idUser);
+
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE  Cart c set c.amount=:amount WHERE c.idPr =:idPr AND c.idUser =:idUser")
+    void updateAmount(String idPr, String idUser, int amount);
+
     @Query("SELECT COUNT(c.idPr) FROM Cart c WHERE c.idUser = :idUser ")
     List<Integer> getCountCart(String idUser);
 

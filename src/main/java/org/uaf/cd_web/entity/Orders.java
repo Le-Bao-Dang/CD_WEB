@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"prList", "user","discount"})
+@ToString(exclude = {"prList", "user", "discount"})
 public class Orders implements Serializable {
     @Id
     @Column(name = "ID_ORDERS")
@@ -25,7 +25,7 @@ public class Orders implements Serializable {
     @JoinColumn(name = "ID_USER")
     private User user;
     @ManyToOne
-    @JoinColumn(name="ID_CODE")
+    @JoinColumn(name = "ID_CODE")
     private Discount discount;
     @ManyToOne
     @JoinColumn(name = "ID_CUSTOMERS")
@@ -40,6 +40,17 @@ public class Orders implements Serializable {
     private int status;
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
     private List<Sold_Pr> prList;
+
+    public Orders(String idOrder, User user, Discount discount, Customers customers, LocalDateTime timeNow, LocalDateTime timePickup, String note, int status) {
+        this.idOrders = idOrder;
+        this.user = user;
+        this.discount = discount;
+        this.customers = customers;
+        this.timeOrders = timeNow;
+        this.timePickup = timePickup;
+        this.note = note;
+        this.status = status;
+    }
 
     public String checkstatus() {
         if (status == -2) return "Đã hủy";
@@ -79,6 +90,11 @@ public class Orders implements Serializable {
     public String getDate() {
         Format f = new Format();
         return f.formatDateTimeNow(this.getTimeOrders());
+    }
+
+    public Object getUser() {
+        if (this.user == null) return this.customers;
+        return this.user;
     }
 
 
