@@ -114,6 +114,20 @@
         border-radius: 5px;
         padding: 5px 10px;
     }
+
+    #search-input {
+        padding: 8px 15px;
+        border: 1px solid #DFDFDF;
+        border-radius: 6px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 16px;
+        font-family: "Manrope", sans-serif;
+        min-width: 170px;
+        height: 34px;
+        background-image: url('http://www.w3.org/2000/svg');
+    }
 </style>
 
 <body>
@@ -129,39 +143,47 @@
     <div class="navbar-menu-wrapper d-flex align-items-top colorheader ">
         <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown d-none d-lg-block">
+                <div class="">
+                    <select name="lang" onchange="changeLanguage(this.value)" style="margin-left: auto;border: none"
+                            class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split">
+                        <option value="en" th:selected="${#locale.language == 'en'}">English</option>
+                        <option value="vi" th:selected="${#locale.language == 'vi'}">Tiếng Việt</option>
+                    </select>
+                </div>
+            </li>
+            <li class="nav-item dropdown d-none d-lg-block">
                 <a class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split" id="messageDropdown"
                    href="#"
-                   data-bs-toggle="dropdown" aria-expanded="false"> Lọc theo </a>
+                   data-bs-toggle="dropdown" aria-expanded="false" th:text="#{filter}"></a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
                      aria-labelledby="messageDropdown">
 
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item preview-item" href="/AdminManageUser">
+                    <a class="dropdown-item preview-item" th:href="@{/admin/userManager}">
                         <div class="preview-item-content flex-grow py-2">
                             <p class="preview-subject ellipsis font-weight-medium text-dark">Người dùng </p>
                             <p class="fw-light small-text mb-0">Trang chi tiết người dùng</p>
                         </div>
                     </a>
-                    <a class="dropdown-item preview-item" href="/AdminMain">
+                    <a class="dropdown-item preview-item" th:href="@{/admin/main}">
                         <div class="preview-item-content flex-grow py-2">
                             <p class="preview-subject ellipsis font-weight-medium text-dark">Admin</p>
                             <p class="fw-light small-text mb-0">Trang chi tiết Admin</p>
                         </div>
                     </a>
                     <a class="dropdown-item preview-item"
-                       href="/AdminManagePr?kind=0&page=1">
+                       th:href="@{/admin/productManager?page=1}">
                         <div class="preview-item-content flex-grow py-2">
                             <p class="preview-subject ellipsis font-weight-medium text-dark">Sản Phẩm </p>
                             <p class="fw-light small-text mb-0">Trang chi tiết quản lý sản phẩm</p>
                         </div>
                     </a>
-                    <a class="dropdown-item preview-item" href="#">
+                    <a class="dropdown-item preview-item" th:href="@{/admin/listOrder}">
                         <div class="preview-item-content flex-grow py-2">
                             <p class="preview-subject ellipsis font-weight-medium text-dark">Đơn hàng </p>
                             <p class="fw-light small-text mb-0">Trang quản lý đơn hàng</p>
                         </div>
                     </a>
-
                 </div>
             </li>
             <li class="nav-item d-none d-lg-block">
@@ -173,12 +195,6 @@
                 </div>
             </li>
             <li class="nav-item">
-                <form class="search-form" action="" method="">
-                    <i class="icon-search"></i>
-                    <input id="myInput" onkeyup="searchUser(this)" type="search" class="form-control" name=""
-                           placeholder="Search Here"
-                           title="Search here">
-                </form>
             </li>
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
@@ -199,15 +215,15 @@
                         <div class="d-sm-flex align-items-center justify-content-between border-bottom">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview"
+                                    <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#"
                                        role="tab"
-                                       aria-controls="overview" aria-selected="true">Tổng quan</a>
+                                       aria-controls="overview" aria-selected="true" th:text="#{userManager}"></a>
                                 </li>
 
                             </ul>
                             <div>
-                                <button onclick="downloadFile()">ExportPDF</button>
-                                <button onclick="downloadFileEX()">ExportExcel</button>
+                                <!--                                <button onclick="downloadFile()">ExportPDF</button>-->
+                                <!--                                <button onclick="downloadFileEX()">ExportExcel</button>-->
                                 <script>
                                     function downloadFileEX() {
 
@@ -240,9 +256,9 @@
                                                             <table class="table select-table">
                                                                 <thead>
                                                                 <tr>
-                                                                    <th>Khách hàng</th>
-                                                                    <th>Số điện thoại và Email</th>
-                                                                    <th>Địa chỉ</th>
+                                                                    <th th:text="#{customer}"></th>
+                                                                    <th th:text="#{phoneAndEmail}"></th>
+                                                                    <th th:text="#{address}"></th>
                                                                     <th></th>
                                                                 </tr>
                                                                 </thead>
@@ -271,7 +287,7 @@
                                                                             <button onclick="editUser(this)"
                                                                                     th:attr="data-idUser=${u.idUser}">
                                                                                 <h4 class="card-title card-title-dash">
-                                                                                    Xem <i
+                                                                                    <p th:text="#{view}"></p> <i
                                                                                         class="fa-regular fa-pen-to-square"></i>
                                                                                 </h4>
                                                                             </button>
@@ -304,6 +320,12 @@
 
 
 <script>
+    function changeLanguage(lang) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('lang', lang);
+        window.location.href = url.toString();
+    }
+
     var myInput = document.getElementById("myInput");
 
     myInput.addEventListener("keydown", function (event) {

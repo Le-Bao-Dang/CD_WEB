@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>BHNFoods Admin</title>
-    <link rel="stylesheet" th:href="@{/static/admin_template/vendors/feather/feather.css}">
-    <link rel="stylesheet" th:href="@{/static/admin_template/vendors/mdi/css/materialdesignicons.min.css}">
-    <link rel="stylesheet" th:href="@{/static/admin_template/vendors/ti-icons/css/themify-icons.css}">
-    <link rel="stylesheet" th:href="@{/static/admin_template/vendors/typicons/typicons.css}">
-    <link rel="stylesheet" th:href="@{/static/admin_template/vendors/simple-line-icons/css/simple-line-icons.css}">
-    <link rel="stylesheet" th:href="@{/static/admin_template/vendors/css/vendor.bundle.base.css}">
+    <link rel="stylesheet" th:href="@{/admin_template/vendors/feather/feather.css}">
+    <link rel="stylesheet" th:href="@{/admin_template/vendors/mdi/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" th:href="@{/admin_template/vendors/ti-icons/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/admin_template/vendors/typicons/typicons.css}">
+    <link rel="stylesheet" th:href="@{/admin_template/vendors/simple-line-icons/css/simple-line-icons.css}">
+    <link rel="stylesheet" th:href="@{/admin_template/vendors/css/vendor.bundle.base.css}">
     <!-- Plugin css for this page -->
-    <link rel="stylesheet" th:href="@{/static/admin_template/js/dataTables.select.min.js}">
+    <link rel="stylesheet" th:href="@{/admin_template/js/dataTables.select.min.js}">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" th:href="@{/admin_template/css/vertical-layout-light/style.css}">
 
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css}">
     <style>
-        .product__pagination{
+        .product__pagination {
             display: flex;
 
         }
+
         .image-container {
             display: flex;
             flex-wrap: wrap;
@@ -250,6 +251,17 @@
 
         a, div, h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, p, span {
             text-decoration-line: none;
+            color: #0b0b0b;
+
+        }
+
+        th {
+            text-align: center;
+        }
+
+        .setting-pr {
+            display: flex;
+            margin-right: 30px;
         }
     </style>
 
@@ -266,53 +278,47 @@
     <div class="navbar-menu-wrapper d-flex align-items-top colorheader ">
         <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown d-none d-lg-block">
+                <div class="">
+                    <select name="lang" onchange="changeLanguage(this.value)" style="margin-left: auto;border: none"
+                            class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split">
+                        <option value="en" th:selected="${#locale.language == 'en'}">English</option>
+                        <option value="vi" th:selected="${#locale.language == 'vi'}">Tiếng Việt</option>
+                    </select>
+                </div>
+            </li>
+            <li class="nav-item dropdown d-none d-lg-block">
                 <a class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split" id="messageDropdown"
                    href="#"
                    data-bs-toggle="dropdown" aria-expanded="false"> Lọc theo </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
                      aria-labelledby="messageDropdown">
-                    <!-- <a class="dropdown-item py-3">
-                      <p class="mb-0 font-weight-medium float-left">Lọc</p>
-                    </a> -->
+
                     <div class="dropdown-divider"></div>
-                    <a href="/AdminManagePr?kind=0&page=1"
-                       class="dropdown-item preview-item">
+                    <a class="dropdown-item preview-item" th:href="@{/admin/userManager}">
                         <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis font-weight-medium text-dark">Tất cả </p>
+                            <p class="preview-subject ellipsis font-weight-medium text-dark">Người dùng </p>
+                            <p class="fw-light small-text mb-0">Trang chi tiết người dùng</p>
                         </div>
                     </a>
-                    <a href="/AdminManagePr?kind=1&page=1"
-                       class="dropdown-item preview-item">
+                    <a class="dropdown-item preview-item" th:href="@{/admin/main}">
                         <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis font-weight-medium text-dark">Gạo</p>
+                            <p class="preview-subject ellipsis font-weight-medium text-dark">Admin</p>
+                            <p class="fw-light small-text mb-0">Trang chi tiết Admin</p>
                         </div>
                     </a>
-                    <a href="/AdminManagePr?kind=2&page=1 "
-                       class="dropdown-item preview-item">
+                    <a class="dropdown-item preview-item"
+                       th:href="@{/admin/productManager?page=1}">
                         <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis font-weight-medium text-dark">Nếp </p>
+                            <p class="preview-subject ellipsis font-weight-medium text-dark">Sản Phẩm </p>
+                            <p class="fw-light small-text mb-0">Trang chi tiết quản lý sản phẩm</p>
                         </div>
                     </a>
-                    <a href="/AdminManagePr?kind=3&page=1"
-                       class="dropdown-item preview-item">
+                    <a class="dropdown-item preview-item" th:href="@{/admin/listOrder}">
                         <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis font-weight-medium text-dark">Các loại hạt </p>
+                            <p class="preview-subject ellipsis font-weight-medium text-dark">Đơn hàng </p>
+                            <p class="fw-light small-text mb-0">Trang quản lý đơn hàng</p>
                         </div>
                     </a>
-                    <a href="/AdminManagePr?kind=4&page=1"
-                       class="dropdown-item preview-item">
-                        <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis font-weight-medium text-dark">Các loại bột </p>
-
-                        </div>
-                    </a>
-                    <a href="/AdminManagePr?kind=5&page=1 "
-                       class="dropdown-item preview-item">
-                        <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis font-weight-medium text-dark">Các loại củ, trái </p>
-                        </div>
-                    </a>
-
                 </div>
             </li>
             <li class="nav-item d-none d-lg-block">
@@ -324,11 +330,6 @@
                 </div>
             </li>
             <li class="nav-item">
-                <form class="search-form" action="/SearchAdmin" method="post">
-                    <i class="icon-search"></i>
-                    <input type="search" class="form-control" placeholder="Search Here" name="searchAD"
-                           title="Search here">
-                </form>
             </li>
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
@@ -349,7 +350,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview"
                                        role="tab"
-                                       aria-controls="overview" aria-selected="true">Tổng quan</a>
+                                       aria-controls="overview" aria-selected="true" th:text="#{productManager}"></a>
                                 </li>
 
                             </ul>
@@ -366,24 +367,35 @@
                                                 <div class="card card-rounded">
                                                     <div class="card-body">
                                                         <div class="d-sm-flex justify-content-between align-items-start">
-                                                            <div>
-                                                                <a href="#" STYLE="text-decoration: none">
-                                                                    <button onclick="add()"
-                                                                            class="card-title card-title-dash btn_add_delete">
-                                                                        Thêm
+                                                            <div class="setting-pr">
+                                                                <button onclick="add()"
+                                                                        class="card-title card-title-dash "> <p th:text="#{add}"></p>
+                                                                </button>
+                                                                <div class="search d-lg-flex">
+                                                                    <input type="search" id="search"
+                                                                           class="d-lg-block p-lg-1 ms-5"
+                                                                           th:placeholder="#{search}">
+                                                                    <button onclick="searchPr()" class="btn_edit"> <p th:text="#{search}"></p>
                                                                     </button>
-                                                                </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="table-responsive  mt-1">
+
                                                             <table class="table select-table">
                                                                 <thead>
                                                                 <tr>
-                                                                    <th>Sản phẩm</th>
-                                                                    <th>Loại</th>
-                                                                    <th>Thương hiệu</th>
-                                                                    <th>Số lượng hàng đã bán</th>
-                                                                    <th>Giá</th>
+                                                                    <th>
+                                                                        <a th:href="@{/admin/searchPrM(page=${page},sortField='namePr',sortDir='asc',keyword=${keyword})}">
+                                                                            <h5 th:text="#{product}"></h5></a></th>
+                                                                    <th>
+                                                                        <a th:href="@{/admin/searchPrM(page=${page},sortField='nameMenu',sortDir='asc',keyword=${keyword})}">
+                                                                            <h5 th:text="#{type}"></h5></a></th>
+                                                                    <th>
+                                                                        <a th:href="@{/admin/searchPrM(page=${page},sortField='brand',sortDir='asc',keyword=${keyword})}">
+                                                                            <h5 th:text="#{brand}"></h5></a></th>
+                                                                    <th><h5 th:text="#{quantitySold}"></h5></th>
+                                                                    <th><h5 th:text="#{price}"></h5></th>
                                                                     <th></th>
                                                                 </tr>
                                                                 </thead>
@@ -392,7 +404,8 @@
                                                                     <td>
                                                                         <a th:href="@{/ShowProductToUpdate(id=${p.getIdPr()})}">
                                                                             <div class="d-flex">
-                                                                                <img th:src="'/'+${p.getAvt().getUrl()}" alt="">
+                                                                                <img th:src="'/'+${p.getAvt().getUrl()}"
+                                                                                     alt="">
                                                                                 <div>
                                                                                     <h6 th:text="${p.getNamePr()}"></h6>
                                                                                     <p th:text="${p.getIdPr()}"></p>
@@ -426,7 +439,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <div class="btn_edit">
-                                                                            <a th:href="@{/admin/formEdit(id=${p.getIdPr()})}">Sửa<i
+                                                                            <a th:href="@{/admin/formEdit(id=${p.getIdPr()})}"><p th:text="#{update}"></p><i
                                                                                     class="fa-regular fa-pen-to-square"></i></a>
                                                                         </div>
                                                                     </td>
@@ -443,21 +456,24 @@
                                 <div class="product__pagination">
                                     <div th:if="${page >= 2}">
                                         <button type="button" class="btn btn-secondary">
-                                            <a th:href="@{/admin/productManager(page=${page - 1})}" style="text-decoration: none; color: #b2b2b2;">
+                                            <a th:href="@{/admin/searchPrM(page=${page - 1},sortField=${sortField},sortDir=${sortDir},keyword=${keyword})}"
+                                               style="text-decoration: none; color: #b2b2b2;">
                                                 <i class="fa fa-long-arrow-left"></i>
                                             </a>
                                         </button>
                                     </div>
                                     <div th:each="pageNumber : ${#numbers.sequence(1, count)}">
                                         <button type="button" class="btn btn-secondary">
-                                            <a th:href="@{/admin/productManager(page=${pageNumber})}" style="text-decoration: none; color: #b2b2b2;">
+                                            <a th:href="@{/admin/searchPrM(page=${pageNumber},sortField=${sortField},sortDir=${sortDir},keyword=${keyword})}"
+                                               style="text-decoration: none; color: #b2b2b2;">
                                                 <span th:text="${pageNumber}"></span>
                                             </a>
                                         </button>
                                     </div>
                                     <div th:if="${page <= count - 1}">
                                         <button type="button" class="btn btn-secondary">
-                                            <a th:href="@{/admin/productManager(page=${page + 1})}" style="text-decoration: none; color: #b2b2b2;">
+                                            <a th:href="@{/admin/searchPrM(page=${page + 1},sortField=${sortField},sortDir=${sortDir},keyword=${keyword})}"
+                                               style="text-decoration: none; color: #b2b2b2;">
                                                 <i class="fa fa-long-arrow-right"></i>
                                             </a>
                                         </button>
@@ -497,7 +513,8 @@
                                         <div class="drag-area">
                                                 <span class="visible">
                                                     <span class="select" role="button">Chọn Ảnh</span></span>
-                                            <input name="imageFiles" id="imageFiles" type="file" class="imageFiles" multiple/>
+                                            <input name="imageFiles" id="imageFiles" type="file" class="imageFiles"
+                                                   multiple/>
                                             <input name="text" id="textname" type="text"
                                                    class="form-control input_addpr" placeholder="" value=""
                                                    style="display: none">
@@ -609,7 +626,16 @@
 </div>
 
 <script>
-
+    function changeLanguage(lang) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('lang', lang);
+        window.location.href = url.toString();
+    }
+    function searchPr() {
+        let keyword = document.getElementById('search').value;
+        alert(keyword)
+        window.location = "http://localhost:3000/admin/searchPrM?page=1&sortField=namePr&sortDir=asc&keyword=" + keyword;
+    }
 
     function add() {
         $('.edit_formAdd').css('display', 'block');

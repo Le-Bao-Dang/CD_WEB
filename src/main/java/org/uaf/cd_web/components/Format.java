@@ -9,7 +9,7 @@ public class Format {
     public Format() {
     }
 
-    public String formatDateTimeNow(LocalDateTime date) {
+    public static String formatDateTimeNow(LocalDateTime date) {
         int var10000 = date.getYear();
         return "" + var10000 + "-" + date.getMonthValue() + "-" + date.getDayOfMonth() + " " + date.getHour() + ":" + date.getMinute() + ":" + date.getSecond();
     }

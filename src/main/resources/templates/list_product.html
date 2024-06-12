@@ -148,8 +148,13 @@
                                                     </button>
                                                 </li>
                                                 <li th:if="${!listlike.contains(product.getIdPr())}">
+<!--                                                    <button th:id="'heart' + ${product.getIdPr()}"-->
+<!--                                                            th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">-->
+<!--                                                        <i class="fa fa-heart"></i>-->
+<!--                                                    </button>-->
                                                     <button th:id="'heart' + ${product.getIdPr()}"
-                                                            th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">
+                                                            th:attr="data-product-id=${product.getIdPr()},data-heart-id='heart' + ${product.getIdPr()}"
+                                                            onclick="loveInListProd(this.getAttribute('data-product-id'), this.getAttribute('data-heart-id'))">
                                                         <i class="fa fa-heart"></i>
                                                     </button>
                                                     <button th:id="'heart' + ${product.getIdPr()}"
@@ -384,6 +389,9 @@
             type: 'get',
             data: {
                 id: id,
+            },
+            success: function (data) {
+
             },
             error: function () {
             }

@@ -230,7 +230,7 @@
                        type="text"
                        class="form-control input_addpr"
                        placeholder=""
-                       th:value="${order.getName()}" readonly>
+                       th:value="${order.getUser()}" readonly>
               </div>
             </div>
             <div class="col-md-4 col_addprod me-3">
@@ -239,7 +239,7 @@
                 <input id="address" name="address"
                        type="text"
                        class="form-control  input_addpr"
-                       th:value="${order.getAddress()}"
+                       th:value="${order.customers != null ? order.customers.address : order.user.address }"
                        placeholder="" readonly>
               </div>
             </div>
@@ -249,7 +249,7 @@
                 <input id="phone" name="phone"
                        type="text"
                        class="form-control input_addpr"
-                       th:value="${order.getPhone()}"
+                       th:value="${order.customers != null ? order.customers.phone : order.user.phone }"
                        placeholder="" readonly>
               </div>
             </div>
@@ -261,8 +261,8 @@
                   <thead>
                   <tr>
                     <th>Mã sản phẩm</th>
-                    <th>Tên sản phẩm</th>
                     <th>Ảnh</th>
+                    <th>Tên sản phẩm</th>
                     <th>Số lượng</th>
                     <th>Thành tiền</th>
                   </tr>
@@ -271,13 +271,14 @@
 
                   <tr th:each="pr: ${order.getPrList()}">
                     <td class="shoping__cart__quantity">
-                      <p th:text="${pr.getIdPr()}"></p>
+                      <p th:text="${pr.getProduct().getIdPr()}"></p>
+                    </td>
+                    <td class="shoping__cart__quantity">
+                      <img class="image-item" th:src="'/'+${pr.getProduct().getImage().get(0).getUrl()}">
                     </td>
                     <td class="shoping__cart__quantity">
                       <p th:text="${pr.getProduct().getNamePr()}"></p>
                     </td>
-                    <td class="shoping__cart__quantity">
-                      <img th:src="${pr.getProduct().getImage().get(0).getUrl()}">
                     <td class="shoping__cart__quantity">
                       <span th:text="${pr.getAmount()}"></span>
                     </td>
@@ -305,10 +306,10 @@
                     </td>
                     <td class="shoping__cart__quantity">
                       <p th:text="${order.getToStringSumOrder()}"></p>
-                      <p> d</p>
-                      <p> d</p>
-                      <p> d</p>
-                      <p> d</p>
+                      <p> 0</p>
+                      <p> 0</p>
+                      <p> 0</p>
+                      <p> 0</p>
                     </td>
                   </tr>
                   </tbody>

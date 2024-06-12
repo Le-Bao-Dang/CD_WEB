@@ -50,6 +50,9 @@ public interface IProductService {
 
     int getStopPr();
 
+    Page<Product> listAll(int page, String sortField, String sortDir, String keyword);
+
+    void updateInventoryCT_PR(String idProduct, int i);
     List<Product> getListPrDiscount();
 
     List<Detail_Pr> getSingleProduct(String idPr);

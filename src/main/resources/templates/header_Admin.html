@@ -5,19 +5,19 @@
   <div class="nav-item">
     <a href="/admin/main" class="nav-item-link">
       <i style="margin-right: 5px;" class="menu-icon mdi mdi-home"></i>
-      <span>Trang chủ</span>
+      <span th:text="#{homePage}"></span>
     </a>
   </div>
   <div class="nav-item">
     <a href="/admin/userManager" class="nav-item-link">
       <i style="margin-right: 5px;" class="menu-icon mdi mdi-account-circle"></i>
-      <span>Quản lý người dùng</span>
+      <span th:text="#{userManager}"></span>
     </a>
   </div>
   <div class="nav-item">
     <a href="/admin/listOrder" class="nav-item-link">
       <i style="margin-right: 5px;" class="fa-solid fa-bars-progress"></i>
-      <span>Quản lý đơn hàng</span>
+      <span th:text="#{orderManager}"></span>
     </a>
   </div>
 <!--  <div class="nav-item">-->
@@ -29,25 +29,19 @@
   <div class="nav-item">
     <a href="/admin/productManager?page=1" class="nav-item-link">
       <i style="margin-right: 5px;" class="menu-icon mdi mdi-view-module"></i>
-      <span>Quản lý sản phẩm</span>
+      <span th:text="#{productManager}"></span>
     </a>
   </div>
   <div class="nav-item">
-    <a href="/Warehouse" class="nav-item-link">
-      <i style="margin-right: 5px;" class="fa-solid fa-arrow-down-wide-short"></i>
-      <span>Nhập kho</span>
-    </a>
-  </div>
-  <div class="nav-item">
-    <a href="/ListLog" class="nav-item-link">
-      <i style="margin-right: 5px;" class="menu-icon mdi mdi-view-module"></i>
-      <span>Log</span>
-    </a>
+<!--    <a href="/ListLog" class="nav-item-link">-->
+<!--      <i style="margin-right: 5px;" class="menu-icon mdi mdi-view-module"></i>-->
+<!--      <span>Log</span>-->
+<!--    </a>-->
   </div>
   <div class="nav-item">
     <a href="/logOut" class="nav-item-link">
       <i style="margin-right: 5px;" class="fa-solid fa-arrow-right-from-bracket"></i>
-      <span>Đăng xuất</span>
+      <span th:text="#{welcome.logout}"></span>
     </a>
   </div>
 <!--  <%} else{%>-->

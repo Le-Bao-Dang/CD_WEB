@@ -12,8 +12,12 @@ import org.uaf.cd_web.services.CartServiceImp;
 @Controller
 public class CheckingOut{
 
-    @Autowired
-    private CartServiceImp cartServiceImp;
+
+    private final CartServiceImp cartServiceImp;
+
+    public CheckingOut(CartServiceImp cartServiceImp) {
+        this.cartServiceImp = cartServiceImp;
+    }
 
     @PostMapping("/checkingOut")
     public String checkingOut(@RequestParam("sumCheckout") int sum, @RequestParam("discountCheckout") int discount,

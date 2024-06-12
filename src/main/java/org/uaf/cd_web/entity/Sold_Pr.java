@@ -1,9 +1,7 @@
 package org.uaf.cd_web.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -15,6 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Sold_Pr implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +33,13 @@ public class Sold_Pr implements Serializable {
     @Column(name = "PRICE_HERE")
     private int priceHere;
 
+    public Sold_Pr( Product product, LocalDateTime timeSold, int amount, Orders orders, int priceHere) {
+        this.product = product;
+        this.timeSold = timeSold;
+        this.amount = amount;
+        this.orders = orders;
+        this.priceHere = priceHere;
+    }
 
 
     public String getTotalPrice() {

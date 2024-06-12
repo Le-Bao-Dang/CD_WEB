@@ -3,6 +3,7 @@ package org.uaf.cd_web.controller;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,19 +37,27 @@ public class ProductManager {
     }
 
     @GetMapping("/productManager")
-    public String getListProduct(Model model, HttpSession session,
-                                 @RequestParam("page") String page) {
+    public String getListProduct(Model model, HttpSession session) {
         User user = (User) session.getAttribute("auth");
 //        if (user == null) {
 //            return "redirect:/";
-//        }
-        int pages = Integer.parseInt(page);
-        int tempSize = productServiceImp.getSize() / 15;
-        int count = productServiceImp.getSize() % 15 > 0 ? tempSize + 1 : tempSize;
-        List<Product> list = productServiceImp.getListProductInPage(pages);
-        model.addAttribute("listProduct", list);
-        model.addAttribute("page", pages);
-        model.addAttribute("count", count);
+        return searchPrM(model,1,"Gạo lứt","idPr","asc");
+    }
+
+    @GetMapping("/searchPrM")
+    public String searchPrM(Model model,
+                            @RequestParam("page") Integer page,
+                            @RequestParam("keyword") String keyword,
+                            @RequestParam("sortField") String sortField,
+                            @RequestParam("sortDir") String sortDir){
+
+        Page<Product> pages = productServiceImp.listAll(page,sortField,sortDir,keyword);
+        model.addAttribute("listProduct", pages.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("count", pages.getTotalPages());
+        model.addAttribute("sortField",sortField);
+        model.addAttribute("sortDir",sortDir);
+        model.addAttribute("keyword",keyword);
         return "manager_product";
     }
 
@@ -191,4 +200,5 @@ public class ProductManager {
 
         return "redirect:/admin/formEdit?&id=" + id;
     }
+
 }
