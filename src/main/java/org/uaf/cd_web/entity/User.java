@@ -17,7 +17,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = {"listLove", "listCart", "listOrders"})
 public class User implements Serializable {
     @Id
     @Column(name="ID_USER")
@@ -44,13 +44,13 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Love> listLove;
+
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Cart> listcart;
+    
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Orders> listOrders;
-
-
 
 
     public String checkDecentralization( ){
@@ -59,6 +59,22 @@ public class User implements Serializable {
         if(this.decentralization==-1) return "Ẩn";
         return "Employee";
     }
+    @Override
+    public String toString() {
+        return "User{" +
+                "idUser='" + idUser + '\'' +
+                ", address='" + address + '\'' +
+                ", passw='" + passw + '\'' +
+                ", nameUser='" + nameUser + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", birthday=" + birthday +
+                ", dateSignup=" + dateSignup +
+                ", sex=" + sex +
+                ", decentralization=" + decentralization +
+                '}';
+    }
+
 
 
 

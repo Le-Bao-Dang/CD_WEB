@@ -34,4 +34,8 @@ public interface UserReponesitory extends JpaRepository<User, String> {
 
     @Query("SELECT u from  User u where u.nameUser like %?1% or u.email like %?1% or u.email like %?1%")
     List<User> findUser(String keyword);
+
+    List<User> findAll();
+    @Query("SELECT u from  User u join  Social s on s.idUser=u.idUser where s.idAccount= :idAccount")
+    User getUserByIdAccount(String idAccount);
 }

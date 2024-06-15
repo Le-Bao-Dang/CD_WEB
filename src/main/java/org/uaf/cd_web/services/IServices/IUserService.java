@@ -24,4 +24,11 @@ public interface IUserService {
     List<User> getNewbie();
 
     User getUserByIdUser(String idUser);
+
+    boolean checkIdAccount(String id);
+
+
+    void addUserFB(String name, String idAccount, String email);
+
+    User getUserByIdAccount(String idAccount);
 }

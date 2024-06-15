@@ -1,8 +1,5 @@
 package org.uaf.cd_web.entity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,20 +8,24 @@ import java.io.Serializable;
 @Table(name = "social")
 @Data
 public class Social implements  Serializable {
-    @Id
-    @Column(name="CONDITION")
-    private int condition;
     @Column(name="ID_USER")
     private  String idUser;
+    @Column(name="STATUS")
+    private int status;
+    @Id
     @Column(name="ID_ACCOUNT")
-    private String IdAccount;
+    private String idAccount;
+
+    @OneToOne()
+    @JoinColumn(name = "ID_USER",insertable=false, updatable=false)
+    private User user;
 
     @Override
     public String toString() {
         return "Social{" +
-                "condition=" + condition +
+                "status=" + status +
                 ", idUser='" + idUser + '\'' +
-                ", IdAccount='" + IdAccount + '\'' +
+                ", IdAccount='" + idAccount + '\'' +
                 '}';
     }
 }

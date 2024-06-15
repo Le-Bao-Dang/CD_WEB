@@ -208,10 +208,11 @@ public class ProductServiceImp implements IProductService {
 
     @Override
     public void updateInventoryCT_PR(String idProduct, int inventoryOrder) {
-        productReponesitory.updateInventory(idProduct,inventoryOrder);
+        productReponesitory.updateInventory(idProduct, inventoryOrder);
 
 
     }
+
     public List<Product> getListPrDiscount() {
         return productReponesitory.getListPrDiscount();
     }
@@ -225,21 +226,24 @@ public class ProductServiceImp implements IProductService {
     public List<Image> findByIdPr(String idPro) {
         return imageReponesitory.findByIdPr(idPro);
     }
-@Override
+
+    @Override
     public List<FeedBack> getFeedBack(String idPro) {
-        return feedBackReponesitory.findByIdPr(idPro);
+        return feedBackReponesitory.listFeedback(idPro);
 
     }
+
     @Override
-    public List<Product> getRelatedProducts(String idMenu){
+    public List<Product> getRelatedProducts(String idMenu) {
         return productReponesitory.findRelatedProductsByIdMenu(idMenu);
     }
+
     @Override
     public List<FeedBack> getFeedBackInPage(String idProd, int page) {
         if (page < 1) {
             page = 1;
         }
-        List<FeedBack> feedbackList = new ArrayList<FeedBack>();
+        List<FeedBack> feedbackList = new ArrayList<>();
         List<FeedBack> allFeedbacks = getFeedBack(idProd);
         int n = allFeedbacks.size() - (page - 1) * 3 >= 3 ? 3 : allFeedbacks.size() % 3;
         for (int i = (page - 1) * 3; i < (page - 1) * 3 + n; i++) {

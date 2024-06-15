@@ -18,6 +18,8 @@ import java.sql.Date;
 @ToString
 public class FeedBack implements Serializable {
     @Id
+    @Column(name="ID_FEEDBACK")
+    private int id;
     @Column(name = "ID_PR")
     private String idPr;
     @Column(name = "ID_USER")
@@ -31,15 +33,23 @@ public class FeedBack implements Serializable {
 
 
 
-    @ManyToOne()
-    @JoinColumn(name = "ID_PR", referencedColumnName = "ID_PR", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_PR", insertable=false, updatable=false)
     private Product product;
 
-    @ManyToOne()
-    @JoinColumn(name = "ID_USER", referencedColumnName = "ID_USER",insertable=false, updatable=false)
+    @ManyToOne
+    @JoinColumn(name = "ID_USER", insertable = false, updatable = false)
     @JsonManagedReference
     private User user;
 
-
-
+    @Override
+    public String toString() {
+        return "FeedBack{" +
+                "idPr='" + idPr + '\'' +
+                ", idUser='" + idUser + '\'' +
+                ", scorestar=" + scorestar +
+                ", text='" + text + '\'' +
+                ", date=" + date +
+                '}';
+    }
 }

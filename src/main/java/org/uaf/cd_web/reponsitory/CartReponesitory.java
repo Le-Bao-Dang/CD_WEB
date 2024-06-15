@@ -1,4 +1,3 @@
-
 package org.uaf.cd_web.reponsitory;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -45,10 +44,5 @@ public interface CartReponesitory extends JpaRepository<Cart, String> {
     @Transactional
     @Query("UPDATE Cart c SET c.amount = c.amount + :amount WHERE c.idPr = :idPr AND c.idUser = :idUser")
     void updateToCart(String idUser, String idPr, int amount);
-
-//    @Query("DELETE FROM Love l WHERE l.idPr = :idPr AND l.iduser = :idUser")
-//    void deleteFromLove(String idUser, String idPr);
-
-//    void deleteByIdPrAndIdUser(String idPr, String idUser);
 
 }
