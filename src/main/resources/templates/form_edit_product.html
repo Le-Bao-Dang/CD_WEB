@@ -186,7 +186,7 @@
                         <!--                        <div class="form-group">-->
                         <div class="d-flex flex-grow-1 row_input contai">
                             <div th:each="l : ${product.getImage()}" class="edit_img">
-                                <img class="image-item img" th:src="${l.getUrl()}"/>
+                                <img class="image-item img" th:src="'/'+${l.getUrl()}"/>
                                 <button onclick="deleteIMG(this)" th:attr="data-url=${l.getUrl()}">x</button>
                             </div>
                         </div>
@@ -362,15 +362,15 @@
                                    class="form-"
                                    name="condition"
                                    value="-1" th:checked="${product.getDetailPr().getConditionPR()==-1}">
-                            <label class="">Ẩn</label>
+                            <label class="">Ngừng kinh doanh</label>
                         </div>
                         <div class="form-group padd_right me-3"
                              style="">
                             <input id="" type="radio" checked
                                    class="form-"
                                    name="condition"
-                                   value="0" th:checked="${product.getDetailPr().getConditionPR()==-1}">
-                            <label class="">Không</label>
+                                   value="0" th:checked="${product.getDetailPr().getConditionPR()==0}">
+                            <label class="">Đang kinh doanh</label>
                         </div>
                     </div>
 

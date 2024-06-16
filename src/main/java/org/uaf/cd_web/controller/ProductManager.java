@@ -8,7 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.uaf.cd_web.components.RandomOTP;
+import org.springframework.web.servlet.View;
+import org.uaf.cd_web.components.*;
 import org.uaf.cd_web.entity.*;
 import org.uaf.cd_web.services.MenuServiceImp;
 import org.uaf.cd_web.services.ProductServiceImp;
@@ -39,9 +40,13 @@ public class ProductManager {
     @GetMapping("/productManager")
     public String getListProduct(Model model, HttpSession session) {
         User user = (User) session.getAttribute("auth");
-//        if (user == null) {
-//            return "redirect:/";
-        return searchPrM(model,1,"Gạo lứt","idPr","asc");
+        if (user == null
+                || (user.getDecentralization() != Powers.ADMIN
+                && user.getDecentralization() != Powers.EMPLOYEE)
+                || user.getDecentralization() == Powers.BLOCK) {
+            return "redirect:/";
+        }
+        return searchPrM(model, 1, "Gạo lứt", "idPr", "asc");
     }
 
     @GetMapping("/searchPrM")
@@ -49,15 +54,15 @@ public class ProductManager {
                             @RequestParam("page") Integer page,
                             @RequestParam("keyword") String keyword,
                             @RequestParam("sortField") String sortField,
-                            @RequestParam("sortDir") String sortDir){
+                            @RequestParam("sortDir") String sortDir) {
 
-        Page<Product> pages = productServiceImp.listAll(page,sortField,sortDir,keyword);
+        Page<Product> pages = productServiceImp.listAll(page, sortField, sortDir, keyword);
         model.addAttribute("listProduct", pages.getContent());
         model.addAttribute("page", page);
         model.addAttribute("count", pages.getTotalPages());
-        model.addAttribute("sortField",sortField);
-        model.addAttribute("sortDir",sortDir);
-        model.addAttribute("keyword",keyword);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("keyword", keyword);
         return "manager_product";
     }
 
@@ -81,15 +86,19 @@ public class ProductManager {
         int discount = Integer.parseInt(discounts);
 
         User user = (User) session.getAttribute("auth");
-//        if (user == null) {
-//            return "/";
-//        }
+        if (user == null
+                || (user.getDecentralization() != Powers.ADMIN
+                && user.getDecentralization() != Powers.EMPLOYEE)
+                || user.getDecentralization() == Powers.BLOCK) {
+            return "redirect:/";
+        }
 
         // Thực hiện lưu sản phẩm
         int index = productServiceImp.getListProduct().size() + 1;
+        String idPr = "prod" + index;
         Detail_Pr detailPr = new Detail_Pr("", Date.valueOf(nsx), Date.valueOf(hsd), brand, mota, weight, origin, Date.valueOf(LocalDate.now()), inventory, 0);
         Menu menu1 = menuServiceImp.getMenuById(menu);
-        Product product = new Product("", menu1, discount, price, name, detailPr);
+        Product product = new Product(idPr, menu1, discount, price, name, detailPr);
         productServiceImp.add(product);
         // Lưu các tệp hình ảnh
         int count = 0;
@@ -105,14 +114,12 @@ public class ProductManager {
                 Files.write(path, bytes);
 
                 // Lưu thông tin file vào cơ sở dữ liệu
-                String fileUrl = "/static/ImageproductNew/add/" + fileName;
+                String fileUrl = "ImageproductNew/add/" + fileName;
                 count++;
                 String idImg = menu + brand + count + RandomOTP.generateRandomString();
-                String idPr = "prod"+index;
-                System.out.println(index);
-                Image image = new Image(idPr, idImg, fileUrl, 1);
-                System.out.println(idPr);
-                System.out.println(image);
+
+
+                Image image = new Image(product, idImg, fileUrl, 1);
                 productServiceImp.addImgforProduct(image);
 
             } catch (IOException e) {
@@ -123,16 +130,14 @@ public class ProductManager {
     }
 
     @GetMapping("/formEdit")
-    public String formEdit(Model model, @RequestParam("id") String id) {
-
-//        HttpSession session = request.getSession();
-//        User user = (User) session.getAttribute("auth");
-//        if (user == null) {
-//            return "/";
-//        }
-//        if (user.getDecentralization() != 2 && user.getDecentralization() != 1) {
-//            return "/";
-//        }
+    public String formEdit(Model model, @RequestParam("id") String id, HttpSession session) {
+        User user = (User) session.getAttribute("auth");
+        if (user == null
+                || (user.getDecentralization() != Powers.ADMIN
+                && user.getDecentralization() != Powers.EMPLOYEE)
+                || user.getDecentralization() == Powers.BLOCK) {
+            return "redirect:/";
+        }
         Product product = productServiceImp.getProductById(id);
 //        Map<String, Integer>view = productServiceImp.getQuantity();
         model.addAttribute("product", product);
@@ -159,10 +164,10 @@ public class ProductManager {
                 Files.write(path, bytes);
 
                 // Lưu thông tin file vào cơ sở dữ liệu
-                String fileUrl = "/static/ImageproductNew/add/" + fileName;
+                String fileUrl = "ImageproductNew/add/" + fileName;
                 count++;
-                String idImg = pr.getNamePr() + count + RandomOTP.generateRandomString();
-                image = new Image(idPr, idImg, fileUrl, 1);
+                String idImg = pr.getNamePr()+pr.getDetailPr().getBrand()+pr.getMenu().getNameMenu() + count ;
+                image = new Image(pr, idImg, fileUrl, 1);
                 productServiceImp.addImgforProduct(image);
 
             } catch (IOException e) {
@@ -173,6 +178,7 @@ public class ProductManager {
     }
 
     @DeleteMapping("/deleteIMG")
+    @ResponseBody
     public String deleteIMG(@RequestParam("url") String url) {
         productServiceImp.deleteImg(url);
         return "success";
@@ -199,6 +205,34 @@ public class ProductManager {
         productServiceImp.update(pr);
 
         return "redirect:/admin/formEdit?&id=" + id;
+    }
+
+    // dường dẫn đễ tải file
+    @GetMapping(value = "/ExportProductExcel")
+    public View dowload(Model mm) {
+        List<Product> products = productServiceImp.getListProduct();
+        mm.addAttribute("product", products);
+        return new ExportProduct();
+    }
+
+    @PostMapping("/uploadForProduct")
+    public String uploadFile(@RequestParam("file") MultipartFile file) {
+        String message = "";
+        if (ImportFormExcel.hasExcelFormat(file)) {
+            try {
+                productServiceImp.saveFromExcel(file);
+                message = "Uploaded the file successfully: " + file.getOriginalFilename();
+                System.out.println(message);
+                return "redirect:/admin/productManager?page=1";
+            } catch (Exception e) {
+                message = "Could not upload the file: " + file.getOriginalFilename() + "!"+ e.getMessage();
+                System.out.println(message);
+                return "redirect:/admin/productManager?page=1";
+            }
+        }
+        message = "Please upload an excel file!";
+        System.out.println(message);
+        return "redirect:/admin/productManager?page=1";
     }
 
 }

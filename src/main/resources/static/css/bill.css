@@ -1,0 +1,155 @@
+:root {
+    --primary-color: #1779ba;
+    --secondary-color: #0b386f;
+    --gray: #9b9b9b;
+    --light-gray: #eeeeee;
+    --medium-gray: #c8c3be;
+    --dark-gray: #96918c;
+    --black: #322d28;
+    --white: #f3f3f3;
+    --body-background: #ffffff;
+    --body-font-color: var(--black);
+
+    --sans: "Roboto", sans-serif;
+    --serif: "Lora", Georgia, serif;
+}
+@font-face {
+    font-family: 'Roboto', sans-serif;
+    src: url('src/main/resources/static/admin_template/fonts/Roboto/Roboto-Black.ttf') format('truetype');
+}
+body {
+    font-family: var(--sans);
+    font-weight: 400;
+    color: var(--body-font-color);
+}
+
+header.top-bar h1 {
+    font-family: var(--sans);
+}
+
+main {
+    margin-top: 4rem;
+    min-height: calc(100vh - 107px);
+}
+
+main .inner-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+table.invoice {
+    background: #fff;
+}
+
+table.invoice .num {
+    font-weight: 200;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 0.8em;
+}
+
+table.invoice tr, table.invoice td {
+    background: #fff;
+    text-align: left;
+    font-weight: 400;
+    color: var(--body-font-color);
+}
+
+table.invoice tr.header td img {
+    max-width: 300px;
+}
+
+table.invoice tr.header td h2 {
+    text-align: right;
+    font-family: var(--sans);
+    font-weight: 200;
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+table.invoice tr.intro td:nth-child(2) {
+    text-align: right;
+}
+
+table.invoice tr.details > td {
+    padding-top: 4rem;
+    padding-bottom: 0;
+}
+
+table.invoice tr.details td, table.invoice tr.details th {
+    text-align: left;
+}
+
+table.invoice tr.details td.id, table.invoice tr.details td.qty {
+    text-align: center;
+}
+
+table.invoice tr.details td:last-child, table.invoice tr.details th:last-child {
+    text-align: right;
+}
+
+table.invoice tr.details table thead:after, table.invoice tr.details table tbody:after {
+    content: "";
+    height: 1px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    margin-top: -1px;
+    background: var(--medium-gray);
+}
+
+table.invoice tr.totals td {
+    padding-top: 0;
+}
+
+table.invoice tr.totals table tr td {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+table.invoice tr.totals table tr td:nth-child(1) {
+    font-weight: 500;
+}
+
+table.invoice tr.totals table tr td:nth-child(2) {
+    text-align: right;
+    font-weight: 200;
+}
+
+table.invoice tr.totals table tr:nth-last-child(2) td {
+    padding-bottom: 0.5em;
+}
+
+table.invoice tr.totals table tr:nth-last-child(2) td:last-child:after {
+    content: "";
+    height: 4px;
+    width: 110%;
+    border-top: 1px solid var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+    position: relative;
+    right: 0;
+    bottom: -0.575rem;
+    display: block;
+}
+
+table.invoice tr.totals table tr.total td {
+    font-size: 1.2em;
+    padding-top: 0.5em;
+    font-weight: 700;
+}
+
+table.invoice tr.totals table tr.total td:last-child {
+    font-weight: 700;
+}
+
+.additional-info h5 {
+    font-size: 0.8em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--primary-color);
+}
+
+.desc {
+    width: 230px;
+}

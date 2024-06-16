@@ -1,9 +1,8 @@
 package org.uaf.cd_web.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.uaf.cd_web.services.ProductServiceImp;
 
 import java.io.Serializable;
 
@@ -12,10 +11,13 @@ import java.io.Serializable;
 @Table(name = "image")
 @Getter
 @Setter
+@NoArgsConstructor
+@ToString
 public class Image implements Serializable {
 
-    @Column(name = "ID_PR", insertable = false, updatable = false)
-    private String idPr;
+    @ManyToOne()
+    @JoinColumn(name = "ID_PR", referencedColumnName = "ID_PR")
+    private Product product;
     @Id
     @Column(name = "ID_IMG")
     private String idImg;
@@ -24,27 +26,16 @@ public class Image implements Serializable {
     @Column(name = "STATUS")
     private int status;
 
-    @ManyToOne()
-    @JoinColumn(name = "ID_PR", referencedColumnName = "ID_PR")
-    private Product product;
 
-    public Image(String idPr, String idImg, String url, int status) {
-        this.idPr = idPr;
+    public Image(Product product, String idImg, String fileUrl, int status) {
+        this.product= product;
         this.idImg = idImg;
-        this.url = url;
+        this.url = fileUrl;
         this.status = status;
     }
-    public Image() {
 
-    }
-
-    @Override
-    public String toString() {
-        return "Image [idPr=" + idPr + ", idImg=" + idImg + ", url=" + url + ", status=" + status + "]";
-    }
-
-    public String getAvt(){
-        if(status == 0){
+    public String getAvt() {
+        if (status == 0) {
             return url;
         }
         return null;

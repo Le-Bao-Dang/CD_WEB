@@ -30,7 +30,7 @@ public class Product implements Serializable {
     @Column(name = "NAME_PR")
     private String namePr;
 
-    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Detail_Pr detailPr;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)

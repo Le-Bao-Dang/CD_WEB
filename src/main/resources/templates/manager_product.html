@@ -354,7 +354,12 @@
                                 </li>
 
                             </ul>
-                            <div>
+                            <div class="form-container">
+                                <form action="/admin/uploadForProduct" method="post" enctype="multipart/form-data">
+                                    <input type="file" name="file" id="file" multiple>
+                                    <button type="submit">ImportData</button>
+                                </form>
+                                <button onclick="downloadFileEX()">ExportExcel</button>
                             </div>
                         </div>
                         <div class="tab-content tab-content-basic">
@@ -389,13 +394,13 @@
                                                                         <a th:href="@{/admin/searchPrM(page=${page},sortField='namePr',sortDir='asc',keyword=${keyword})}">
                                                                             <h5 th:text="#{product}"></h5></a></th>
                                                                     <th>
-                                                                        <a th:href="@{/admin/searchPrM(page=${page},sortField='nameMenu',sortDir='asc',keyword=${keyword})}">
+                                                                        <a th:href="@{/admin/searchPrM(page=${page},sortField='',sortDir='asc',keyword=${keyword})}">
                                                                             <h5 th:text="#{type}"></h5></a></th>
                                                                     <th>
-                                                                        <a th:href="@{/admin/searchPrM(page=${page},sortField='brand',sortDir='asc',keyword=${keyword})}">
+                                                                        <a th:href="@{/admin/searchPrM(page=${page},sortField='',sortDir='asc',keyword=${keyword})}">
                                                                             <h5 th:text="#{brand}"></h5></a></th>
                                                                     <th><h5 th:text="#{quantitySold}"></h5></th>
-                                                                    <th><h5 th:text="#{price}"></h5></th>
+                                                                    <th> <a th:href="@{/admin/searchPrM(page=${page},sortField='price',sortDir='asc',keyword=${keyword})}"><h5 th:text="#{price}"></h5></a></th>
                                                                     <th></th>
                                                                 </tr>
                                                                 </thead>
@@ -626,6 +631,10 @@
 </div>
 
 <script>
+    function downloadFileEX() {
+
+        window.location.href = "/admin/ExportProductExcel";
+    }
     function changeLanguage(lang) {
         const url = new URL(window.location.href);
         url.searchParams.set('lang', lang);

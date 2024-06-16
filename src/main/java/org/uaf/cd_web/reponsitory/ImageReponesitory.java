@@ -10,6 +10,7 @@ import org.uaf.cd_web.entity.Image;
 import java.util.List;
 @Repository
 public interface ImageReponesitory extends JpaRepository<Image,String> {
+    @Query("SELECT im from Image im where im.product.idPr=:idPr")
     List<Image> getImageByIdPr(String idPr);
     @Modifying
     @Transactional
@@ -18,6 +19,7 @@ public interface ImageReponesitory extends JpaRepository<Image,String> {
 
     void deleteImageByUrl(String url);
 
+    @Query("SELECT im from Image im where im.product.idPr=:idPro")
     List<Image> findByIdPr(String idPro);
 }
 

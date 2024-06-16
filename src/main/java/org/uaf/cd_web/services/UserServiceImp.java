@@ -1,15 +1,21 @@
 package org.uaf.cd_web.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.uaf.cd_web.entity.Social;
+import org.springframework.web.multipart.MultipartFile;
+import org.uaf.cd_web.components.ImportFormExcel;
 import org.uaf.cd_web.entity.User;
 import org.uaf.cd_web.reponsitory.SocialReponesitory;
 import org.uaf.cd_web.reponsitory.UserReponesitory;
 import org.uaf.cd_web.services.IServices.IUserService;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,7 +43,6 @@ public class UserServiceImp implements IUserService {
         return userReponesitory.count();
     }
 
-
     @Override
     public List<User> getUserById(String id) {
         return userReponesitory.getUserByIdUser(id);
@@ -49,10 +54,16 @@ public class UserServiceImp implements IUserService {
     }
 
     @Override
+    public int getMaxId() {
+        return userReponesitory.getMaxID();
+    }
+
+    @Override
     public void createUser(String name, String phone, String email, String passw) {
-        String importDate = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
+        String importDate = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-"
+                + LocalDateTime.now().getDayOfMonth();
         User u = new User();
-        u.setIdUser("user" + getCountUser() + 1);
+        u.setIdUser("user" + getMaxId() + 1);
         u.setNameUser(name);
         u.setDateSignup(Date.valueOf(importDate));
         u.setEmail(email);
@@ -71,7 +82,8 @@ public class UserServiceImp implements IUserService {
     @Override
     @Transactional
     public List<User> searchUser(String keyword) {
-        if (keyword.equals("")) return userReponesitory.findAll();
+        if (keyword.equals(""))
+            return userReponesitory.findAll();
         return userReponesitory.findUser(keyword);
     }
 
@@ -82,13 +94,15 @@ public class UserServiceImp implements IUserService {
     public boolean checkUserExit(String email, String phone) {
         List<User> list = userReponesitory.checkUserExit(email, phone);
         for (User u : list) {
-            if (email.equals(u.getEmail()) || phone.equals(u.getPhone())) return true;
+            if (email.equals(u.getEmail()) || phone.equals(u.getPhone()))
+                return true;
         }
         return false;
     }
 
     @Override
-    public void updateAccount(String iduser, String address, String passw, String name, String phone, String email, String birthday, Date datesignup, boolean sex) {
+    public void updateAccount(String iduser, String address, String passw, String name, String phone, String email,
+            String birthday, Date datesignup, boolean sex) {
         User u = new User();
         u.setIdUser(iduser);
         u.setAddress(address);
@@ -138,7 +152,8 @@ public class UserServiceImp implements IUserService {
 
     @Override
     public void addUserFB(String name, String idAccount, String email) {
-        String importDate = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
+        String importDate = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-"
+                + LocalDateTime.now().getDayOfMonth();
         User u = new User();
         Social s = new Social();
         s.setStatus(1);
@@ -157,5 +172,25 @@ public class UserServiceImp implements IUserService {
     @Override
     public User getUserByIdAccount(String idAccount) {
         return userReponesitory.getUserByIdAccount(idAccount);
+
+    public List<User> getListEmployee() {
+        return userReponesitory.getListEmployee();
+    }
+
+    @Override
+    public void saveFromExcel(MultipartFile file) {
+        try {
+            List<User> users = ImportFormExcel.excelToUser(file.getInputStream());
+            userReponesitory.saveAll(users);
+        } catch (IOException e) {
+            System.out.println("fail to store excel data: " + e.getMessage());
+            throw new RuntimeException("fail to store excel data: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public Page<User> getListUserPage(int pageNo) {
+        Pageable pageable = PageRequest.of(pageNo - 1, 10);
+        return userReponesitory.findAll(pageable);
     }
 }

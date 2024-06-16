@@ -16,7 +16,7 @@ import java.util.List;
 
 @Repository
 public interface ProductReponesitory extends JpaRepository<Product, String>, PagingAndSortingRepository<Product, String> {
-    @Query("SELECT p, l, i FROM Product p JOIN Love l ON l.idPr = p.idPr JOIN Image i ON p.idPr = i.idPr WHERE i.status = 0 AND l.idUser=:idUser")
+    @Query("SELECT p, l, i FROM Product p JOIN Love l ON l.idPr = p.idPr JOIN Image i ON p.idPr = i.product.idPr WHERE i.status = 0 AND l.idUser=:idUser")
     List<Product> listLikeProduct(String idUser);
 
     @Query("select p from Product  p where p.idPr=:idpr ")
@@ -36,14 +36,14 @@ public interface ProductReponesitory extends JpaRepository<Product, String>, Pag
     @Query("select count(c) from Detail_Pr c where c.conditionPR = 1 ")
     Integer getStopPr();
 
-    @Query("SELECT p, MAX(i.url) as URL, MAX(c.brand) as BRAND, SUM(s.amount) as saled FROM Product p JOIN Image i ON p.idPr = i.idPr "
+    @Query("SELECT p, MAX(i.url) as URL, MAX(c.brand) as BRAND, SUM(s.amount) as saled FROM Product p JOIN Image i ON p.idPr = i.product.idPr "
             +
             "JOIN Detail_Pr c ON c.idPr = p.idPr " +
             "JOIN Sold_Pr s ON s.product.idPr = p.idPr WHERE i.status = 0 " +
             "GROUP BY p,c ORDER BY saled DESC")
      List<Product> getListHostSalePr();
 
-    @Query("SELECT p from  Product p where CONCAT(p.idPr,p.namePr,p.menu.nameMenu,p.detailPr.brand) like %?1%")
+    @Query("SELECT p from  Product p left join p.detailPr d on p.idPr=d.idPr left join p.menu m where CONCAT(p.idPr,p.namePr,m.nameMenu,p.detailPr.brand) like %?1%")
     Page<Product> findProduct(String keyword, Pageable pageable);
 
     @Modifying

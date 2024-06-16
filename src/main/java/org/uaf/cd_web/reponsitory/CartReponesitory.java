@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface CartReponesitory extends JpaRepository<Cart, String> {
-    @Query("select c, p from Cart c  join  Product p on c.idPr =p.idPr join  Image  i on  i.idPr= p.idPr where i.status=0 and  c.idUser=:idUser")
+    @Query("select c, p from Cart c  join  Product p on c.idPr =p.idPr join  Image  i on  i.product.idPr= p.idPr where i.status=0 and  c.idUser=:idUser")
     List<Cart> getListCart(String idUser);
 
     @Query("select p from Cart c  join  Product p on c.idPr =p.idPr  where  c.idUser=:idUser")

@@ -2,14 +2,14 @@
 package org.uaf.cd_web.reponsitory;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
-import org.uaf.cd_web.components.Turnover;
+import org.springframework.transaction.annotation.Transactional;
 import org.uaf.cd_web.entity.Orders;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -39,4 +39,13 @@ public interface OrderReponesitory extends JpaRepository<Orders, String>, Paging
 
     @Query("SELECT MAX(CAST(REPLACE(o.idOrders, 'orders', '') AS INTEGER )) FROM Orders o")
     int getMaxId();
+
+    @Transactional
+    @Query("SELECT o from Orders o where o.idOrders=:id")
+    Orders getOrdersByIdOrders(String id);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Orders o set o.status=:status where o.idOrders=:idOrder")
+    void setConditionOrder(String idOrder, int status);
 }

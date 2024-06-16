@@ -7,13 +7,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.uaf.cd_web.entity.Detail_Pr;
-import org.uaf.cd_web.entity.FeedBack;
-import org.uaf.cd_web.entity.Image;
-import org.uaf.cd_web.entity.Product;
+import org.springframework.web.multipart.MultipartFile;
+import org.uaf.cd_web.components.ImportFormExcel;
+import org.uaf.cd_web.entity.*;
 import org.uaf.cd_web.reponsitory.*;
 import org.uaf.cd_web.services.IServices.IProductService;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,9 @@ public class ProductServiceImp implements IProductService {
     private final FeedBackReponesitory feedBackReponesitory;
 
     @Autowired
-    public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory, SoldPrReponesitory soldPrReponesitory, DetailProductReponesitory detailProductReponesitory, FeedBackReponesitory feedBackReponesitory) {
+    public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory,
+            SoldPrReponesitory soldPrReponesitory, DetailProductReponesitory detailProductReponesitory,
+            FeedBackReponesitory feedBackReponesitory) {
         this.productReponesitory = productReponesitory;
         this.imageReponesitory = imageReponesitory;
         this.soldPrReponesitory = soldPrReponesitory;
@@ -132,11 +134,12 @@ public class ProductServiceImp implements IProductService {
     @Transactional
     public void addImgforProduct(Image image) {
         Image i = image;
-        i.setIdPr(image.getIdPr());
+        i.setProduct(image.getProduct());
         i.setIdImg(image.getIdImg());
         i.setUrl(image.getUrl());
         imageReponesitory.save(i);
-//        imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(), i.getStatus());
+        // imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(),
+        // i.getStatus());
     }
 
     public List<Product> getProducts(int page, int size) {
@@ -196,7 +199,7 @@ public class ProductServiceImp implements IProductService {
     }
 
     @Override
-    public Page<Product> listAll(int page, String sortField, String sortDir, String keyword ) {
+    public Page<Product> listAll(int page, String sortField, String sortDir, String keyword) {
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
         Pageable pageable = PageRequest.of(page, 18, sort);
@@ -209,8 +212,6 @@ public class ProductServiceImp implements IProductService {
     @Override
     public void updateInventoryCT_PR(String idProduct, int inventoryOrder) {
         productReponesitory.updateInventory(idProduct, inventoryOrder);
-
-
     }
 
     public List<Product> getListPrDiscount() {
@@ -251,17 +252,27 @@ public class ProductServiceImp implements IProductService {
         }
         return feedbackList;
     }
+
     @Override
     public Page<Product> listAllPr(int page, String sortField, String sortDir, String kind) {
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-        Pageable pageable = PageRequest.of(page-1, 18, sort);
+        Pageable pageable = PageRequest.of(page - 1, 18, sort);
         if (!kind.equals("")) {
             return productReponesitory.findPrByMenu(kind, pageable);
         }
         return productReponesitory.findAll(pageable);
     }
 
-
+    public void saveFromExcel(MultipartFile file) {
+        try {
+            List<Product> products = ImportFormExcel.excelToProduct(file.getInputStream());
+            List<Image> images = ImportFormExcel.getImages();
+            productReponesitory.saveAll(products);
+            imageReponesitory.saveAll(images);
+        } catch (IOException e) {
+            System.out.println("fail to store excel data: " + e.getMessage());
+            throw new RuntimeException("fail to store excel data: " + e.getMessage());
+        }
+    }
 }
-
