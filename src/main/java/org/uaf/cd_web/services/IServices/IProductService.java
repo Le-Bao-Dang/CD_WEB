@@ -64,4 +64,5 @@ public interface IProductService {
     List<Product> getRelatedProducts(String idMenu);
 
     List<FeedBack> getFeedBackInPage(String idProd, int page);
+    Page<Product> listAllPr(int page, String sortField, String sortDir, String kind);
 }

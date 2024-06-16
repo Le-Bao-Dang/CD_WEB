@@ -196,10 +196,10 @@ public class ProductServiceImp implements IProductService {
     }
 
     @Override
-    public Page<Product> listAll(int page, String sortField, String sortDir, String keyword) {
+    public Page<Product> listAll(int page, String sortField, String sortDir, String keyword ) {
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-        Pageable pageable = PageRequest.of(page - 1, 10, sort);
+        Pageable pageable = PageRequest.of(page, 18, sort);
         if (!keyword.equals("")) {
             return productReponesitory.findProduct(keyword, pageable);
         }
@@ -250,6 +250,16 @@ public class ProductServiceImp implements IProductService {
             feedbackList.add(allFeedbacks.get(i));
         }
         return feedbackList;
+    }
+    @Override
+    public Page<Product> listAllPr(int page, String sortField, String sortDir, String kind) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        Pageable pageable = PageRequest.of(page-1, 18, sort);
+        if (!kind.equals("")) {
+            return productReponesitory.findPrByMenu(kind, pageable);
+        }
+        return productReponesitory.findAll(pageable);
     }
 
 

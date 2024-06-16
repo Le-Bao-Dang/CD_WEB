@@ -24,10 +24,10 @@ public interface ProductReponesitory extends JpaRepository<Product, String>, Pag
 
     Product getProductByIdPr(String id);
 
-    @Query("SELECT  p FROM Product p WHERE p.menu.idMenu =:idMenu")
+    @Query("SELECT  p FROM Product p WHERE p.menu.idMenu =:idMenu ")
     List<Product> getListProductByKind(String idMenu);
 
-    @Query("SELECT p FROM Product p join Menu m on p.menu.idMenu=m.idMenu where m.paMenu=:idMenu")
+    @Query("SELECT p FROM Product p join Menu m on p.menu.idMenu=m.idMenu where m.paMenu=:idMenu or m.idMenu=:idMenu")
     Page<Product> getProductByPaMenu(String idMenu, Pageable pageable);
 
     @Query("SELECT p from Product p  WHERE p.namePr like CONCAT('%', :keyword, '%')")
@@ -56,5 +56,10 @@ public interface ProductReponesitory extends JpaRepository<Product, String>, Pag
 
     @Query("SELECT p FROM Product p join Menu m on m.idMenu= p.menu.idMenu where m.paMenu= :idMenu ")
     List<Product> findRelatedProductsByIdMenu(String idMenu);
+
+    @Query("select p, m from Menu m join Product p on p.menu.idMenu=m.idMenu where m.paMenu=:idMenu or m.idMenu=:idMenu")
+    Page<Product> findPrByMenu(String idMenu,Pageable pageable);
+
+
 
 }

@@ -17,8 +17,8 @@ import java.util.List;
 
 @Controller
 public class ListProduct {
-    public final ProductServiceImp productServiceImp;
-    public final DiscountServiceImp discountServiceImp;
+    private final ProductServiceImp productServiceImp;
+    private final DiscountServiceImp discountServiceImp;
 
     @Autowired
     public ListProduct(ProductServiceImp productServiceImp, DiscountServiceImp discountServiceImp) {
@@ -27,23 +27,43 @@ public class ListProduct {
     }
 
     @RequestMapping(value = "/listProduct")
-    public String showlistProduct(Model model, HttpSession session, @RequestParam("page") Integer pages, @RequestParam("kind") String kind) {
+    public String showListProduct(Model model, HttpSession session,
+                                  @RequestParam(value = "page",defaultValue = "1") Integer pages,
+                                  @RequestParam("kind") String kind,
+                                  @RequestParam(value = "sort") String sort,
+                                  @RequestParam(value = "sortDir") String sortDir,
+                                  @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) {
         User user = (User) session.getAttribute("auth");
-        List<Product> loveList=null ;
-        Page<Product> page = productServiceImp.getListProductInPage(kind, pages);
+        List<Product> loveList = null;
+        Page<Product> page;
+
+        // Ensure page is within valid range
+
+        try {
+                page = productServiceImp.listAllPr(pages, sort, sortDir, kind);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Add some error handling here
+            page = Page.empty();
+        }
+
         List<Discount> listDiscount = discountServiceImp.getListDiscount();
-        List<Product> getListPrDiscount=productServiceImp.getListPrDiscount();
-        System.out.println(getListPrDiscount);
+        List<Product> getListPrDiscount = productServiceImp.getListPrDiscount();
+
         if (user != null) {
             loveList = productServiceImp.listLikeProduct(user.getIdUser());
         }
-//        System.out.println(page.getContent().get(0).getAvt().getUrl());
+
         model.addAttribute("listPr", page.getContent());
         model.addAttribute("listlike", loveList);
         model.addAttribute("listDiscount", getListPrDiscount);
         model.addAttribute("pageCurrent", pages);
         model.addAttribute("total", page.getTotalPages());
         model.addAttribute("user", user);
+        model.addAttribute("sort", sort);
+        model.addAttribute("keyword", keyword);
+//        model.addAttribute("pageKind", pageKind);
+
         return "list_product";
     }
 }
