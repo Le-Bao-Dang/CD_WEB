@@ -34,4 +34,10 @@ public interface UserReponesitory extends JpaRepository<User, String> {
 
     @Query("SELECT u from  User u where u.nameUser like %?1% or u.email like %?1% or u.email like %?1%")
     List<User> findUser(String keyword);
+
+    @Query("SELECT u from User u where u.decentralization<>2")
+    List<User> getListEmployee();
+
+    @Query("SELECT MAX(CAST(REPLACE(u.idUser, 'user', '') AS INTEGER )) FROM User u")
+    int getMaxID();
 }

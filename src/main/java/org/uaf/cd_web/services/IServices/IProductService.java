@@ -1,6 +1,7 @@
 package org.uaf.cd_web.services.IServices;
 
 import org.springframework.data.domain.Page;
+import org.springframework.web.multipart.MultipartFile;
 import org.uaf.cd_web.entity.Detail_Pr;
 import org.uaf.cd_web.entity.FeedBack;
 import org.uaf.cd_web.entity.Image;
@@ -62,4 +63,6 @@ public interface IProductService {
     List<FeedBack> getFeedBack(String idPro);
 
     List<Product> getRelatedProducts(String idMenu);
+
+    void saveFromExcel(MultipartFile file);
 }

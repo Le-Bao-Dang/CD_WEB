@@ -1,6 +1,7 @@
 
 package org.uaf.cd_web.components;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,5 +97,9 @@ public class Format {
         }
 
         return namNhuan;
+    }
+    public static String getToStringPrice(int x) {
+        DecimalFormat dc = new DecimalFormat("#,###");
+        return dc.format(x).replace(',', '.');
     }
 }

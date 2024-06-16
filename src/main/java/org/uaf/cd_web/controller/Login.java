@@ -41,7 +41,7 @@ public class Login {
                     return "redirect:/admin/main";
                 } else if (user.getDecentralization() == 2) {
                     session.setAttribute("auth", user);
-                    return "redirect:/admin/product Manager?page=1";
+                    return "redirect:/admin/productManager?page=1";
                 } else if (user.getDecentralization() == 0) {
                     session.setAttribute("auth", user);
                     session.setAttribute("idUser", user.getIdUser());

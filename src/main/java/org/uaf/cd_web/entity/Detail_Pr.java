@@ -37,6 +37,7 @@ public class Detail_Pr implements Serializable {
     private int conditionPR;
 
     @OneToOne()
+    @MapsId
     @JoinColumn(name = "ID_PR",referencedColumnName = "ID_PR")
     private Product product;
 
@@ -77,86 +78,6 @@ public class Detail_Pr implements Serializable {
                 ", inventory=" + inventory +
                 ", conditionPR=" + conditionPR +
                 '}';
-    }
-
-    public String getIdPr() {
-        return idPr;
-    }
-
-    public void setIdPr(String idPr) {
-        this.idPr = idPr;
-    }
-
-    public Date getNsx() {
-        return nsx;
-    }
-
-    public void setNsx(Date nsx) {
-        this.nsx = nsx;
-    }
-
-    public Date getHsd() {
-        return hsd;
-    }
-
-    public void setHsd(Date hsd) {
-        this.hsd = hsd;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getDescribe() {
-        return describe;
-    }
-
-    public void setDescribe(String describe) {
-        this.describe = describe;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    public String getOrigin() {
-        return origin;
-    }
-
-    public void setOrigin(String origin) {
-        this.origin = origin;
-    }
-
-    public Date getDate_import_pr() {
-        return date_import_pr;
-    }
-
-    public void setDate_import_pr(Date date_import_pr) {
-        this.date_import_pr = date_import_pr;
-    }
-
-    public int getInventory() {
-        return inventory;
-    }
-
-    public void setInventory(int inventory) {
-        this.inventory = inventory;
-    }
-
-    public int getConditionPR() {
-        return conditionPR;
-    }
-
-    public void setConditionPR(int conditionPR) {
-        this.conditionPR = conditionPR;
     }
 
 }
