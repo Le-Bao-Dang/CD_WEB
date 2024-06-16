@@ -1,4 +1,3 @@
-
 package org.uaf.cd_web.services;
 
 import java.util.*;
@@ -9,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.uaf.cd_web.entity.Cart;
 import org.uaf.cd_web.entity.Orders;
 import org.uaf.cd_web.entity.Sold_Pr;
@@ -40,9 +40,10 @@ public class OrderServiceImp implements IOrderService {
 
     @Override
     public void changeConditionOrder(String idOrder, int status) {
-        Orders orders = (Orders) this.orderReponesitory.getReferenceById(idOrder);
-        orders.setStatus(status);
-        this.orderReponesitory.save(orders);
+        Orders orders = getOrderById(idOrder);
+        if (status >= orders.getStatus()) {
+            orderReponesitory.setConditionOrder(idOrder, status);
+        }
     }
 
     @Override
@@ -52,8 +53,10 @@ public class OrderServiceImp implements IOrderService {
     }
 
     @Override
+    @Transactional
     public Orders getOrderById(String id) {
-        return (Orders) this.orderReponesitory.getReferenceById(id);
+        System.out.println(orderReponesitory.getOrdersByIdOrders(id));
+        return orderReponesitory.getOrdersByIdOrders(id);
     }
 
     @Override
@@ -171,7 +174,7 @@ public class OrderServiceImp implements IOrderService {
 
     @Override
     public List<Orders> searchOrder(String keyword) {
-        if(keyword.equals(" ")) return orderReponesitory.findAll();
+        if (keyword.equals(" ")) return orderReponesitory.findAll();
         return orderReponesitory.findOrdersByIdOrders(keyword);
     }
 

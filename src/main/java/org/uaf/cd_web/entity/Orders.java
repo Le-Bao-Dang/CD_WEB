@@ -21,10 +21,10 @@ public class Orders implements Serializable {
     @Id
     @Column(name = "ID_ORDERS")
     private String idOrders;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_USER")
     private User user;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_CODE")
     private Discount discount;
     @ManyToOne
@@ -40,6 +40,14 @@ public class Orders implements Serializable {
     private int status;
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
     private List<Sold_Pr> prList;
+    // Các trạng thái của đơn hàng
+    public static final int PENDING_CONFIRMATION = 0; // Chờ xác nhận
+    public static final int CONFIRMED = 1;            // Đã xác nhận
+    public static final int PREPARING = 2;            // Đang chuẩn bị
+    public static final int SHIPPING = 3;             // Đang giao
+    public static final int DELIVERED = 4;            // Đã giao
+    public static final int FAILED = 5;               // Giao không thành công
+    public static final int CANCELLED = 6;            // Đã hủy
 
     public Orders(String idOrder, User user, Discount discount, Customers customers, LocalDateTime timeNow, LocalDateTime timePickup, String note, int status) {
         this.idOrders = idOrder;
@@ -53,14 +61,24 @@ public class Orders implements Serializable {
     }
 
     public String checkstatus() {
-        if (status == -2) return "Đã hủy";
-        if (status == -1) return "Giao không thành công";
-        if (status == 0) return "Đang chuẩn bị";
-        if (status == 1) return "Đang giao";
-        if (status == 2) return "Đã giao";
-        if (status == 3) return "Chờ xác nhận";
-        if (status == 4) return "Đã xác nhận";
-        return "Đơn hàng không xác định";
+        switch (status) {
+            case CANCELLED:
+                return "Đã hủy";
+            case FAILED:
+                return "Giao không thành công";
+            case PREPARING:
+                return "Đang chuẩn bị";
+            case SHIPPING:
+                return "Đang giao";
+            case DELIVERED:
+                return "Đã giao";
+            case PENDING_CONFIRMATION:
+                return "Chờ xác nhận";
+            case CONFIRMED:
+                return "Đã xác nhận";
+            default:
+                return "Đơn hàng không xác định";
+        }
 
     }
 
@@ -73,11 +91,16 @@ public class Orders implements Serializable {
     }
 
     public long getSumOrder() {
-
         long sum = 0;
         for (Sold_Pr pr : prList) {
             sum += (pr.getAmount() * pr.getPriceHere());
         }
+        return sum;
+    }
+
+    public long getGrandtotal() {
+        long sum = getSumOrder();
+        sum = discount != null ? sum - discount.getValue() : sum;
         return sum;
     }
 

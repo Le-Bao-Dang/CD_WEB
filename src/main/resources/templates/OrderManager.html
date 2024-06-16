@@ -146,6 +146,9 @@
         display: flex;
 
     }
+    .actives {
+        background: #5a6268;
+    }
 </style>
 
 <body>
@@ -280,21 +283,21 @@
                                     </table>
                                 </div>
                             </div>
+
                         </div>
-                        <div class="product__pagination">
+                        <div class="product__pagination d-lg-flex">
                             <div th:if="${currentPage >= 2}">
                                 <button type="button" class="btn btn-secondary">
                                     <a th:href="@{/admin/listOrder( page=${currentPage - 1})}"
-                                       style="text-decoration: none; color: #b2b2b2;">
+                                       style="text-decoration: none; color: #b2b2b2;" >
                                         <i class="fa fa-long-arrow-left"></i>
                                     </a>
                                 </button>
                             </div>
                             <div th:each="pageNumber : ${#numbers.sequence(1, totalPage)}">
-                                <button type="button" class="btn btn-secondary"
-                                        th:classappend="${currentPage==pageNumber? 'active':''}">
+                                <button type="button" class="btn btn-secondary">
                                     <a th:href="@{/admin/listOrder(page=${pageNumber})}"
-                                       style="text-decoration: none; color: #b2b2b2;">
+                                       style="text-decoration: none; color: #b2b2b2;" th:classappend="${currentPage==pageNumber? 'actives':''}">
                                         <span th:text="${pageNumber}"></span>
                                     </a>
                                 </button>
@@ -308,11 +311,13 @@
                                 </button>
                             </div>
                         </div>
+
                     </div>
 
 
                 </div>
             </div>
+
         </div>
     </div>
 </div>

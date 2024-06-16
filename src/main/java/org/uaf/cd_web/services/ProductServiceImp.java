@@ -7,13 +7,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.uaf.cd_web.entity.Detail_Pr;
-import org.uaf.cd_web.entity.FeedBack;
-import org.uaf.cd_web.entity.Image;
-import org.uaf.cd_web.entity.Product;
+import org.springframework.web.multipart.MultipartFile;
+import org.uaf.cd_web.components.ImportFormExcel;
+import org.uaf.cd_web.entity.*;
 import org.uaf.cd_web.reponsitory.*;
 import org.uaf.cd_web.services.IServices.IProductService;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -132,7 +132,7 @@ public class ProductServiceImp implements IProductService {
     @Transactional
     public void addImgforProduct(Image image) {
         Image i = image;
-        i.setIdPr(image.getIdPr());
+        i.setProduct(image.getProduct());
         i.setIdImg(image.getIdImg());
         i.setUrl(image.getUrl());
         imageReponesitory.save(i);
@@ -208,10 +208,9 @@ public class ProductServiceImp implements IProductService {
 
     @Override
     public void updateInventoryCT_PR(String idProduct, int inventoryOrder) {
-        productReponesitory.updateInventory(idProduct,inventoryOrder);
-
-
+        productReponesitory.updateInventory(idProduct, inventoryOrder);
     }
+
     public List<Product> getListPrDiscount() {
         return productReponesitory.getListPrDiscount();
     }
@@ -225,15 +224,29 @@ public class ProductServiceImp implements IProductService {
     public List<Image> findByIdPr(String idPro) {
         return imageReponesitory.findByIdPr(idPro);
     }
-@Override
+
+    @Override
     public List<FeedBack> getFeedBack(String idPro) {
         return feedBackReponesitory.findByIdPr(idPro);
 
     }
+
     @Override
-    public List<Product> getRelatedProducts(String idMenu){
+    public List<Product> getRelatedProducts(String idMenu) {
         return productReponesitory.findRelatedProductsByIdMenu(idMenu);
     }
 
+    @Override
+    public void saveFromExcel(MultipartFile file) {
+        try {
+            List<Product> products = ImportFormExcel.excelToProduct(file.getInputStream());
+            List<Image> images = ImportFormExcel.getImages();
+            productReponesitory.saveAll(products);
+            imageReponesitory.saveAll(images);
+        } catch (IOException e) {
+            System.out.println("fail to store excel data: " + e.getMessage());
+            throw new RuntimeException("fail to store excel data: " + e.getMessage());
+        }
+    }
 }
 
