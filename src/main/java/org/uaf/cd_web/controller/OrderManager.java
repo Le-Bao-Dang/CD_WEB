@@ -117,7 +117,7 @@ public class OrderManager {
             Orders orders = orderServiceImp.getOrderById(id);
             System.out.println(orders);
             User user = (User) orders.getUser();
-            String qrCodeFilePath = uploadDirectory + orders.getIdOrders() + ".png";
+            String qrCodeFilePath = uploadDirectory+"/" + orders.getIdOrders() + ".png";
             String qrCodeBase64 = QRCode.generateQRCodeImageBase64(orders.getIdOrders(), 200, 200, qrCodeFilePath);
             Context context = new Context();
             context.setVariable("QRcode", qrCodeBase64);

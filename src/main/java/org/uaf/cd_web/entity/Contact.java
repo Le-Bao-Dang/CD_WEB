@@ -15,18 +15,22 @@ public class Contact implements Serializable {
     @Id
     @Column(name = "ID_CONTACT")
     private String idContact;
-    @ManyToOne
-    @JoinColumn(name = "ID_USER", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_USER",insertable = false,updatable = false)
     private User user;
-    @OneToOne
-    @JoinColumn(name = "ID_CUSTOMERS", referencedColumnName = "ID_CUSTOMERS")
-    private Customers customers;
+    @Column(name = "ID_CUSTOMERS")
+    private int idCustomer;
     @Column(name = "CONTENT")
     private String content;
     @Column(name = "DATETIME")
     private LocalDateTime dateTime;
     @Column(name = "STATUS")
     private int condition;
+
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_CUSTOMERS", insertable=false, updatable=false)
+    private Customers customers;
 
     public String checkConditionContact() {
         if (condition == 0) {
