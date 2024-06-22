@@ -101,9 +101,9 @@ public class ProductManager {
         }
 
         // Thực hiện lưu sản phẩm
-        int index = productServiceImp.getListProduct().size() + 1;
+        int index = productServiceImp.generateID();
         String idPr = "prod" + index;
-        Detail_Pr detailPr = new Detail_Pr("", Date.valueOf(nsx), Date.valueOf(hsd), brand, mota, weight, origin, Date.valueOf(LocalDate.now()), inventory, 0);
+        Detail_Pr detailPr = new Detail_Pr(idPr, Date.valueOf(nsx), Date.valueOf(hsd), brand, mota, weight, origin, Date.valueOf(LocalDate.now()), inventory, 0);
         Menu menu1 = menuServiceImp.getMenuById(menu);
         Product product = new Product(idPr, menu1, discount, price, name, detailPr);
         productServiceImp.add(product);

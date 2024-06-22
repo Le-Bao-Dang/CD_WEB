@@ -124,9 +124,9 @@ public class ProductServiceImp implements IProductService {
     @Override
     public void add(Product product) {
         Product p = product;
-        int index = getSize() + 1;
-        p.setIdPr("prod" + index);
-        product.getDetailPr().setIdPr("prod" + index);
+        Detail_Pr detailPr = p.getDetailPr();
+        detailPr.setProduct(p);
+        p.setDetailPr(detailPr);
         productReponesitory.save(p);
     }
 
@@ -137,6 +137,7 @@ public class ProductServiceImp implements IProductService {
         i.setProduct(image.getProduct());
         i.setIdImg(image.getIdImg());
         i.setUrl(image.getUrl());
+        System.out.println(i);
         imageReponesitory.save(i);
         // imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(),
         // i.getStatus());
@@ -200,19 +201,13 @@ public class ProductServiceImp implements IProductService {
 
     @Override
     public Page<Product> listAll(int page, String sortField, String sortDir, String keyword) {
-
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-        Pageable pageable = PageRequest.of(page, 18, sort);
-        Page<Product> products;
-        if (!keyword.isEmpty()) {
-            products = productReponesitory.findProduct(keyword, pageable);
-        } else {
-            products = productReponesitory.findAll(pageable);
+        Pageable pageable = PageRequest.of(page - 1, 10, sort);
+        if (!keyword.equals("")) {
+            return productReponesitory.findProduct(keyword, pageable);
         }
-        if (products.getContent().isEmpty()) products = productReponesitory.findAll(pageable);
-        return products;
-
+        return productReponesitory.findAll(pageable);
     }
 
     @Override
