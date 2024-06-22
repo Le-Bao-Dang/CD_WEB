@@ -42,6 +42,7 @@ public interface IUserService {
     List<User> getListEmployee();
 
     void saveFromExcel(MultipartFile file);
-
     Page<User> getListUserPage(int pageNo);
+
+    public boolean checkUserExit(String email, String phone);
 }

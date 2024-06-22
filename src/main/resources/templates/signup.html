@@ -5,20 +5,18 @@
   <!-- Required meta tags -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Đăng kí</title>
-  <!-- plugins:css -->
+  <title>Đăng ký</title>
+  <!-- CSS -->
   <link rel="stylesheet" href="admin_template/vendors/feather/feather.css">
   <link rel="stylesheet" href="admin_template/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="admin_template/vendors/ti-icons/css/themify-icons.css">
   <link rel="stylesheet" href="admin_template/vendors/typicons/typicons.css">
   <link rel="stylesheet" href="admin_template/vendors/simple-line-icons/css/simple-line-icons.css">
   <link rel="stylesheet" href="admin_template/vendors/css/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- Plugin css for this page -->
   <link rel="stylesheet" href="admin_template/vendors/select2/select2.min.css">
   <link rel="stylesheet" href="admin_template/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
-
   <link rel="stylesheet" href="admin_template/css/vertical-layout-light/style.css">
+  <!-- Custom Styles -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
   <style>
     .container-scroller .main-panel .forms-sample .form-group .form-control {
@@ -31,15 +29,10 @@
 
 <body>
 <div class="container-scroller background">
-  <!-- <img src="css/vertical-layout-light/hinh5.jpg" alt="" style="position: relative;"> -->
-
-  <!-- partial -->
   <div class="container-fluid page-body-wrapper" style="padding-top: 0px;">
     <div class="main-panel" style="width: 100%;">
       <div class="content-wrapper">
-
         <div class="row">
-
           <div class="card" style="margin:auto; width: 25rem;">
             <div class="card-body">
               <p class="card-description">
@@ -48,48 +41,39 @@
                 </a>
               </p>
               <h4 class="card-title logoBHN">BHNFoods</h4>
-              <p class="card-description login">
-                Đăng ký
-              </p>
+              <p class="card-description login">Đăng ký</p>
               <form class="forms-sample" action="/signup" method="post" th:action="@{/signup}">
-                <label th:if="${errorAcc}" for="exampleInputName1" style="color: #CC3636"
-                       th:text="${errorAcc}"></label>
+                <div th:if="${errorAcc}" style="color: #CC3636; margin-bottom: 10px;" th:text="${errorAcc}"></div>
                 <div class="form-group">
-                  <label for="exampleInputName1">Họ và tên </label>
-                  <input type="text" name="name" class="form-control"
-                         placeholder="Nhập đầy đủ họ tên" required
-                         th:value="${param.name}">
+                  <label for="name">Họ và tên</label>
+                  <input type="text" id="name" name="name" class="form-control" placeholder="Nhập đầy đủ họ tên"
+                         required th:value="${param.name}">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputName1">Địa chỉ Email</label>
-                  <input type="email" name="email" class="form-control" required
-                         placeholder="Nhập Email"  th:value="${param.email}">
+                  <label for="email">Địa chỉ Email</label>
+                  <input type="email" id="email" name="email" class="form-control" placeholder="Nhập Email"
+                         required th:value="${param.email}">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputName1">Số điện thoại</label>
-                  <input type="text" maxlength="10" minlength="10" class="form-control" id="exampleInputName1"
+                  <label for="phone">Số điện thoại</label>
+                  <input type="text" id="phone" name="phone" maxlength="10" minlength="10" class="form-control"
                          placeholder="Nhập số điện thoại" required th:value="${param.phone}">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword4">Tạo mật khẩu</label>
-                  <input type="password" name="pass" class="form-control" id="pass" required
-                         placeholder="Nhập mật khẩu mới">
+                  <label for="passw">Tạo mật khẩu</label>
+                  <input type="password" id="passw" name="passw" class="form-control" placeholder="Nhập mật khẩu mới"
+                         required>
                 </div>
-                <label th:if="${errorDup}" for="exampleInputName1" style="color: #CC3636"
-                       th:text="${errorDup}"></label>
                 <div class="form-group">
-                  <label for="exampleInputPassword4">Nhập lại mật khẩu</label>
-                  <input type="password" name="repass" class="form-control"
-                         id="repass" required placeholder="Nhập lại mật khẩu">
+                  <label for="repassw">Nhập lại mật khẩu</label>
+                  <input type="password" id="repassw" name="repassw" class="form-control"
+                         placeholder="Nhập lại mật khẩu" required>
                 </div>
                 <div class="form-group button_primary">
-                  <button type="submit" onclick="validateInput(event)" style="margin-bottom: 0"
-                          class="btn btn-primary  button_primary_height me-2">Tạo tài khoản
-                  </button>
+                <button type="submit" onclick="return validateInput(event)" class="btn btn-primary button_primary_height me-2">Tạo tài khoản</button>
                 </div>
                 <div class="form-group forgot_pass" style="padding-bottom:30px;">
-                  <a href="/"
-                     style="color:rgb(119, 119, 119)">Trang chủ</a>
+                  <a href="/" style="color:rgb(119, 119, 119)">Trang chủ</a>
                 </div>
               </form>
             </div>
@@ -100,20 +84,34 @@
   </div>
 </div>
 
+<!-- JavaScript -->
+<script src="admin_template/vendors/js/vendor.bundle.base.js"></script>
+<script src="admin_template/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+<script src="admin_template/vendors/select2/select2.min.js"></script>
+<script src="admin_template/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="admin_template/js/off-canvas.js"></script>
+<script src="admin_template/js/hoverable-collapse.js"></script>
+<script src="admin_template/js/template.js"></script>
+<script src="admin_template/js/settings.js"></script>
+<script src="admin_template/js/todolist.js"></script>
+<script src="admin_template/js/file-upload.js"></script>
+<script src="admin_template/js/typeahead.js"></script>
+<script src="admin_template/js/select2.js"></script>
+
 <script>
   function validateInput(event) {
-    const pass = document.getElementById('pass').value;
-    const repass = document.getElementById('repass').value;
+    const pass = document.getElementById('passw').value;
+    const repass = document.getElementById('repassw').value;
     if (pass.length < 8) {
       alert('* Vui lòng nhập mật khẩu đủ 8 kí tự');
-      event.preventDefault(); // Ngăn không cho form submit
+      event.preventDefault(); // Prevent form submission
     }
-    if(repass!== pass){
+    if (repass !== pass) {
       alert('* Mật khẩu không trùng khớp');
       event.preventDefault();
     }
-    const email = document.querySelector('input[name="email"]').value;
-    const phone = document.querySelector('input[name="phone"]').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
     const errorLabel = document.getElementById('errorLabel');
     errorLabel.innerText = ''; // Clear previous errors
 
@@ -131,6 +129,7 @@
 
     return true;
   }
+
   function validateEmail(email) {
     const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     return re.test(String(email).toLowerCase());
@@ -141,23 +140,6 @@
     return re.test(phone);
   }
 </script>
-
-<script src="admin_template/vendors/js/vendor.bundle.base.js"></script>
-
-<script src="admin_template/vendors/typeahead.js/typeahead.bundle.min.js"></script>
-<script src="admin_template/vendors/select2/select2.min.js"></script>
-<script src="admin_template/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-
-<script src="admin_template/js/off-canvas.js"></script>
-<script src="admin_template/js/hoverable-collapse.js"></script>
-<script src="admin_template/js/template.js"></script>
-<script src="admin_template/js/settings.js"></script>
-<script src="admin_template/js/todolist.js"></script>
-
-<script src="admin_template/js/file-upload.js"></script>
-<script src="admin_template/js/typeahead.js"></script>
-<script src="admin_template/js/select2.js"></script>
-
 </body>
 
 </html>
