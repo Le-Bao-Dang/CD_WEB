@@ -102,7 +102,7 @@ public class UserServiceImp implements IUserService {
 
     @Override
     public void updateAccount(String iduser, String address, String passw, String name, String phone, String email,
-            String birthday, Date datesignup, boolean sex) {
+                              String birthday, Date datesignup, boolean sex) {
         User u = new User();
         u.setIdUser(iduser);
         u.setAddress(address);
@@ -172,7 +172,9 @@ public class UserServiceImp implements IUserService {
     @Override
     public User getUserByIdAccount(String idAccount) {
         return userReponesitory.getUserByIdAccount(idAccount);
+    }
 
+    @Override
     public List<User> getListEmployee() {
         return userReponesitory.getListEmployee();
     }

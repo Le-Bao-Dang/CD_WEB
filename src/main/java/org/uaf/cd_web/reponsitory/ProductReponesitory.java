@@ -43,7 +43,7 @@ public interface ProductReponesitory extends JpaRepository<Product, String>, Pag
             "GROUP BY p,c ORDER BY saled DESC")
      List<Product> getListHostSalePr();
 
-    @Query("SELECT p from  Product p left join p.detailPr d on p.idPr=d.idPr left join p.menu m where CONCAT(p.idPr,p.namePr,m.nameMenu,p.detailPr.brand) like %?1%")
+    @Query("SELECT p from  Product p left join p.detailPr d on p.idPr=d.idPr left join p.menu m where CONCAT(p.idPr,p.namePr,m.nameMenu,d.brand) like %?1%")
     Page<Product> findProduct(String keyword, Pageable pageable);
 
     @Modifying
@@ -60,6 +60,6 @@ public interface ProductReponesitory extends JpaRepository<Product, String>, Pag
     @Query("select p, m from Menu m join Product p on p.menu.idMenu=m.idMenu where m.paMenu=:idMenu or m.idMenu=:idMenu")
     Page<Product> findPrByMenu(String idMenu,Pageable pageable);
 
-
-
+    @Query("SELECT MAX(CAST(REPLACE(p.idPr, 'prod', '') AS INTEGER )) FROM Product p")
+    int getMaxId();
 }

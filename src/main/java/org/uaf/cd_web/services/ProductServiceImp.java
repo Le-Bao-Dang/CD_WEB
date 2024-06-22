@@ -28,8 +28,8 @@ public class ProductServiceImp implements IProductService {
 
     @Autowired
     public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory,
-            SoldPrReponesitory soldPrReponesitory, DetailProductReponesitory detailProductReponesitory,
-            FeedBackReponesitory feedBackReponesitory) {
+                             SoldPrReponesitory soldPrReponesitory, DetailProductReponesitory detailProductReponesitory,
+                             FeedBackReponesitory feedBackReponesitory) {
         this.productReponesitory = productReponesitory;
         this.imageReponesitory = imageReponesitory;
         this.soldPrReponesitory = soldPrReponesitory;
@@ -200,13 +200,19 @@ public class ProductServiceImp implements IProductService {
 
     @Override
     public Page<Product> listAll(int page, String sortField, String sortDir, String keyword) {
+
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
         Pageable pageable = PageRequest.of(page, 18, sort);
-        if (!keyword.equals("")) {
-            return productReponesitory.findProduct(keyword, pageable);
+        Page<Product> products;
+        if (!keyword.isEmpty()) {
+            products = productReponesitory.findProduct(keyword, pageable);
+        } else {
+            products = productReponesitory.findAll(pageable);
         }
-        return productReponesitory.findAll(pageable);
+        if (products.getContent().isEmpty()) products = productReponesitory.findAll(pageable);
+        return products;
+
     }
 
     @Override
@@ -274,5 +280,8 @@ public class ProductServiceImp implements IProductService {
             System.out.println("fail to store excel data: " + e.getMessage());
             throw new RuntimeException("fail to store excel data: " + e.getMessage());
         }
+    }
+    public int generateID(){
+        return productReponesitory.getMaxId() +1;
     }
 }

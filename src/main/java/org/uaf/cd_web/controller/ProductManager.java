@@ -46,7 +46,7 @@ public class ProductManager {
                 || user.getDecentralization() == Powers.BLOCK) {
             return "redirect:/";
         }
-        return searchPrM(model, 1, "Gạo lứt", "idPr", "asc");
+        return searchPrM(model, 1, "", "idPr", "asc", session);
     }
 
     @GetMapping("/searchPrM")
@@ -54,9 +54,16 @@ public class ProductManager {
                             @RequestParam("page") Integer page,
                             @RequestParam("keyword") String keyword,
                             @RequestParam("sortField") String sortField,
-                            @RequestParam("sortDir") String sortDir) {
-
+                            @RequestParam("sortDir") String sortDir, HttpSession session) {
+        User user = (User) session.getAttribute("auth");
+        if (user == null
+                || (user.getDecentralization() != Powers.ADMIN
+                && user.getDecentralization() != Powers.EMPLOYEE)
+                || user.getDecentralization() == Powers.BLOCK) {
+            return "redirect:/";
+        }
         Page<Product> pages = productServiceImp.listAll(page, sortField, sortDir, keyword);
+        System.out.println(pages.getContent().get(0));
         model.addAttribute("listProduct", pages.getContent());
         model.addAttribute("page", page);
         model.addAttribute("count", pages.getTotalPages());
@@ -166,7 +173,7 @@ public class ProductManager {
                 // Lưu thông tin file vào cơ sở dữ liệu
                 String fileUrl = "ImageproductNew/add/" + fileName;
                 count++;
-                String idImg = pr.getNamePr()+pr.getDetailPr().getBrand()+pr.getMenu().getNameMenu() + count ;
+                String idImg = pr.getNamePr() + pr.getDetailPr().getBrand() + pr.getMenu().getNameMenu() + count;
                 image = new Image(pr, idImg, fileUrl, 1);
                 productServiceImp.addImgforProduct(image);
 
@@ -225,7 +232,7 @@ public class ProductManager {
                 System.out.println(message);
                 return "redirect:/admin/productManager?page=1";
             } catch (Exception e) {
-                message = "Could not upload the file: " + file.getOriginalFilename() + "!"+ e.getMessage();
+                message = "Could not upload the file: " + file.getOriginalFilename() + "!" + e.getMessage();
                 System.out.println(message);
                 return "redirect:/admin/productManager?page=1";
             }
