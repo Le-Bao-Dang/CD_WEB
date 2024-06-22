@@ -41,7 +41,7 @@
             </div>
             <div class="col-md-3 d-flex">
                 <div class="info bg-white p-4">
-                    <p><span th:text="#{changePr}">Đổi, trả sản phẩm:<br></span> <a href="mailto:info@yoursite.com" th:text="#{nd_changePr}">Việc đổi, trả Sản Phẩm
+                    <p><span th:text="#{changePr}">Đổi, trả sản phẩm:        </span> <a href="mailto:info@yoursite.com" th:text="#{nd_changePr}">Việc đổi, trả Sản Phẩm
                         được thực hiện khi khách hàng cung cấp đủ hình ảnh video khi kiểm tra hàng là do lỗi bên
                         BHNFoods.</a></p>
                 </div>
@@ -49,9 +49,9 @@
             <div class="col-md-3 d-flex">
                 <div class="info bg-white p-4">
                     <p><span th:text="#{commit}">Cam kết:</span> <a href="mailto:info@yoursite.com"><br><i class="fa-solid fa-check"></i>
-                        Sản phẩm an toàn<br><i class="fa-solid fa-check"></i> Chất lượng cam
-                        kết<br><i class="fa-solid fa-check"></i> Dịch vụ vượt trội <br><i class="fa-solid fa-check"></i>
-                        Giao hàng nhanh tốc chiến
+                    <span th:text="#{pr_safe}"> Sản phẩm an toàn</span>   <br><i class="fa-solid fa-check"></i>   <span th:text="#{pr_commit}"> Chất lượng cam</span>
+                    kết<br><i class="fa-solid fa-check"></i>   <span th:text="#{service_high}">  Dịch vụ vượt trội</span> <br><i class="fa-solid fa-check"></i>
+                        <span th:text="#{fast_delivery}">   Giao hàng nhanh tốc chiến</span>
                     </a></p>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                         <textarea name="content" cols="30" rows="7" class="form-control" required
                                   placeholder="Nội dung " ></textarea>
                 </div>
-                <div class="form-group" style="text-align: right">
+                <div class="form-group" style=" text-align: right">
                     <input type="submit" value="Gửi" class="btn btn-primary py-3 px-5">
                 </div>
             </form>
@@ -85,22 +85,22 @@
                 <h5 style="font-size: 18px" th:text="#{scope}">1.Phạm vi áp dụng</h5>
 
                 <span style="font-size: 17px">
-                   - Mua sắm sản phẩm bán trên website BHNFoods.<br>
+                 <span th:text="#{row1_1}">  - Mua sắm sản phẩm bán trên website BHNFoods.</span><br>
 
-                   - Hàng hóa được áp dụng triển khai BHNFoods là hàng hóa, sản phẩm trong đăng ký kinh doanh của các BHNFoods áp dụng.<br>
+                <span th:text="#{row1_2}">  - Hàng hóa được áp dụng triển khai BHNFoods là hàng hóa, sản phẩm trong đăng ký kinh doanh của các BHNFoods áp dụng.</span> <br>
 
-                   - Có nhu cầu được giao Sản phẩm đến các địa điểm phù hợp với Chính sách giao hàng đăng tải trên Website.<br></span>
+                <span th:text="#{row1_3}">   - Có nhu cầu được giao Sản phẩm đến các địa điểm phù hợp với Chính sách giao hàng đăng tải trên Website.</span> <br></span>
                 <h5 style="font-size: 18px" th:text="#{makeandcancel}">2. Xác lập và hủy đơn hàng trên BHNFoods</h5>
 
-                <span style="font-size: 17px">Mọi thông tin về Sản Phẩm đưa ra trên BHNFoods trong bất kỳ trường hợp nào không được hiểu là đề nghị giao kết hợp đồng của Winmart tới Khách Hàng.
+                <span style="font-size: 17px"> <span th:text="#{row2_1}"> Mọi thông tin về Sản Phẩm đưa ra trên BHNFoods trong bất kỳ trường hợp nào không được hiểu là đề nghị giao kết hợp đồng của Winmart tới Khách Hàng.
 
-                    Khách Hàng đặt hàng trên Website sẽ hình thành một đơn đặt hàng (Đơn Đặt Hàng). BHNFoods gửi xác nhận Đơn đặt hàng thông qua một trong các hình thức sau:<br>
+                    Khách Hàng đặt hàng trên Website sẽ hình thành một đơn đặt hàng (Đơn Đặt Hàng). BHNFoods gửi xác nhận Đơn đặt hàng thông qua một trong các hình thức sau:</span><br>
 
-                    - Qua địa chỉ email mà Khách Hàng đã đăng ký với nội dung: danh sách Sản Phẩm, thời hạn giao hàng, điện thoại liên hệ, thông tin người nhận, người đặt hàng, giá trị thanh toán…<br>
+                  <span th:text="#{row2_2}"> - Qua địa chỉ email mà Khách Hàng đã đăng ký với nội dung: danh sách Sản Phẩm, thời hạn giao hàng, điện thoại liên hệ, thông tin người nhận, người đặt hàng, giá trị thanh toán…</span> <br>
 
-                   - Qua việc cập nhật tình trạng đơn hàng trong hệ thống quản lý tài khoản của Khách Hàng trên Website với nội dung Đơn hàng đã được xác nhận, hoặc nội dung có ý nghĩa tương đương.<br>
+                 <span th:text="#{row2_3}">  - Qua việc cập nhật tình trạng đơn hàng trong hệ thống quản lý tài khoản của Khách Hàng trên Website với nội dung Đơn hàng đã được xác nhận, hoặc nội dung có ý nghĩa tương đương. </span> <br>
 
-                    - Gửi mail cho Khách hàng để xác nhận đơn hàng.
+                  <span th:text="#{row2_4}"> - Gửi mail cho Khách hàng để xác nhận đơn hàng.</span>
                   </span>
             </div>
         </div>
