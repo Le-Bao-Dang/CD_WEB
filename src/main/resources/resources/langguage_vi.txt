@@ -16,27 +16,32 @@ register.rPass=Nhập lại mật khẩu
 register.cAcount=Tạo tài khoản
 
 # Header
-shipment=GIAO TRẢ HÀNG TRONG 3-5 NGÀY LÀM VIỆC, TRẢ HÀNG MIỄN PHÍ
+shipment=GIAO TRẢ HÀNG TRONG 3-5 NGÀY LÀM VIỆC VÀ TRẢ HÀNG MIỄN PHÍ
 homePage=Trang Chủ
-listProduct=Sản Phẩm
+products=Sản Phẩm
 discountCode=Mã Giảm Giá
 search=Tìm kiếm
 
-#ListProduct
+# ListProduct
 sale=Giảm giá
 rice=Gạo
 sticky-rice=Nếp
 nuts=Các loại hạt
 powders=Các loại bột
 tubersAndFruits=Các loại củ, trái
+all=Tất cả
+desc=Giá cao đến thấp
+asc=Giá thấp đến cao
+arrange=Sắp xếp
+listProduct=Danh sách sản phẩm
 
-#User
+# User
 account=Tài khoản
 likeProduct=Sản phẩm yêu thích
 historyOrder=Lịch sử đơn hàng
-contact=Liên hệ hướng dẫn
+contact=Liên hệ-hướng dẫn
 
-#Admin
+# Admin
 userManager=Quản lý người dùng
 orderManager=Quản lý đơn hàng
 productManager=Quản lý sản phẩm
@@ -60,3 +65,24 @@ quantitySold=Số lượng đã bán
 price=Giá
 update=Sửa
 filter=Bộ lọc
+chatApp=Tin nhắn
+
+# Contact
+lh=Liên hệ-
+hd=Hướng dẫn
+lh-us=Liên Hệ Chúng Tôi
+care=Chăm sóc và xử lý khiếu nại:
+responsibility=Chăm sóc và xử lý khiếu nại:
+changePr=Đổi, trả sản phẩm:
+commit=Cam kết:
+nd_care=Khách Hàng có thể liên hệ sđt của website. Khi liên hệ, Khách Hàng phải cung cấp sđt Đơn Đặt Hàng. Nhân viên sẽ tiếp nhận và phản hồi lại cho Khách Hàng trong thời gian sớm nhất.
+nd_responsibility=BHNFoods không chịu trách nhiệm đối với mọi thiệt hại mất mát hư hỏng mà Khách Hàng phải chịu sau thời điểm rủi ro được chuyển từ BHNFoods sang Khách Hàng, trừ khi do lỗi của BHNFoods gây ra.
+nd_changePr=Việc đổi, trả Sản Phẩm được thực hiện khi khách hàng cung cấp đủ hình ảnh video khi kiểm tra hàng là do lỗi bên BHNFoods.
+commit1=Sản phẩm an toàn
+commit2=Chất lượng cam kết
+commit3=Dịch vụ vượt trội
+commit4=Giao hàng nhanh tốc chiến
+scope=1. Phạm vi áp dụng
+makeandcancel=2. Xác lập và hủy đơn hàng trên BHNFoods
+send_us=Gửi phản hồi cho chúng tôi
+content=Nội dung
