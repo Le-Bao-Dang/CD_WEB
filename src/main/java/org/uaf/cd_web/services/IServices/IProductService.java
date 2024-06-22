@@ -19,7 +19,6 @@ public interface IProductService {
 
     public List<Product> getIdMenuPr();
 
-
     Page<Product> getListProductInPage(String kind, int page);
 
     List<Product> getListProductInPage(int page);
@@ -40,7 +39,6 @@ public interface IProductService {
 
     void delete(String id);
 
-
     List<Product> searchAutocomplete(String keyword);
 
     void deleteImg(String url);
@@ -54,6 +52,7 @@ public interface IProductService {
     Page<Product> listAll(int page, String sortField, String sortDir, String keyword);
 
     void updateInventoryCT_PR(String idProduct, int i);
+
     List<Product> getListPrDiscount();
 
     List<Detail_Pr> getSingleProduct(String idPr);
@@ -63,6 +62,10 @@ public interface IProductService {
     List<FeedBack> getFeedBack(String idPro);
 
     List<Product> getRelatedProducts(String idMenu);
+
+    List<FeedBack> getFeedBackInPage(String idProd, int page);
+
+    Page<Product> listAllPr(int page, String sortField, String sortDir, String kind);
 
     void saveFromExcel(MultipartFile file);
 }

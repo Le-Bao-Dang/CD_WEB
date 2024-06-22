@@ -9,11 +9,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.uaf.cd_web.entity.Cart;
 import org.uaf.cd_web.entity.Love;
 
+import java.util.List;
+
 @Repository
-public interface LoveReponesitory extends JpaRepository<Love, String> {
+public interface LoveReponesitory extends JpaRepository<Love, Integer> {
 
     @Modifying
     @Transactional
     @Query("delete from Love where idPr=:idPr and idUser=:idUser")
     void deleteByIdPrAndIdUser(String idPr, String idUser);
+
+    @Query("SELECT l FROM Love l WHERE l.idPr = :idProd AND l.idUser = :idUser")
+    List<Love> checkLiked(String idUser, String idProd);
+
 }

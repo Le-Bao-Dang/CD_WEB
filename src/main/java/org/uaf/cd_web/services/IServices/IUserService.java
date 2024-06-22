@@ -10,8 +10,11 @@ import java.util.List;
 
 public interface IUserService {
     List<User> getListUser();
+
     long getCountUser();
+
     List<User> getUserById(String id);
+
     void createUser(User user);
 
     int getMaxId();
@@ -23,11 +26,18 @@ public interface IUserService {
     @Transactional
     List<User> searchUser(String keyword);
 
-    void updateAccount(String iduser, String address, String passw, String name, String phone, String email, String birthday, Date datesignup, boolean sex);
+    void updateAccount(String iduser, String address, String passw, String name, String phone, String email,
+            String birthday, Date datesignup, boolean sex);
 
     List<User> getNewbie();
 
     User getUserByIdUser(String idUser);
+
+    boolean checkIdAccount(String id);
+
+    void addUserFB(String name, String idAccount, String email);
+
+    User getUserByIdAccount(String idAccount);
 
     List<User> getListEmployee();
 

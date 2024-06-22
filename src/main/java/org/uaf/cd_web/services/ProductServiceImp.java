@@ -27,7 +27,9 @@ public class ProductServiceImp implements IProductService {
     private final FeedBackReponesitory feedBackReponesitory;
 
     @Autowired
-    public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory, SoldPrReponesitory soldPrReponesitory, DetailProductReponesitory detailProductReponesitory, FeedBackReponesitory feedBackReponesitory) {
+    public ProductServiceImp(ProductReponesitory productReponesitory, ImageReponesitory imageReponesitory,
+            SoldPrReponesitory soldPrReponesitory, DetailProductReponesitory detailProductReponesitory,
+            FeedBackReponesitory feedBackReponesitory) {
         this.productReponesitory = productReponesitory;
         this.imageReponesitory = imageReponesitory;
         this.soldPrReponesitory = soldPrReponesitory;
@@ -136,7 +138,8 @@ public class ProductServiceImp implements IProductService {
         i.setIdImg(image.getIdImg());
         i.setUrl(image.getUrl());
         imageReponesitory.save(i);
-//        imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(), i.getStatus());
+        // imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(),
+        // i.getStatus());
     }
 
     public List<Product> getProducts(int page, int size) {
@@ -199,7 +202,7 @@ public class ProductServiceImp implements IProductService {
     public Page<Product> listAll(int page, String sortField, String sortDir, String keyword) {
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-        Pageable pageable = PageRequest.of(page - 1, 10, sort);
+        Pageable pageable = PageRequest.of(page, 18, sort);
         if (!keyword.equals("")) {
             return productReponesitory.findProduct(keyword, pageable);
         }
@@ -227,7 +230,7 @@ public class ProductServiceImp implements IProductService {
 
     @Override
     public List<FeedBack> getFeedBack(String idPro) {
-        return feedBackReponesitory.findByIdPr(idPro);
+        return feedBackReponesitory.listFeedback(idPro);
 
     }
 
@@ -237,6 +240,30 @@ public class ProductServiceImp implements IProductService {
     }
 
     @Override
+    public List<FeedBack> getFeedBackInPage(String idProd, int page) {
+        if (page < 1) {
+            page = 1;
+        }
+        List<FeedBack> feedbackList = new ArrayList<>();
+        List<FeedBack> allFeedbacks = getFeedBack(idProd);
+        int n = allFeedbacks.size() - (page - 1) * 3 >= 3 ? 3 : allFeedbacks.size() % 3;
+        for (int i = (page - 1) * 3; i < (page - 1) * 3 + n; i++) {
+            feedbackList.add(allFeedbacks.get(i));
+        }
+        return feedbackList;
+    }
+
+    @Override
+    public Page<Product> listAllPr(int page, String sortField, String sortDir, String kind) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        Pageable pageable = PageRequest.of(page - 1, 18, sort);
+        if (!kind.equals("")) {
+            return productReponesitory.findPrByMenu(kind, pageable);
+        }
+        return productReponesitory.findAll(pageable);
+    }
+
     public void saveFromExcel(MultipartFile file) {
         try {
             List<Product> products = ImportFormExcel.excelToProduct(file.getInputStream());
@@ -249,4 +276,3 @@ public class ProductServiceImp implements IProductService {
         }
     }
 }
-

@@ -2,11 +2,8 @@ package org.uaf.cd_web.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
-
 @Entity
 @Table(name = "contact")
 @Getter

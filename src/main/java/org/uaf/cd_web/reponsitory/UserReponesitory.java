@@ -10,7 +10,6 @@ import org.uaf.cd_web.entity.User;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 @Repository
 @EnableJpaRepositories
 public interface UserReponesitory extends JpaRepository<User, String> {
@@ -34,6 +33,11 @@ public interface UserReponesitory extends JpaRepository<User, String> {
 
     @Query("SELECT u from  User u where u.nameUser like %?1% or u.email like %?1% or u.email like %?1%")
     List<User> findUser(String keyword);
+
+    List<User> findAll();
+
+    @Query("SELECT u from  User u join  Social s on s.idUser=u.idUser where s.idAccount= :idAccount")
+    User getUserByIdAccount(String idAccount);
 
     @Query("SELECT u from User u where u.decentralization<>2")
     List<User> getListEmployee();
