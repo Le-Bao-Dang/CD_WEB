@@ -27,8 +27,8 @@ public class Customers implements Serializable {
     @Column(name = "EMAIL")
     private String email;
 
-    public Customers(String fullName, String phoneNumber, String address, String email) {
-    }
+    @OneToOne(mappedBy = "customers", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Contact contact;
 
 
     @Override

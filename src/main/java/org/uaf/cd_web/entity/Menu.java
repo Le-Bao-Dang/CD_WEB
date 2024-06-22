@@ -21,7 +21,8 @@ public class Menu implements Serializable {
     @Column(name = "PA_MENU")
     private String paMenu;
 
-
+//    @OneToMany(mappedBy = "menu",cascade = CascadeType.ALL)
+//    private List<Product> products;
     @Override
     public String toString() {
         return "Menu [idMenu=" + idMenu + ", nameMenu=" + nameMenu + ", apaenu=" + paMenu + "]";

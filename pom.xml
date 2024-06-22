@@ -130,8 +130,8 @@
             <artifactId>httpcore</artifactId>
             <version>4.4.16</version>
         </dependency>
-
-            <groupId>com.google.zxing</groupId>
+        <dependency>
+        <groupId>com.google.zxing</groupId>
             <artifactId>core</artifactId>
             <version>3.3.3</version>
         </dependency>

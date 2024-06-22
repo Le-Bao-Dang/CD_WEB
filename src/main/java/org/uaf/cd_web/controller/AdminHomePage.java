@@ -6,15 +6,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.uaf.cd_web.components.Powers;
 import org.uaf.cd_web.entity.Contact;
 import org.uaf.cd_web.entity.Product;
 import org.uaf.cd_web.entity.User;
+import org.uaf.cd_web.entity.Customers;
 import org.uaf.cd_web.services.ContactServiceImp;
 import org.uaf.cd_web.services.OrderServiceImp;
 import org.uaf.cd_web.services.ProductServiceImp;
 import org.uaf.cd_web.services.UserServiceImp;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Comparator;
@@ -64,7 +66,7 @@ public class AdminHomePage {
         String stopSaledPR =""+ productServiceImp.getStopPr();
         System.out.println(allTur);
         List<Product> pr = productServiceImp.getListProductHostSale();
-        List<Contact> listContact = contactServiceImp.getListContact();
+        List<Contact>   listContact = contactServiceImp.getListContact();
 
         Collections.sort(listContact, Comparator.comparingInt(Contact::getCondition).reversed());
 
@@ -99,5 +101,29 @@ public class AdminHomePage {
 //        } else {
 //            return "redirect:/";
 //        }
+    }
+
+// view Contact
+    @GetMapping("/ViewContact")
+    public String viewContact(
+            @RequestParam("idContact") String idContact,
+            @RequestParam("iduser") String iduser,
+            @RequestParam("nameUser") String nameUser,
+            @RequestParam("idcustomer") String idcustomer,
+            @RequestParam("email") String email,
+            @RequestParam("phone") String phone,
+            @RequestParam("content") String content,
+            @RequestParam("condition") String condition,
+            Model model) {
+        // Đưa dữ liệu vào model để truyền sang view
+        model.addAttribute("idContact", idContact);
+        model.addAttribute("iduser", iduser);
+        model.addAttribute("idcustomer", idcustomer);
+        model.addAttribute("nameUser", nameUser);
+        model.addAttribute("email", email);
+        model.addAttribute("phone", phone);
+        model.addAttribute("content", content);
+        model.addAttribute("condition", condition);
+        return "viewContact";
     }
 }

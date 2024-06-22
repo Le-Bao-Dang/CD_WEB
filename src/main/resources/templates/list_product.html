@@ -37,14 +37,26 @@
                         <!-- Hero Categories -->
                         <div class="hero__categories">
                             <div class="hero__categories__all">
-                                <span>Danh sách sản phẩm</span>
+                                <span th:text="#{listProduct}">Danh sách sản phẩm</span>
                             </div>
                             <ul>
-                                <li><a th:href="@{/listProduct(kind=1, page=1)}">Gạo</a></li>
-                                <li><a th:href="@{/listProduct(kind=2, page=1)}">Nếp</a></li>
-                                <li><a th:href="@{/listProduct(kind=3, page=1)}">Các loại hạt</a></li>
-                                <li><a th:href="@{/listProduct(kind=4, page=1)}">Các loại bột</a></li>
-                                <li><a th:href="@{/listProduct(kind=5, page=1)}">Các loại củ, trái</a></li>
+                                <li>
+                                    <a th:value="${m1}"
+                                       th:href="@{/listProduct(sort=${sort}, page=1,kind=m1, sortDir=${sortDir}, keyword=${keyword})}"
+                                       th:text="#{rice}">Gạo</a></li>
+                                <li>
+                                    <a th:value="${m2}"
+                                       th:href="@{/listProduct(sort=${sort}, page=1,kind=m2, sortDir=${sortDir}, keyword=${keyword})}"
+                                       th:text="#{sticky-rice}">Nếp</a></li>
+                                <li>
+                                    <a th:value="${m3}"
+                                       th:href="@{/listProduct(sort=${sort}, page=1,kind=m3, sortDir=${sortDir}, keyword=${keyword})}"
+                                       th:text="#{nuts}">Các loại hạt</a></li>
+                                <li><a th:value="${m4}" th:href="@{/listProduct(sort=${sort}, page=1,kind=m4, sortDir=${sortDir}, keyword=${keyword})}" th:text="#{powders}">Các loại bột</a></li>
+                                <li>
+                                    <a th:value="${m5}"
+                                       th:href="@{/listProduct(sort=${sort}, page=1,kind=m5, sortDir=${sortDir}, keyword=${keyword})}"
+                                       th:text="#{tubersAndFruits}">Các loại củ, trái</a></li>
                             </ul>
                         </div>
                     </div>
@@ -55,7 +67,7 @@
             <div class="col-lg-9 col-md-7">
                 <div class="product__discount">
                     <div class="section-title product__discount__title">
-                        <h2>Giảm giá</h2>
+                        <h2 th:text="#{sale}">Giảm giá</h2>
                     </div>
                     <div class="row">
                         <div class="product__discount__slider owl-carousel" style=" display: flex">
@@ -63,21 +75,23 @@
                                 <div class="product__discount__item">
                                     <div class="product__discount__item__pic set-bg"
                                          th:style="'background-image: url(' + ${product.getAvt().getUrl()} + ')'">
-                                        <div class="product__discount__percent">-<span th:text="${product.discount}"></span>%</div>
+                                        <div class="product__discount__percent">-<span
+                                                th:text="${product.discount}"></span>%
+                                        </div>
                                         <div th:if="${user != null}">
                                             <ul class="product__item__pic__hover">
-                                                <li th:if="${listlike.contains(product.getIdPr())}">
-                                                    <button th:id="'heart' + ${product.getIdPr()}" class="background-button" style="color: white"
-                                                            th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">
-                                                        <i class="fa fa-heart"></i>
-                                                    </button>
-                                                </li>
-                                                <li th:if="${!listlike.contains(product.getIdPr())}">
-                                                    <button th:id="'heart' + ${product.getIdPr()}"
-                                                            th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">
-                                                        <i class="fa fa-heart"></i>
-                                                    </button>
-                                                </li>
+                                                <!--                                                <li th:if="${listlike.contains(product.getIdPr())}">-->
+                                                <!--                                                    <button th:id="'heart' + ${product.getIdPr()}" class="background-button" style="color: white"-->
+                                                <!--                                                            th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">-->
+                                                <!--                                                        <i class="fa fa-heart"></i>-->
+                                                <!--                                                    </button>-->
+                                                <!--                                                </li>-->
+                                                <!--                                                <li th:if="${!listlike.contains(product.getIdPr())}">-->
+                                                <!--                                                    <button th:id="'heart' + ${product.getIdPr()}"-->
+                                                <!--                                                            th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">-->
+                                                <!--                                                        <i class="fa fa-heart"></i>-->
+                                                <!--                                                    </button>-->
+                                                <!--                                                </li>-->
                                             </ul>
                                         </div>
                                     </div>
@@ -85,7 +99,8 @@
                                         <a th:href="@{/oneProduct(id=${product.idPr})}">
                                             <h5 th:text="${product.namePr}" style=" font-size: 16px"></h5>
                                             <div class="product__item__price">
-                                                <span th:text="${product.getPriceNow()} + 'đ'" style="text-decoration: none; color: black; font-size: 16px; font-weight: bold"></span>
+                                                <span th:text="${product.getPriceNow()} + 'đ'"
+                                                      style="text-decoration: none; color: black; font-size: 16px; font-weight: bold"></span>
                                                 <span th:text="${#numbers.formatDecimal(product.getPrice(),0,'POINT', 0, 'COMMA')} + 'đ'"></span>
                                             </div>
                                         </a>
@@ -101,14 +116,19 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-5">
                             <div class="filter__sort">
-                                <span>Sắp xếp</span>
-                                <form  id="sortForm">
-                                    <select name="sort" class="sort-table" id="sort-tableID"  onchange="handleChange(this)">
-                                        <option class="sort-item" value="0" th:selected="${sort == '0'}"><a>Tất cả</option>
-                                        <option class="sort-item" value="asc" th:selected="${sort == 'price'}"><a
-                                                th:href="@{/listProduct?sort=price&page=1&kind=&sortDir=asc&keyword=#}">Giá thấp đến cao</a></option>
-                                        <option class="sort-item" value="desc" th:selected="${sort == 'price'}"><a
-                                                th:href="@{/listProduct?sort=price&page=1&kind=&sortDir=desc&keyword=#}">Giá cao đến thấp</a></option>
+                                <span th:text="#{arrange}">Sắp xếp</span>
+                                <form id="sortForm">
+                                    <select name="sort" class="sort-table" id="sort-tableID"
+                                            onchange="handleChange(this)">
+                                        <option class="sort-item" value="0" th:selected="${sort == '0'}"
+                                                th:text="#{all}">Tất cả
+                                        </option>
+                                        <option class="sort-item" value="asc" th:selected="${sort == 'price'}"
+                                                th:text="#{asc}">Giá thấp đến cao
+                                        </option>
+                                        <option class="sort-item" value="desc" th:selected="${sort == 'price'}"
+                                                th:text="#{desc}">Giá cao đến thấp
+                                        </option>
                                     </select>
                                     <input type="hidden" name="page" th:value="${pageCurrent}">
                                     <input type="hidden" name="kind" th:value="${kind}">
@@ -131,24 +151,26 @@
                                 </div>
                                 <div th:if="${user != null}">
                                     <ul class="product__item__pic__hover">
-                                        <li th:if="${listlike.contains(product.getIdPr())}">
-                                            <button th:id="'heart' + ${product.getIdPr()}" class="background-button" style="color: white"
-                                                    th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">
-                                                <i class="fa fa-heart"></i>
-                                            </button>
-                                        </li>
-                                        <li th:if="${!listlike.contains(product.getIdPr())}">
-                                            <button th:id="'heart' + ${product.getIdPr()}"
-                                                    th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">
-                                                <i class="fa fa-heart"></i>
-                                            </button>
-                                        </li>
+                                        <!--                                        <li th:if="${listlike.contains(product.getIdPr())}">-->
+                                        <!--                                            <button th:id="'heart' + ${product.getIdPr()}" class="background-button"-->
+                                        <!--                                                    style="color: white"-->
+                                        <!--                                                    th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">-->
+                                        <!--                                                <i class="fa fa-heart"></i>-->
+                                        <!--                                            </button>-->
+                                        <!--                                        </li>-->
+                                        <!--                                        <li th:if="${!listlike.contains(product.getIdPr())}">-->
+                                        <!--                                            <button th:id="'heart' + ${product.getIdPr()}"-->
+                                        <!--                                                    th:onclick="'loveInListProd(' + ${product.getIdPr()} + ', ' + 'heart' + ${product.getIdPr()} + ')'">-->
+                                        <!--                                                <i class="fa fa-heart"></i>-->
+                                        <!--                                            </button>-->
+                                        <!--                                        </li>-->
                                     </ul>
                                 </div>
                             </div>
                             <div class="product__item__text">
                                 <a th:href="@{/oneProduct(id=${product.getIdPr()})}">
-                                    <span th:text="${product.getNamePr()}" style="font-weight: normal; font-size: 16px"></span><br>
+                                    <span th:text="${product.getNamePr()}"
+                                          style="font-weight: normal; font-size: 16px"></span><br>
                                     <span th:text="${product.getPriceNow()} + 'đ'" style=" font-size: 16px"></span>
                                 </a>
                             </div>
@@ -157,17 +179,20 @@
                 </div>
 
                 <!-- Pagination -->
-                <div class="product__pagination d-flex" >
+                <div class="product__pagination d-flex">
                     <ul th:each="i : ${#numbers.sequence(1, total)}" style="padding: 10px;">
-                        <li><a th:href="@{/listProduct(sort=${sort}, page=${i},kind=${kind}, sortDir=${sortDir}, keyword=${keyword})}" th:text="${i}"></a></li>
+                        <li>
+                            <a th:href="@{/listProduct(sort=${sort}, page=${i},kind=${kind}, sortDir=${sortDir}, keyword=${keyword})}"
+                               th:text="${i}"></a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
+<div th:include="chat.html"></div>
 <footer th:include="footer.html"></footer>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
         integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -355,11 +380,12 @@
 
         }
     };
+
     function handleChange(selectElement) {
         var selectedValue = selectElement.value;
         switch (selectedValue) {
             case "0":
-                window.location.href = "/listProduct?sort=discount&page=1&kind=&sortDir=desc&keyword=#";
+                window.location.href = `/listProduct?sort=discount&page=1&kind=&sortDir=desc&keyword=#`;
                 break;
             case "asc":
                 window.location.href = "/listProduct?sort=price&page=1&kind=&sortDir=asc&keyword=#";
