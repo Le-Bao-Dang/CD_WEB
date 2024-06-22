@@ -42,11 +42,11 @@ public class Contact {
     }
 
     @PostMapping("/ContactInAdmin")
-    public String viewAndMarkSeen(@RequestParam("idcontact") String idContact, @RequestParam("condition") int condition, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String viewAndMarkSeen(@RequestParam("idContact") String idContact, @RequestParam("condition") int condition, HttpSession session, RedirectAttributes redirectAttributes) {
         User user = (User) session.getAttribute("auth");
-        if (user == null || user.getDecentralization() != Powers.ADMIN) {
-            return "redirect:/"; // Redirect to login or home page if user is not authenticated or not admin
-        }
+//        if (user == null || user.getDecentralization() != Powers.ADMIN) {
+//            return "redirect:/"; // Redirect to login or home page if user is not authenticated or not admin
+//        }
         contactServiceImp.viewContact(idContact);
         contactServiceImp.seenContact(idContact, condition);
 

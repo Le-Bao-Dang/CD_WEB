@@ -91,6 +91,7 @@ public class UserServiceImp implements IUserService {
         return userReponesitory.checkLogin(username);
     }
 
+    @Override
     public boolean checkUserExit(String email, String phone) {
         List<User> list = userReponesitory.checkUserExit(email, phone);
         for (User u : list) {
@@ -195,8 +196,6 @@ public class UserServiceImp implements IUserService {
         Pageable pageable = PageRequest.of(pageNo - 1, 10);
         return userReponesitory.findAll(pageable);
     }
-
-
 
 
 }
