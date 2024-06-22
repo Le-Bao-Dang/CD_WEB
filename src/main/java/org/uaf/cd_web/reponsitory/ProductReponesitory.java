@@ -57,7 +57,7 @@ public interface ProductReponesitory extends JpaRepository<Product, String>, Pag
     @Query("SELECT p FROM Product p join Menu m on m.idMenu= p.menu.idMenu where m.paMenu= :idMenu ")
     List<Product> findRelatedProductsByIdMenu(String idMenu);
 
-    @Query("select p, m from Menu m join Product p on p.menu.idMenu=m.idMenu where m.paMenu=:idMenu or m.idMenu=:idMenu")
+    @Query("select p from Product p join Menu m on p.menu.idMenu=m.idMenu where m.paMenu=:idMenu or m.idMenu=:idMenu ")
     Page<Product> findPrByMenu(String idMenu,Pageable pageable);
 
     @Query("SELECT MAX(CAST(REPLACE(p.idPr, 'prod', '') AS INTEGER )) FROM Product p")

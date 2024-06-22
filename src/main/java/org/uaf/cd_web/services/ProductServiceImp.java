@@ -264,7 +264,7 @@ public class ProductServiceImp implements IProductService {
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
         Pageable pageable = PageRequest.of(page - 1, 18, sort);
-        if (!kind.equals("")) {
+        if (!kind.isEmpty()) {
             return productReponesitory.findPrByMenu(kind, pageable);
         }
         return productReponesitory.findAll(pageable);

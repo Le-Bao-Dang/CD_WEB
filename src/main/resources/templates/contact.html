@@ -4,20 +4,18 @@
     <meta charset="UTF-8">
     <title>BHDFoods| Liên hệ</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Add your CSS files here -->
 </head>
 <body class="goto-here">
 <header th:replace="header"></header> <!-- Thymeleaf header inclusion -->
 <div class="hero-wrap hero-bread" style="background-image: url('/images/background.jpg');">
     <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="row no-gutters slider-text align-items-center   justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
                 <p class="breadcrumbs">
-                    <span class="mr-2"><a class="text-dark" href="index.html">Liên hệ -</a></span>
-                    <span class="text-dark">Hướng dẫn</span>
+                    <span class="mr-2"><a class="text-dark" href="index.html" th:text="#{lh}">Liên hệ -</a></span>
+                    <span class="text-dark" th:text="#{hd}">Hướng dẫn</span>
                 </p>
-                <h1 class="mb-0 bread text-dark">Liên hệ chúng tôi</h1>
+                <h1 class="mb-0 bread text-dark" th:text="#{lh-us}">Liên hệ chúng tôi</h1>
             </div>
         </div>
     </div>
@@ -27,30 +25,86 @@
     <div class="container">
         <div class="row d-flex mb-5 contact-info">
             <div class="w-100"></div>
-            <!-- Add your contact info using Thymeleaf -->
-        </div>
-
-        <!-- Iterate over the list of users using Thymeleaf -->
-        <div class="row block-9" th:each="user : ${listCtAccount}">
-            <div class="col-md-6 order-md-last d-flex">
-                <form action="/ContactInUser" method="post" class="bg-white p-5 contact-form">
-                    <h3 style="color: #82ae46">Gửi phản hồi cho chúng tôi</h3>
-                    <!-- Add form fields with Thymeleaf -->
-                    <div class="form-group" style="display: none">
-                        <input name="iduser" type="text" class="form-control" placeholder="Họ và tên" th:value="${user.idUser}">
-                    </div>
-                    <div class="form-group">
-                        <input name="nameuser" type="text" class="form-control" placeholder="Họ và tên" th:value="${user.nameUser}">
-                    </div>
-                    <!-- Add other form fields with Thymeleaf -->
-                    <div class="form-group" style="text-align: right">
-                        <input type="submit" value="Gửi" class="btn btn-primary py-3 px-5">
-                    </div>
-                </form>
+            <div class="col-md-3 d-flex">
+                <div class="info bg-white p-4">
+                    <p><span th:text="#{care}">Chăm sóc và xử lý khiếu nại:<br></span> <a href=""  th:text="#{nd_care}">Khách Hàng có thể liên hệ sđt của
+                        website.Khi liên hệ, Khách Hàng phải cung cấp sđt Đơn Đặt Hàng. Nhân viên sẽ tiếp nhận và phản
+                        hồi lại cho Khách Hàng trong thời gian sớm nhất.</a></p>
+                </div>
             </div>
-
-            <!-- Add your instruction content using Thymeleaf -->
+            <div class="col-md-3 d-flex">
+                <div class="info bg-white p-4">
+                    <p><span th:text="#{responsibility}"> Giới hạn trách nhiệm:</span> <a href="" th:text="#{nd_responsibility}">BHNFoods không chịu trách nhiệm đối với mọi thiệt
+                        hại mất mát hư hỏng mà Khách Hàng phải chịu sau thời điểm rủi ro được chuyển từ BHNFoods sang
+                        Khách Hàng, trừ khi do lỗi của BHNFoods gây ra.</a></p>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex">
+                <div class="info bg-white p-4">
+                    <p><span th:text="#{changePr}">Đổi, trả sản phẩm:<br></span> <a href="mailto:info@yoursite.com" th:text="#{nd_changePr}">Việc đổi, trả Sản Phẩm
+                        được thực hiện khi khách hàng cung cấp đủ hình ảnh video khi kiểm tra hàng là do lỗi bên
+                        BHNFoods.</a></p>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex">
+                <div class="info bg-white p-4">
+                    <p><span th:text="#{commit}">Cam kết:</span> <a href="mailto:info@yoursite.com"><br><i class="fa-solid fa-check"></i>
+                        Sản phẩm an toàn<br><i class="fa-solid fa-check"></i> Chất lượng cam
+                        kết<br><i class="fa-solid fa-check"></i> Dịch vụ vượt trội <br><i class="fa-solid fa-check"></i>
+                        Giao hàng nhanh tốc chiến
+                    </a></p>
+                </div>
+            </div>
         </div>
+
+    <div class="row block-9">
+        <div class="col-md-6 order-md-last d-flex">
+            <form action="/ContactInUser" method="post" class="bg-white p-5 contact-form">
+                <h3 style="color: #82ae46"  th:text="#{send_us}">Gửi phản hồi cho chúng tôi</h3>
+                <div class="form-group">
+                    <input name="nameuser" type="text" class="form-control" placeholder="Name" required >
+                </div>
+                <div class="form-group">
+                    <input name="email" type="text" class="form-control" placeholder="Email" required
+                         >
+                </div>
+                <div class="form-group">
+                    <input name="phone" type="text" class="form-control" placeholder="Số điện thoại" required>
+                </div>
+                <div class="form-group">
+                        <textarea name="content" cols="30" rows="7" class="form-control" required
+                                  placeholder="Nội dung " ></textarea>
+                </div>
+                <div class="form-group" style="text-align: right">
+                    <input type="submit" value="Gửi" class="btn btn-primary py-3 px-5">
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6 d-flex instruct">
+            <div>
+                <h5 style="font-size: 18px" th:text="#{scope}">1.Phạm vi áp dụng</h5>
+
+                <span style="font-size: 17px">
+                   - Mua sắm sản phẩm bán trên website BHNFoods.<br>
+
+                   - Hàng hóa được áp dụng triển khai BHNFoods là hàng hóa, sản phẩm trong đăng ký kinh doanh của các BHNFoods áp dụng.<br>
+
+                   - Có nhu cầu được giao Sản phẩm đến các địa điểm phù hợp với Chính sách giao hàng đăng tải trên Website.<br></span>
+                <h5 style="font-size: 18px" th:text="#{makeandcancel}">2. Xác lập và hủy đơn hàng trên BHNFoods</h5>
+
+                <span style="font-size: 17px">Mọi thông tin về Sản Phẩm đưa ra trên BHNFoods trong bất kỳ trường hợp nào không được hiểu là đề nghị giao kết hợp đồng của Winmart tới Khách Hàng.
+
+                    Khách Hàng đặt hàng trên Website sẽ hình thành một đơn đặt hàng (Đơn Đặt Hàng). BHNFoods gửi xác nhận Đơn đặt hàng thông qua một trong các hình thức sau:<br>
+
+                    - Qua địa chỉ email mà Khách Hàng đã đăng ký với nội dung: danh sách Sản Phẩm, thời hạn giao hàng, điện thoại liên hệ, thông tin người nhận, người đặt hàng, giá trị thanh toán…<br>
+
+                   - Qua việc cập nhật tình trạng đơn hàng trong hệ thống quản lý tài khoản của Khách Hàng trên Website với nội dung Đơn hàng đã được xác nhận, hoặc nội dung có ý nghĩa tương đương.<br>
+
+                    - Gửi mail cho Khách hàng để xác nhận đơn hàng.
+                  </span>
+            </div>
+        </div>
+    </div>
     </div>
 </section>
 

@@ -136,10 +136,43 @@
                 </form>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link count-indicator" id="countDropdown" href="" data-bs-toggle="dropdown"
+                <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown"
                    aria-expanded="false">
-                    <i class="icon-mail icon-lg">[<span th:text="${sumContact}"/>]</i>
+                    <i class="icon-mail icon-lg">[<span th:text="${sumContact-1}"></span>]</i>
                 </a>
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
+                     aria-labelledby="countDropdown">
+                    <a class="dropdown-item py-3">
+                        <p class="mb-0 font-weight-medium float-left"> Thông báo </p>
+                        <span class="badge badge-pill badge-primary float-right">Xem tất cả</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <div th:each="contact : ${listContact}">
+                        <a th:class="'dropdown-item preview-item ' + (${contact.condition} == 1 ? 'bg-primary' : '')"
+                           th:data-idContact="${contact.idContact}"
+                           th:data-idUser="${contact.user?.idUser}"
+                           th:data-idCustomer="${contact.customers?.idCustomers ?: 0}"
+                           th:data-nameUser="${contact.customers?.name ?: ''}"
+                           th:data-phone="${contact.customers?.phone ?: ''}"
+                           th:data-email="${contact.customers?.email ?: ''}"
+                           th:data-content="${contact.content}"
+                           th:data-condition="${contact.condition}"
+                           onclick="return viewContent(this);"
+                           th:style="${contact.condition == 1} ? 'background: #ddeffd !important; border-bottom:1px solid #808080' : ''">
+                            <div class="preview-thumbnail">
+                                <img src="https://images.squarespace-cdn.com/content/v1/65431252538cef01a6509096/65acef6e-cc8c-4661-9827-420f0d817046/mail+(3).png?format=500w"
+                                     alt="image" class="img-sm profile-pic"
+                                     style=" width: 70px;height: 50px;border-radius: 100%;">
+                            </div>
+                            <div class="preview-item-content flex-grow pyy-2">
+                                <p class="preview-subject ellipsis font-weight-medium text-dark"
+                                   th:text="${contact.customers.name}"></p>
+                                <p class="fw-light small-text mb-0" th:text="${contact.dateTime}"></p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
             </li>
             </li>
         </ul>
@@ -499,13 +532,22 @@
         document.getElementById('marketing-overview-legend').innerHTML = marketingOverview.generateLegend();
     }
 
-    function viewContent(idcontact, iduser, nameUser, phone, email, content, condition) {
+    function viewContent(link) {
+        var idContact = link.getAttribute('data-idContact');
+        var iduser = link.getAttribute('data-idUser');
+        var idcustomer = link.getAttribute('data-idCustomer');
+        var nameUser = link.getAttribute('data-nameUser');
+        var phone = link.getAttribute('data-phone');
+        var email = link.getAttribute('data-email');
+        var content = link.getAttribute('data-content');
+        var condition = link.getAttribute('data-condition');
         $.ajax({
-            url: "/ViewContact",
+            url: "/admin/ViewContact",
             type: 'get',
             data: {
-                idcontact: idcontact,
+                idContact: idContact,
                 iduser: iduser,
+                idcustomer: idcustomer,
                 nameUser: nameUser,
                 email: email,
                 phone: phone,

@@ -36,7 +36,7 @@ public class ListProduct {
         User user = (User) session.getAttribute("auth");
         List<Product> loveList = null;
         Page<Product> page;
-
+        System.out.println("Kind: " + kind);  //
         // Ensure page is within valid range
 
         try {

@@ -195,4 +195,8 @@ public class UserServiceImp implements IUserService {
         Pageable pageable = PageRequest.of(pageNo - 1, 10);
         return userReponesitory.findAll(pageable);
     }
+
+
+
+
 }
