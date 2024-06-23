@@ -11,6 +11,7 @@ import java.io.Serializable;
 @Table(name = "image")
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class Image implements Serializable {
@@ -27,12 +28,6 @@ public class Image implements Serializable {
     private int status;
 
 
-    public Image(Product product, String idImg, String fileUrl, int status) {
-        this.product= product;
-        this.idImg = idImg;
-        this.url = fileUrl;
-        this.status = status;
-    }
 
     public String getAvt() {
         if (status == 0) {
@@ -41,4 +36,13 @@ public class Image implements Serializable {
         return null;
     }
 
+    @Override
+    public String toString() {
+        return "Image{" +
+                "product=" + product +
+                ", idImg='" + idImg + '\'' +
+                ", url='" + url + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

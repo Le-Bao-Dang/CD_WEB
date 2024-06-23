@@ -36,10 +36,11 @@ arrange=Sắp xếp
 listProduct=Danh sách sản phẩm
 
 # User
+
 account=Tài khoản
 likeProduct=Sản phẩm yêu thích
 historyOrder=Lịch sử đơn hàng
-contact=Liên hệ-hướng dẫn
+contact=Liên hệ
 
 # Admin
 userManager=Quản lý người dùng
@@ -86,3 +87,14 @@ scope=1. Phạm vi áp dụng
 makeandcancel=2. Xác lập và hủy đơn hàng trên BHNFoods
 send_us=Gửi phản hồi cho chúng tôi
 content=Nội dung
+pr_safe= Sản phẩm an toàn
+pr_commit=Chất lượng cam kết
+service_high=Dịch vụ vượt trội
+fast_delivery=Giao hàng nhanh tốc chiến
+row1_1=- Mua sắm sản phẩm bán trên website BHNFoods.
+row1_2=- Hàng hóa được áp dụng triển khai BHNFoods là hàng hóa, sản phẩm trong đăng ký kinh doanh của các BHNFoods áp dụng.
+row1_3=- Có nhu cầu được giao Sản phẩm đến các địa điểm phù hợp với Chính sách giao hàng đăng tải trên Website.
+row2_1=Mọi thông tin về Sản Phẩm đưa ra trên BHNFoods trong bất kỳ trường hợp nào không được hiểu là đề nghị giao kết hợp đồng của Winmart tới Khách Hàng. Khách Hàng đặt hàng trên Website sẽ hình thành một đơn đặt hàng (Đơn Đặt Hàng). BHNFoods gửi xác nhận Đơn đặt hàng thông qua một trong các hình thức sau:
+row2_2=- Qua địa chỉ email mà Khách Hàng đã đăng ký với nội dung: danh sách Sản Phẩm, thời hạn giao hàng, điện thoại liên hệ, thông tin người nhận, người đặt hàng, giá trị thanh toán…
+row2_3=- Qua việc cập nhật tình trạng đơn hàng trong hệ thống quản lý tài khoản của Khách Hàng trên Website với nội dung Đơn hàng đã được xác nhận, hoặc nội dung có ý nghĩa tương đương.
+row2_4=- Gửi mail cho Khách hàng để xác nhận đơn hàng. ) chuyển về tiếng anh

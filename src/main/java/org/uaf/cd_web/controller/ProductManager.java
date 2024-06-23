@@ -126,8 +126,10 @@ public class ProductManager {
                 String idImg = menu + brand + count + RandomOTP.generateRandomString();
 
 
-                Image image = new Image(product, idImg, fileUrl, 1);
-                productServiceImp.addImgforProduct(image);
+//                Image image = new Image(product, idImg, fileUrl, 1);
+//                Image image = new Image(product, "idImg", "fileUrl", 1);
+//                System.out.println("image   " +image);
+                productServiceImp.addImgforProduct(product, idImg,fileUrl,1);
 
             } catch (IOException e) {
                 e.printStackTrace();

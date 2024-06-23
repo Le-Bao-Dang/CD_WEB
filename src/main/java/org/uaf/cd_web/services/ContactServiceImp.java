@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import org.uaf.cd_web.services.IServices.IContactService;
 import org.uaf.cd_web.entity.Customers;
 import org.uaf.cd_web.entity.User;
+
 import java.util.List;
 
 @Service
@@ -26,7 +27,7 @@ public class ContactServiceImp implements IContactService {
 
     @Override
     public int getSumContact() {
-        return (int) contactReponesitory.count()+1;
+        return (int) contactReponesitory.count() + 1;
     }
 
     @Override
@@ -47,7 +48,8 @@ public class ContactServiceImp implements IContactService {
         c.setEmail(email);
         customersReponesitory.save(c);
         Contact contact = new Contact();
-        contact.setIdContact("cont" + getSumContact());
+        int id = contactReponesitory.getMaxId() + 1;
+        contact.setIdContact("cont" + id);
         contact.setUser(user);
         contact.setIdCustomer(c.getIdCustomers());
         contact.setContent(content);
@@ -62,8 +64,8 @@ public class ContactServiceImp implements IContactService {
 
     public void seenContact(String idContact, int condition) {
         Contact contact = contactReponesitory.findByIdContact(idContact).get(0);
-            contact.setCondition(condition);
-            contactReponesitory.save(contact);
+        contact.setCondition(condition);
+        contactReponesitory.save(contact);
 
     }
 

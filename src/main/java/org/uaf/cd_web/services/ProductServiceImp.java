@@ -131,14 +131,25 @@ public class ProductServiceImp implements IProductService {
     }
 
     @Override
-    @Transactional
     public void addImgforProduct(Image image) {
-        Image i = image;
+        Image i = new Image();
         i.setProduct(image.getProduct());
         i.setIdImg(image.getIdImg());
         i.setUrl(image.getUrl());
+        i.setStatus(image.getStatus());
         System.out.println(i);
         imageReponesitory.save(i);
+    }
+
+    @Override
+    public void addImgforProduct(Product product, String id, String file, int status) {
+//        Image i = new Image();
+//        i.setProduct(product);
+//        i.setIdImg(id);
+//        i.setUrl(file);
+//        i.setStatus(status);
+//        System.out.println("imgage12  "+i);
+        imageReponesitory.savePr(product.getIdPr(),id,file,1);
         // imageReponesitory.savePr(i.getIdPr(), i.getIdImg(), i.getUrl(),
         // i.getStatus());
     }

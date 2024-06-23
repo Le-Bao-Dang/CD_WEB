@@ -35,6 +35,8 @@ public interface IProductService {
 
     void addImgforProduct(Image image);
 
+    void addImgforProduct(Product product, String id, String file, int status);
+
     void update(Product product);
 
     void delete(String id);
