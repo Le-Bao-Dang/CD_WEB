@@ -25,6 +25,7 @@
             padding-top: 20px;
             margin: 20px 0;
         }
+
         .shoping-cart .container::before {
             content: "Quản lý đơn hàng";
             font-size: 20px;
@@ -56,7 +57,8 @@
                             <tbody>
                             <tr th:each="s : ${entry.value}">
                                 <td class="shoping__cart__quantity">
-                                    <img th:src="${s.product.getAvt().getUrl()}" alt="" style="width: 100px;height: auto">
+                                    <img th:src="${s.product.getAvt().getUrl()}" alt=""
+                                         style="width: 100px;height: auto">
                                 </td>
                                 <td class="shoping__cart__item">
                                     <h5 th:text="${s.product.getNamePr()}"></h5>
@@ -73,24 +75,26 @@
                             </tr>
                             </tbody>
                         </table>
-                        <div class="d-flex justify-content-between pt-5 align-items-center" th:each=" s1 : ${entry.value.get(0)}">
+                        <div class="d-flex justify-content-between pt-5 align-items-center"
+                             th:each=" s1 : ${entry.value.get(0)}">
                             <div>
-                                <h5 th:if="${s1.orders.status == 0}">
+                                <h5 th:if="${s1.orders.status == 2}">
                                     Tình trạng đơn hàng: <span style="color: red;">Đang chuẩn bị</span>
                                 </h5>
-                                <h5 th:if="${s1.orders.status== 1}">
+                                <h5 th:if="${s1.orders.status== 3}">
                                     Tình trạng đơn hàng: <span style="color: red;">Đang giao hàng</span>
                                 </h5>
-                                <h5 th:if="${s1.orders.status== 3}">
+                                <h5 th:if="${s1.orders.status== 0}">
                                     Tình trạng đơn hàng: <span style="color: red;">Chờ xác nhận</span>
                                 </h5>
-                                <h5 th:if="${s1.orders.status== 4}">
+                                <h5 th:if="${s1.orders.status== 1}">
                                     Tình trạng đơn hàng: <span style="color: red;">Đã xác nhận</span>
                                 </h5>
                             </div>
-                            <div th:if="${s1.orders.status == 0 || s1.orders.status == 3 || s1.orders.status == 4}">
-<!--                                th:onclick="'huyDon(' + ${entry.key} + ')'"-->
-                                <button class="uCanClick" style="background:#7fad39; padding:10px 25px; color: white; border: none;">
+                            <div th:if="${s1.orders.status == 0 || s1.orders.status == 1 || s1.orders.status == 2}">
+                                <button class="uCanClick" onclick="huyDon(this)"
+                                        th:data-key="${entry.key}"
+                                        style="background:#7fad39; padding:10px 25px; color: white; border: none;">
                                     Hủy đơn
                                 </button>
 
@@ -100,7 +104,8 @@
                                     <h5>Thời gian đặt hàng: <span th:text="${s1.orders.timeOrders}"></span></h5>
                                 </div>
                                 <h5>
-                                    Tổng đơn hàng: <span th:text="${#numbers.formatDecimal(sumOrder[entry.key], 0,'POINT',0, 'COMMA')} + 'đ'"></span>
+                                    Tổng đơn hàng: <span
+                                        th:text="${#numbers.formatDecimal(sumOrder[entry.key], 0,'POINT',0, 'COMMA')} + 'đ'"></span>
                                 </h5>
                             </div>
                         </div>
@@ -115,19 +120,20 @@
 <footer th:replace="footer.html"></footer>
 
 <script>
-    function huyDon(idOder) {
+    function huyDon(btn) {
+        var idOrder = btn.getAttribute('data-key')
         $.ajax({
             url: "/removeFromManageOrder",
             type: 'get',
             data: {
-                id: idOder,
+                id: idOrder,
             },
             success: function (data) {
             },
             error: function () {
             }
         });
-        $('#' + idOder).remove();
+        $('#' + idOrder).remove();
     }
 </script>
 

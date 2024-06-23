@@ -80,9 +80,9 @@
                                 <h5>Thời gian nhận hàng: <span th:text="${s1.orders.timePickup}"></span></h5>
                             </div>
                             <div>
-                                <h5 th:if="${s1.orders.status== -2}" style="color:#CC3636; border: none;">Giao không thành công</h5>
-                                <h5 th:if="${s1.orders.status== -1}" style="color:#CC3636; border: none;">Đã huỷ</h5>
-                                <h5 th:if="${s1.orders.status == 2}" style="color:#7fad39; border: none;">Giao hàng thành công</h5>
+                                <h5 th:if="${s1.orders.status== 5}" style="color:#CC3636; border: none;">Giao không thành công</h5>
+                                <h5 th:if="${s1.orders.status== 6}" style="color:#CC3636; border: none;">Đã huỷ</h5>
+                                <h5 th:if="${s1.orders.status == 4}" style="color:#7fad39; border: none;">Giao hàng thành công</h5>
                             </div>
                             <div>
                                 <h5>Tổng đơn hàng: <span th:text="${#numbers.formatDecimal(sumOrders[entry.key], 0, 'POINT', 0, 'COMMA')} + 'đ'"></span></h5>
